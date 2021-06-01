@@ -16,9 +16,19 @@
                     class="form"
                     v-model="valid"
                 >
-                    <div class="display-1 text-center">Agent Login</div>
+                    <div class="display-1 text-center mb-5">Agent Login</div>
+                    <v-alert
+                        icon="mdi-alert"
+                        dense
+                        class="rounded-xl"
+                        text
+                        type="error"
+                        v-if="errorMessage"
+                    >
+                        {{ errorMessage }}
+                    </v-alert>
 
-                    <div class="mt-10">
+                    <div class="mt-5">
                         <!-- <label for="username">Username</label> -->
                         <v-text-field
                             filled
@@ -77,6 +87,7 @@ export default {
     name: "Login",
     data: () => ({
         username: "",
+        errorMessage: "",
         password: "",
         valid: false,
         loading: false,
@@ -114,13 +125,13 @@ export default {
             } catch (err) {
                 switch (err.status) {
                     case 404:
-                        this.gerr = err.data.message;
+                        this.errorMessage = err.data.message;
                         break;
                     case 401:
-                        this.gerr = err.data.message;
+                        this.errorMessage = err.data.message;
                         break;
                     default:
-                        this.gerr = "username or password invalid";
+                        this.errorMessage = "username or password invalid";
                         break;
                 }
             } finally {
