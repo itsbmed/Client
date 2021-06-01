@@ -1,6 +1,11 @@
 <template>
-    <div id="app">
-        <div>Cleared project !!</div>
+    <DefaultLayout id="app">
         <router-view />
-    </div>
+    </DefaultLayout>
 </template>
+<script>
+import DefaultLayout from "@/layouts/Default";
+export default {
+    components: { DefaultLayout },
+};
+</script>
