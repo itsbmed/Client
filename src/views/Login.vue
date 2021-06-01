@@ -111,13 +111,13 @@ export default {
                         name: "Dashboard",
                     });
                 }
-            } catch ({ response: rs }) {
-                switch (rs.status) {
+            } catch (err) {
+                switch (err.status) {
                     case 404:
-                        this.gerr = rs.data.message;
+                        this.gerr = err.data.message;
                         break;
                     case 401:
-                        this.gerr = rs.data.message;
+                        this.gerr = err.data.message;
                         break;
                     default:
                         this.gerr = "username or password invalid";
