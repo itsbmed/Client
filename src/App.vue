@@ -1,5 +1,6 @@
 <template>
     <DefaultLayout id="app">
+        <notifications group="br" position="bottom right" />
         <router-view />
     </DefaultLayout>
 </template>
