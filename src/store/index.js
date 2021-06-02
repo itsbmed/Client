@@ -4,10 +4,17 @@ import axios from "@/plugins/axios";
 
 Vue.use(Vuex);
 
+let agent = {};
+try {
+    agent = JSON.parse(localStorage.getItem("agent"));
+} catch (err) {
+    localStorage.clear();
+}
+
 const store = new Vuex.Store({
     state: {
         accessToken: localStorage.getItem("accessToken") || "",
-        agent: JSON.parse(localStorage.getItem("agent")) || {},
+        agent,
     },
     mutations: {
         AUTH_SUCCESS: (state, payload) => {
