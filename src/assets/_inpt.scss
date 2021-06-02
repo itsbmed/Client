@@ -1,0 +1,59 @@
+.back {
+  align-self: flex-start;
+
+  .fa-long-arrow-alt-left {
+    font-size: 3.2vw;
+    color: #cfcfcf;
+  }
+  .fa-long-arrow-alt-left:hover {
+    color: rgb(25, 187, 25);
+  }
+  .mr-4red:hover {
+    color: tomato;
+  }
+  .mr-4green:hover {
+    color: #2ecc71;
+  }
+}
+
+.inptdv {
+  box-sizing: border-box;
+}
+.v-text-field > .v-input__control > .v-input__slot > .v-text-field__slot {
+  border: 1px solid currentColor;
+  padding: 2%;
+  border-radius: 15px;
+}
+.v-select > .v-input__control > .v-input__slot > .v-select__slot {
+  border: 1px solid currentColor;
+  padding: 2%;
+  border-radius: 15px;
+}
+.v-text-field.v-input--has-state > .v-input__control > .v-input__slot:before {
+  display: none !important;
+}
+.v-text-field > .v-input__control > .v-input__slot:after {
+  display: none !important;
+}
+.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+  display: none !important;
+}
+.theme--light.v-input {
+  color: rgb(185 185 185 / 60%);
+}
+.v-text-field .v-input__prepend-inner,
+.v-text-field .v-input__append-inner {
+  align-self: center;
+}
+.jp {
+  font-size: 1.2vw;
+  text-align: center;
+  span {
+    color: #2ecc71;
+  }
+}
+.v-input--radio-group__input {
+  display: flex;
+  flex-direction: initial !important;
+  justify-content: space-around;
+}
