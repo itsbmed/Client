@@ -12,7 +12,7 @@
 
                 <v-form
                     ref="login"
-                    @sumbit.prevent
+                    @submit.prevent="login"
                     class="form"
                     v-model="valid"
                 >
@@ -59,7 +59,6 @@
                             color="white"
                             class="text-capitalize primary rounded-xl"
                             block
-                            @click="login"
                             :loading="loading"
                             :disabled="loading"
                         >
