@@ -1,26 +1,28 @@
 import axios from "axios";
+import store from "@/store";
+import Vue from "vue";
 
 axios.defaults.baseURL = "http://localhost:3030/api/v1";
 
 // Add a request interceptor
-axios.interceptors.request.use(
-    async function (config) {
+axios.interceptors.request.use(async function (config) {
+    // Do something before request is sent
+    let accessToken = await store.getters.getToken;
+    let isLoggedIn = store.getters.isLoggedIn;
+    if (isLoggedIn === true) {
+        config.headers.common["x-auth-token"] = accessToken;
         return config;
-    },
-    function (error) {
-        // Do something with request error
-        return Promise.reject(error);
+    } else {
+        if (isLoggedIn === true) {
+            store.dispatch("destroySession");
+            Vue.prototype.$notify({
+                group: "errors",
+                type: "error",
+                title: "Unauthorized",
+                text: "unauthorized request !!",
+            });
+        }
+        return config;
     }
-);
-
-// Add a response interceptor
-axios.interceptors.response.use(
-    function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        return response;
-    },
-    function (error) {}
-);
-
+});
 export default axios;

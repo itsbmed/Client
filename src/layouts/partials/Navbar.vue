@@ -26,6 +26,12 @@ export default {
     methods: {
         async logout() {
             await this.$store.dispatch("logout");
+            this.$notify({
+                group: "br",
+                type: "info",
+                title: "Info",
+                text: "You're logout!",
+            });
             await this.$router.push({
                 name: "Login",
             });

@@ -17,16 +17,6 @@
                     v-model="valid"
                 >
                     <div class="display-1 text-center mb-5">Agent Login</div>
-                    <v-alert
-                        icon="mdi-alert"
-                        dense
-                        class="rounded-xl"
-                        text
-                        type="error"
-                        v-if="errorMessage"
-                    >
-                        {{ errorMessage }}
-                    </v-alert>
 
                     <div class="mt-5">
                         <!-- <label for="username">Username</label> -->
@@ -87,7 +77,6 @@ export default {
     name: "Login",
     data: () => ({
         username: "",
-        errorMessage: "",
         password: "",
         valid: false,
         loading: false,
@@ -122,16 +111,31 @@ export default {
                         name: "Dashboard",
                     });
                 }
-            } catch (err) {
+            } catch ({ response: err }) {
                 switch (err.status) {
                     case 404:
-                        this.errorMessage = err.data.message;
+                        this.$notify({
+                            group: "br",
+                            type: "error",
+                            title: "Login Error",
+                            text: "Agent not found !",
+                        });
                         break;
                     case 401:
-                        this.errorMessage = err.data.message;
+                        this.$notify({
+                            group: "br",
+                            type: "error",
+                            title: "Login Error",
+                            text: "username/password incorrect !",
+                        });
                         break;
                     default:
-                        this.errorMessage = "username or password invalid";
+                        this.$notify({
+                            group: "br",
+                            type: "error",
+                            title: "Login Error",
+                            text: "Something went wrong !",
+                        });
                         break;
                 }
             } finally {
