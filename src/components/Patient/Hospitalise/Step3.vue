@@ -113,7 +113,7 @@
                 elevation="0"
                 text
                 color="blue"
-                @click="changeExtStep(2)"
+                @click="changeHospStep(2)"
                 class="mr-auto"
                 height="45"
             >
@@ -140,9 +140,6 @@ import { mapGetters } from "vuex";
 
 export default {
     data: () => ({
-        patientData: {},
-        row: null,
-
         dRules: [(v) => !!v || "La date est requis"],
         daRules: [(v) => !!v || "La date d'admission est requis"],
         sRules: [(v) => !!v || "Le service d'hospilisation est requis"],

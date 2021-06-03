@@ -103,9 +103,7 @@ export default {
     props: {
         caseType: { type: String, required: true },
     },
-    data: () => ({
-        patientData: {},
-    }),
+
     computed: {
         ...mapGetters(["patientData"]),
     },

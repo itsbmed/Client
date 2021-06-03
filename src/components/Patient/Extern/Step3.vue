@@ -103,15 +103,11 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
-    data: () => ({
-        patientData: {},
-        row: null,
-    }),
     computed: {
         ...mapGetters(["patientData"]),
     },
     methods: {
-        ...mapActions(["changeExtpStep"]),
+        ...mapActions(["changeExtStep"]),
     },
 };
 </script>
