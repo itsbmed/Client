@@ -27,7 +27,6 @@
                     placeholder="Ipp"
                     label="Ipp"
                     v-if="estyle"
-                    @change="table"
                     outlined
                     class="search-input"
                 ></v-text-field>
@@ -96,9 +95,8 @@ export default {
         searchbox: "",
         estyle: true,
         fstyle: false,
-        chose: "",
+
         selected: [],
-        table: "",
     }),
     methods: {
         tswitch(arg) {
@@ -108,14 +106,19 @@ export default {
             } else if (arg == this.Facture) {
                 this.fstyle = true;
                 this.estyle = false;
+                console.log(this.selected[0]);
             }
         },
         showETable() {
-            if (this.selected.length && this.searchbox.length >= 6) return true;
-            return false;
+            if (this.selected.length > 0 && this.searchbox.length >= 6) {
+                return true;
+            } else {
+                return false;
+            }
         },
         showFTable() {
-            if (this.selected.length && this.searchbox.length >= 6) return true;
+            if (this.selected.length > 0 && this.searchbox.length >= 6)
+                return true;
             return false;
         },
     },
