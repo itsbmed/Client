@@ -30,6 +30,14 @@ const routes = [
             authRequired: true,
         },
     },
+    {
+        path: "admin-panel",
+        name: "AdminPanel",
+        meta: {
+            authRequired: true,
+            adminRequired: true,
+        },
+    },
     //     {
     //     path: "*",
     //     name: "NotFound",
@@ -45,7 +53,15 @@ const router = new VueRouter({
     routes,
 });
 router.beforeEach((to, from, next) => {
-    if (to.matched.some((record) => record.meta.authRequired)) {
+    if (to.matched.some((record) => record.meta.adminRequired)) {
+        if (store.getters.getAgent?.isAdmin === true) {
+            next();
+        } else {
+            next({
+                name: "Forbidden",
+            });
+        }
+    } else if (to.matched.some((record) => record.meta.authRequired)) {
         if (store.getters.isLoggedIn) {
             next();
         } else {
