@@ -8,6 +8,8 @@
                         filled
                         single-line
                         rounded
+                        type="number"
+                        :rules="iRules"
                         outlined
                         class="rounded-lg"
                         placeholder="Ipp"
@@ -20,6 +22,7 @@
                         filled
                         single-line
                         rounded
+                        :rules="nRules"
                         outlined
                         class="rounded-lg"
                         placeholder="Nom"
@@ -34,6 +37,7 @@
                         single-line
                         rounded
                         outlined
+                        :rules="pRules"
                         class="rounded-lg"
                         placeholder="Prenom"
                         label="Prenom"
@@ -58,7 +62,9 @@
                         single-line
                         rounded
                         outlined
+                        :rules="dRules"
                         class="rounded-lg"
+                        @keypress="checkDate"
                         placeholder="Date D'expirations | MM / YY"
                         label="Date D'expirations | MM / YY"
                         clearable
@@ -100,6 +106,38 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "Step1",
+    data: () => ({
+        Dex: "",
+        iRules: [
+            (v) => !!v || "Ipp est requis",
+            (v) => (v && v.length >= 6) || "Ipp doit plus de 6 caractères",
+        ],
+        nRules: [
+            (v) => !!v || "Le nom est requis",
+            (v) =>
+                (v && v.length <= 10) ||
+                "Le nom doit comporter moins de 10 caractères",
+        ],
+        pRules: [
+            (v) => !!v || "Le prenom est requis",
+            (v) =>
+                (v && v.length <= 10) ||
+                "Le prenom doit comporter moins de 10 caractères",
+        ],
+        dRules: [
+            (v) =>
+                (v.charCodeAt(0) <= 57 &&
+                    v.charCodeAt(0) >= 48 &&
+                    v.charCodeAt(1) <= 57 &&
+                    v.charCodeAt(1) >= 48 &&
+                    v.charCodeAt(5) <= 57 &&
+                    v.charCodeAt(5) >= 48 &&
+                    v.charCodeAt(6) <= 57 &&
+                    v.charCodeAt(6) >= 48) ||
+                v.length == 0 ||
+                "Please enter a valid date",
+        ],
+    }),
     props: {
         caseType: { type: String, required: true },
     },
@@ -112,6 +150,11 @@ export default {
         changeStep() {
             if (this.caseType === "hosp") return this.changeHospStep(2);
             if (this.caseType === "ext") return this.changeExtStep(2);
+        },
+        checkDate() {
+            if (this.patientData.Dex.length == 2) {
+                this.patientData.Dex += " / ";
+            }
         },
     },
 };
