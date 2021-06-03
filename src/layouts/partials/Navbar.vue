@@ -1,7 +1,9 @@
 <template>
     <div>
         <v-app-bar flat>
-            <v-toolbar-title>Dashboard</v-toolbar-title>
+            <router-link to="/patient">
+                <v-toolbar-title>Dashboard</v-toolbar-title>
+            </router-link>
 
             <v-spacer></v-spacer>
             <span>{{ agent.userName }}</span>

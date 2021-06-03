@@ -22,6 +22,14 @@ const routes = [
             authRequired: true,
         },
     },
+    {
+        path: "/patient",
+        name: "Patient",
+        component: () => import("@/views/Patient.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
     //     {
     //     path: "*",
     //     name: "NotFound",
