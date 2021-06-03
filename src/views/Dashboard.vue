@@ -38,15 +38,15 @@
                 placeholder="Ipp"
                 v-if="estyle"
                 type="number"
+                @change="table"
                 style="width: 70%"
                 outlined
-                clearable
             ></v-text-field>
             <v-select
                 v-model="selected"
-                :items="['Hospitalise', 'Facture']"
+                :items="['Hospitalise', 'Externe']"
                 chips
-                style="position: absolute; top: 25%; right: 15%"
+                style="position: absolute; top: 25%; right: 16%"
                 deletable-chips
                 chisp-color="red"
                 multiple
@@ -57,19 +57,24 @@
                 rounded
                 v-model="searchbox"
                 v-if="fstyle"
+                @change="table"
                 placeholder="Numero De Facture"
                 type="Number"
                 style="width: 70%"
                 outlined
-                clearable
             ></v-text-field>
         </v-form>
-        <edata-tables />
+        <edata-tables
+            :selected="selected"
+            v-if="estyle === true && fstyle === false && searchbox.length >= 6"
+        />
+        <fdata-tables v-else-if="searchbox.length >= 6" />
     </div>
 </template>
 
 <script>
 import EdataTables from "../layouts/partials/EdataTables.vue";
+import FdataTables from "../layouts/partials/FdataTables.vue";
 export default {
     data: () => ({
         valid: true,
@@ -80,9 +85,11 @@ export default {
         estyle: true,
         fstyle: false,
         chose: "",
+        selected: "",
     }),
     components: {
         EdataTables,
+        FdataTables,
     },
     methods: {
         tswitch(arg) {
@@ -93,14 +100,7 @@ export default {
                 this.fstyle = true;
                 this.estyle = false;
             }
-        },
-        changesfx() {
-            alert("Hi");
-            if (this.sfx == "Hospitalise") {
-                this.sfx = "Externe";
-            } else if ((this.sfx = "Externe")) {
-                this.sfx = "Hospitalisee";
-            }
+            console.log(this.selected);
         },
     },
 };
