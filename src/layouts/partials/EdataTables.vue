@@ -1,6 +1,10 @@
 <template>
     <div style="padding: 2%">
-        <v-simple-table fixed-header height="400px">
+        <v-simple-table
+            fixed-header
+            height="400px"
+            v-if="selected[0] == 'Hospitalise' || selected.length == 2"
+        >
             <template v-slot:default>
                 <thead style="background: #2ecc71; color: white">
                     <tr>
@@ -42,7 +46,11 @@
                 </tbody>
             </template>
         </v-simple-table>
-        <v-simple-table fixed-header height="400px">
+        <v-simple-table
+            v-if="selected[0] == 'Externe' || selected.length == 2"
+            fixed-header
+            height="400px"
+        >
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -93,5 +101,6 @@ export default {
         },
         allData: [],
     }),
+    props: ["selected"],
 };
 </script>

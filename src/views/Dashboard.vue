@@ -88,8 +88,8 @@
                 </div>
             </v-container>
         </v-form>
-        <EdataTables v-if="showETable() == true" />
-        <FdataTables v-else-if="showFTable() == true" />
+        <EdataTables :selected="selected" v-if="showETable() == true" />
+        <FdataTables :selected="selected" v-else-if="showFTable() == true" />
     </div>
 </template>
 
@@ -119,8 +119,7 @@ export default {
             } else if (arg == this.Facture) {
                 this.fstyle = true;
                 this.estyle = false;
-                console.log(this.selected.length);
-                console.log(this.searchbox.length);
+                console.log(this.selected[0]);
             }
         },
         showETable() {
