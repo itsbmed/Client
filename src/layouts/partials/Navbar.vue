@@ -1,9 +1,9 @@
 <template>
     <div>
         <v-app-bar flat>
-            <router-link to="/patient">
+            <v-btn to="/" text plain>
                 <v-toolbar-title>Dashboard</v-toolbar-title>
-            </router-link>
+            </v-btn>
 
             <v-spacer></v-spacer>
             <span>{{ agent.userName }}</span>
@@ -41,5 +41,3 @@ export default {
     },
 };
 </script>
-
-<style></style>

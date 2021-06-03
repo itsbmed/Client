@@ -2,6 +2,7 @@
     <div class="flex-row" style="height: 100%; width: 100%">
         <div class="d-flex align-center" style="height: 15%; width: 100%">
             <v-btn
+                to="/patient"
                 large
                 outlined
                 class="ms-5 rounded-lg"
