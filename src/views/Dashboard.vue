@@ -39,7 +39,6 @@
                 placeholder="Ipp"
                 v-if="estyle"
                 type="number"
-                @change="table"
                 style="width: 70%"
                 outlined
             ></v-text-field>
@@ -58,7 +57,6 @@
                 rounded
                 v-model="searchbox"
                 v-if="fstyle"
-                @change="table"
                 placeholder="Numero De Facture"
                 type="Number"
                 style="width: 70%"
@@ -101,7 +99,6 @@ export default {
                 this.fstyle = true;
                 this.estyle = false;
             }
-            console.log(this.selected);
         },
     },
 };

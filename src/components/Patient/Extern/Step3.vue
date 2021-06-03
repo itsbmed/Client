@@ -6,12 +6,26 @@
                     <v-text-field
                         v-model="patientData.NumFacture"
                         filled
+                        :rules="nfRules"
                         single-line
                         rounded
                         outlined
                         class="rounded-lg"
                         placeholder="Num Facture"
                         label="Num Facture"
+                        required
+                        clearable
+                    />
+                    <v-text-field
+                        v-model="patientData.Actes"
+                        filled
+                        :rules="aRules"
+                        single-line
+                        rounded
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Actes"
+                        label="Actes"
                         required
                         clearable
                     />
@@ -46,6 +60,7 @@
                         filled
                         single-line
                         rounded
+                        :rules="caRules"
                         outlined
                         class="rounded-lg"
                         placeholder="Categorie"
@@ -57,6 +72,7 @@
                         filled
                         single-line
                         rounded
+                        :rules="ncRules"
                         outlined
                         class="rounded-lg"
                         placeholder="N*Quitance"
@@ -67,7 +83,7 @@
                 <span
                     >Totale Facture :
                     <span style="color: #2ecc71">
-                        {{ "0" + " DH" }}
+                        {{ this.patientData.Totale + " DH" }}
                     </span>
                 </span>
             </v-card>
@@ -103,11 +119,35 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
+    data: () => ({
+        nfRules: [
+            (v) => !!v || "N*Facture est requis",
+            (v) => v > 0 || "La valeur doit être supérieure à zéro",
+        ],
+        aRules: [
+            (v) => !!v || "Actes est requis",
+            (v) => v > 0 || "La valeur doit être supérieure à zéro",
+        ],
+
+        caRules: [(v) => !!v || "Categorie est requis"],
+        ncRules: [
+            (v) => !!v || "N*Quitance est requis",
+            (v) => v > 0 || "La valeur doit être supérieure à zéro",
+        ],
+    }),
     computed: {
         ...mapGetters(["patientData"]),
     },
     methods: {
         ...mapActions(["changeExtStep"]),
+        Totale: function () {
+            console.log(this.patientData.Totale);
+            this.patientData.Totale =
+                this.patientData.Actes +
+                this.patientData.Medicame +
+                this.Prothes;
+            return this.patientData.Totale;
+        },
     },
 };
 </script>

@@ -24,26 +24,29 @@
                 </div>
                 <v-form ref="form" lazy-validation>
                     <v-text-field
+                        v-model="patientData.Dex"
+                        filled
+                        single-line
+                        rounded
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Date"
+                        label="Date"
+                        clearable
+                    />
+                    <v-select
                         v-model="patientData.Ipp"
+                        :items="nature"
                         filled
                         single-line
                         rounded
                         outlined
                         class="rounded-lg"
                         placeholder="Nature De Presentation"
-                        label="Ipp"
+                        label="Nature De Presentation"
                         required
-                        clearable
-                    />
-                    <v-text-field
-                        v-model="patientData.Dex"
-                        filled
-                        single-line
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Date D'expirations | MM / YY"
-                        label="Date D'expirations | MM / YY"
                         clearable
                     />
                 </v-form>
@@ -82,6 +85,9 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
+    data: () => ({
+        nature: ["CS/SP", "RX"],
+    }),
     computed: {
         ...mapGetters(["patientData"]),
     },
