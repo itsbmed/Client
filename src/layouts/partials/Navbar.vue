@@ -1,11 +1,22 @@
 <template>
     <div>
         <v-app-bar flat>
-            <v-btn to="/" text class="text-none">
+            <v-btn to="/" link text class="text-none">
                 <v-icon left>mdi-view-dashboard</v-icon>
                 Dashboard
             </v-btn>
 
+            <router-link to="/patient" class="underlined">
+                <v-btn
+                    outlined
+                    link
+                    class="ms-10 rounded-lg text-none"
+                    color="primary"
+                >
+                    <v-icon color="#2ecc71" left size="22">mdi-plus</v-icon>
+                    New Patient
+                </v-btn>
+            </router-link>
             <v-spacer></v-spacer>
 
             <v-menu offset-y>
@@ -22,7 +33,7 @@
                         <v-avatar color="primary" size="25">
                             <v-icon color="white"> mdi-account-circle </v-icon>
                         </v-avatar>
-                        <span class="ms-1">{{ agent.userName }}</span>
+                        <span class="ms-1">{{ agent.firstName }}</span>
                         <v-icon> mdi-chevron-down </v-icon>
                     </v-btn>
                 </template>

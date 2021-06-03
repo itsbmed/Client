@@ -119,6 +119,7 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
+    name: "ExternStep3",
     data: () => ({
         nfRules: [
             (v) => !!v || "N*Facture est requis",

@@ -1,37 +1,23 @@
 <template>
-    <div class="flex-row" style="height: 100%; width: 100%">
-        <div class="d-flex align-center" style="height: 15%; width: 100%">
-            <v-btn
-                to="/patient"
-                large
-                outlined
-                class="ms-5 rounded-lg"
-                style="position: absolute"
-                color="#2ecc71"
-            >
-                New Patien
-            </v-btn>
-            <div class="d-flex justify-center" style="width: 100%">
-                <v-tabs
-                    class="rounded-lg"
-                    background-color="#2ecc71"
-                    active-class="switcher"
-                    style="flex: none; width: auto"
-                    center-active
-                    dark
-                >
-                    <v-tabs-slider style="display: none"></v-tabs-slider>
-                    <v-tab @click="tswitch(Episode)">Episode</v-tab>
-                    <v-tab @click="tswitch(Facture)">Facture</v-tab>
-                </v-tabs>
-            </div>
-        </div>
-        <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-            class="d-flex mt-5 flex-column justify-center align-center mt-16"
+    <v-container fluid>
+        <div
+            class="d-flex justify-center mt-10"
+            style="height: 15%; width: 100%"
         >
+            <v-tabs
+                hide-slider
+                class="rounded-lg"
+                background-color="#2ecc71"
+                active-class="switcher"
+                style="flex: none; width: auto"
+                center-active
+                dark
+            >
+                <v-tab @click="tswitch(Episode)">Episode</v-tab>
+                <v-tab @click="tswitch(Facture)">Facture</v-tab>
+            </v-tabs>
+        </div>
+        <v-form ref="form" v-model="valid" lazy-validation class="mt-10">
             <v-container class="search-container">
                 <v-text-field
                     rounded
@@ -60,7 +46,8 @@
                     <v-menu
                         offset-y
                         :close-on-content-click="false"
-                        nudge-left="4"
+                        nudge-right="10"
+                        left
                     >
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon size="35" v-bind="attrs" v-on="on">
@@ -91,7 +78,7 @@
         </v-form>
         <EdataTables v-if="showETable" />
         <FdataTables v-if="showFTable" />
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -137,6 +124,7 @@ export default {
 
 <style scoped>
 .switcher {
+    transition: background 0.3s, color 0.3s;
     background: white;
     color: #2ecc71 !important;
     border: 2px solid #2ecc71;
@@ -159,6 +147,6 @@ export default {
     position: absolute !important;
     top: 0;
     left: 0;
-    padding: 0 10px;
+    padding: 0 10px !important;
 }
 </style>

@@ -10,3 +10,9 @@ export default {
     components: { DefaultLayout },
 };
 </script>
+
+<style>
+.underlined {
+    text-decoration: none !important;
+}
+</style>

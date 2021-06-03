@@ -4,7 +4,7 @@
             <v-card flat class="mx-auto px-4 py-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
                     <v-text-field
-                        v-model="patientData.Ipp"
+                        v-model="patientData.ipp"
                         filled
                         single-line
                         rounded
@@ -14,11 +14,13 @@
                         class="rounded-lg"
                         placeholder="Ipp"
                         label="Ipp"
+                        @keyup="checkIpp"
                         required
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Nom"
+                        :disabled="alreadyRegistered"
+                        v-model="patientData.lastName"
                         filled
                         single-line
                         rounded
@@ -32,7 +34,8 @@
                     />
 
                     <v-text-field
-                        v-model="patientData.Prenom"
+                        :disabled="alreadyRegistered"
+                        v-model="patientData.firstName"
                         filled
                         single-line
                         rounded
@@ -46,7 +49,8 @@
                     />
 
                     <v-text-field
-                        v-model="patientData.nomdt"
+                        :disabled="alreadyRegistered"
+                        v-model="patientData.nCode"
                         filled
                         single-line
                         rounded
@@ -57,12 +61,12 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Dex"
+                        :disabled="alreadyRegistered"
+                        v-model="patientData.nDate"
                         filled
                         single-line
                         rounded
                         outlined
-                        :rules="dRules"
                         class="rounded-lg"
                         @keypress="checkDate"
                         placeholder="Date D'expirations | MM / YY"
@@ -73,25 +77,28 @@
             </v-card>
         </div>
         <div class="d-flex justify-center">
-            <v-btn
-                text
-                elevation="0"
-                color="blue"
-                @click="changeCaseType(null)"
-                width="100"
-                class="mr-5"
-                height="35"
-            >
-                <v-icon left small> mdi-arrow-left</v-icon>
+            <router-link to="/patient" class="underlined">
+                <v-btn
+                    text
+                    elevation="0"
+                    width="100"
+                    class="mr-5"
+                    color="blue"
+                    height="35"
+                >
+                    <v-icon left small> mdi-arrow-left</v-icon>
 
-                prec
-            </v-btn>
+                    prec
+                </v-btn>
+            </router-link>
             <v-btn
                 elevation="0"
                 color="primary"
-                @click="changeStep"
+                @click="nextStep"
                 width="120"
                 height="35"
+                :loading="loading"
+                :disabled="loading"
             >
                 Suivant
                 <v-icon right small> mdi-arrow-right</v-icon>
@@ -106,8 +113,12 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "Step1",
+    props: {
+        caseType: { type: String, required: true },
+    },
     data: () => ({
-        Dex: "",
+        alreadyRegistered: false,
+        loading: false,
         iRules: [
             (v) => !!v || "Ipp est requis",
             (v) => (v && v.length >= 6) || "Ipp doit plus de 6 caractères",
@@ -124,36 +135,61 @@ export default {
                 (v && v.length <= 10) ||
                 "Le prenom doit comporter moins de 10 caractères",
         ],
-        dRules: [
-            (v) =>
-                (v.charCodeAt(0) <= 57 &&
-                    v.charCodeAt(0) >= 48 &&
-                    v.charCodeAt(1) <= 57 &&
-                    v.charCodeAt(1) >= 48 &&
-                    v.charCodeAt(5) <= 57 &&
-                    v.charCodeAt(5) >= 48 &&
-                    v.charCodeAt(6) <= 57 &&
-                    v.charCodeAt(6) >= 48) ||
-                v.length == 0 ||
-                "Please enter a valid date",
-        ],
     }),
-    props: {
-        caseType: { type: String, required: true },
-    },
 
     computed: {
         ...mapGetters(["patientData"]),
     },
     methods: {
-        ...mapActions(["changeCaseType", "changeHospStep", "changeExtStep"]),
+        ...mapActions([
+            "changeHospStep",
+            "changeExtStep",
+            "checkExistence",
+            "addPatient",
+            "updatePatientData",
+            "clearPetientData",
+        ]),
         changeStep() {
-            if (this.caseType === "hosp") return this.changeHospStep(2);
-            if (this.caseType === "ext") return this.changeExtStep(2);
+            if (this.$route.path === "/patient/hospitalise")
+                return this.changeHospStep(2);
+            if (this.$route.path === "/patient/extern")
+                return this.changeExtStep(2);
         },
         checkDate() {
-            if (this.patientData.Dex.length == 2) {
-                this.patientData.Dex += " / ";
+            if (this.patientData.nDate.length == 2) {
+                this.patientData.nDate += " / ";
+            }
+        },
+        async nextStep() {
+            if (!this.alreadyRegistered) {
+                this.loading = true;
+                try {
+                    let res = await this.addPatient(this.patientData);
+                    this.changeStep();
+                } catch ({ response: err }) {
+                    console.error(err);
+                }
+
+                this.loading = false;
+                return;
+            }
+
+            this.changeStep();
+        },
+
+        async checkIpp() {
+            try {
+                let res = await this.checkExistence(this.patientData.ipp);
+                this.alreadyRegistered = true;
+            } catch ({ response: err }) {
+                switch (err.status) {
+                    case 404:
+                        if (this.alreadyRegistered === true)
+                            this.clearPetientData();
+                        this.alreadyRegistered = false;
+
+                        break;
+                }
             }
         },
     },

@@ -85,6 +85,7 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
+    name: "ExternStep2",
     data: () => ({
         nature: ["CS/SP", "RX"],
     }),

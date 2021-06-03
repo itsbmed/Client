@@ -14,7 +14,7 @@
                 outlined
                 width="160"
                 height="50"
-                @click="changeCaseType('hosp')"
+                to="/patient/hospitalise"
             >
                 Hospitalise
             </v-btn>
@@ -25,7 +25,7 @@
                 elevation="0"
                 outlined
                 class="choises text-capitalize"
-                @click="changeCaseType('ext')"
+                to="/patient/extern"
             >
                 Extern
             </v-btn>
@@ -34,21 +34,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
-
 export default {
     name: "Patient",
     components: {
         Hospitalise: () => import("@/components/Patient/Hospitalise/index"),
         Extern: () => import("@/components/Patient/Extern/index"),
-    },
-    computed: {
-        ...mapGetters(["caseType"]),
-    },
-
-    methods: {
-        ...mapActions(["changeCaseType"]),
     },
 };
 </script>

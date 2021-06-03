@@ -29,6 +29,7 @@
                         onfocus="(this.type='date')"
                         onblur="(this.type='text')"
                         placeholder="Date"
+                        label="Date"
                         onchange="this.className=(this.value!=''?'has-value':'')"
                         required
                         outlined
@@ -42,6 +43,7 @@
                         onfocus="(this.type='date')"
                         onblur="(this.type='text')"
                         placeholder="Date D'admission"
+                        label="Date D'admission"
                         required
                         outlined
                         single-line
@@ -54,6 +56,7 @@
                         :counter="10"
                         :rules="srRules"
                         placeholder="Service D'hospilisation"
+                        label="Service D'hospilisation"
                         required
                         outlined
                         single-line
@@ -66,6 +69,7 @@
                         :counter="10"
                         :rules="sRules"
                         placeholder="Situation"
+                        label="Situation"
                         required
                         outlined
                         single-line
@@ -139,6 +143,7 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
+    name: "HospitaliteStep2",
     data: () => ({
         dRules: [(v) => !!v || "La date est requis"],
         daRules: [(v) => !!v || "La date d'admission est requis"],

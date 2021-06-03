@@ -29,6 +29,7 @@ export default {
     getters: {
         isLoggedIn: (state) => !!state.accessToken,
         getAgent: (state) => state.agent,
+        getToken: (state) => state.accessToken,
     },
     actions: {
         signIn: (context, payload) => {

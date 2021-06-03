@@ -31,7 +31,23 @@ const routes = [
         },
     },
     {
-        path: "admin-panel",
+        path: "/patient/hospitalise",
+        name: "Hospitalise",
+        component: () => import("@/components/Patient/Hospitalise/index.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
+        path: "/patient/extern",
+        name: "Extern",
+        component: () => import("@/components/Patient/Extern/index.vue"),
+        meta: {
+            authRequired: true,
+        },
+    },
+    {
+        path: "/admin-panel",
         name: "AdminPanel",
         meta: {
             authRequired: true,
