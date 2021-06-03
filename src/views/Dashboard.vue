@@ -88,8 +88,8 @@
                 </div>
             </v-container>
         </v-form>
-        <EdataTables v-if="showETable" />
-        <FdataTables v-else-if="showFTable" />
+        <EdataTables v-if="showETable() == true" />
+        <FdataTables v-else-if="showFTable() == true" />
     </div>
 </template>
 
