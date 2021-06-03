@@ -1,19 +1,53 @@
 <template>
     <div>
         <v-app-bar flat>
-            <v-btn to="/" text plain>
-                <v-toolbar-title>Dashboard</v-toolbar-title>
+            <v-btn to="/" text class="text-none">
+                <v-icon left>mdi-view-dashboard</v-icon>
+                Dashboard
             </v-btn>
 
             <v-spacer></v-spacer>
-            <span>{{ agent.userName }}</span>
 
-            <v-spacer></v-spacer>
-
-            <v-btn text class="text-capitalize" color="error" @click="logout">
-                <v-icon left>mdi-logout</v-icon>
-                logout
-            </v-btn>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        elevation="0"
+                        text
+                        width="110"
+                        rounded
+                        v-bind="attrs"
+                        v-on="on"
+                        class="text-none"
+                    >
+                        <v-avatar color="primary" size="25">
+                            <v-icon color="white"> mdi-account-circle </v-icon>
+                        </v-avatar>
+                        <span class="ms-1">{{ agent.userName }}</span>
+                        <v-icon> mdi-chevron-down </v-icon>
+                    </v-btn>
+                </template>
+                <div class="white d-flex flex-column align-start">
+                    <v-btn block text class="text-none">
+                        <v-icon left size="20">mdi-account-cog</v-icon>
+                        Panel
+                    </v-btn>
+                    <v-btn block text class="text-none">
+                        <v-icon left size="20">mdi-plus</v-icon>
+                        New agent
+                    </v-btn>
+                    <v-divider class="mt-10"></v-divider>
+                    <v-btn
+                        block
+                        @click="logout"
+                        text
+                        color="error"
+                        class="text-none"
+                    >
+                        <v-icon left>mdi-logout</v-icon>
+                        Logout
+                    </v-btn>
+                </div>
+            </v-menu>
         </v-app-bar>
     </div>
 </template>
