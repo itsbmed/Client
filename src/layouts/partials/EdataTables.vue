@@ -4,10 +4,8 @@
             <template v-slot:default>
                 <thead style="background: #2ecc71; color: white">
                     <tr>
-                        <th scope="col" v-if="check == Episode">
-                            {{ Head.Type }}
-                        </th>
-                        <th scope="col" v-else>{{ Head.Type }}</th>
+                        <th scope="col">{{ Head.Type }}</th>
+                        <th scope="col">{{ Head.Type }}</th>
                         <th scope="col">{{ Head.info }}</th>
                         <th scope="col">{{ Head.Ipp }}</th>
                         <th scope="col">{{ Head.Date }}</th>
@@ -24,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="data in desserts" :key="data.name">
+                    <tr v-for="data in allData" :key="data.name">
                         <th scope="row">{{ data.Type }}</th>
                         <td>{{ data.info }}</td>
                         <td>{{ data.Ipp }}</td>
@@ -44,17 +42,11 @@
                 </tbody>
             </template>
         </v-simple-table>
-        <v-simple-table
-            v-if="selected == 'Externe' || selected[1] == 'Externe'"
-            fixed-header
-            height="400px"
-        >
+        <v-simple-table fixed-header height="400px">
             <template v-slot:default>
                 <thead>
                     <tr>
-                        <th scope="col" v-if="check == Episode">
-                            {{ Head.Type }}
-                        </th>
+                        <th scope="col">{{ Head.Type }}</th>
                         <th scope="col">{{ Head.Type }}</th>
                         <th scope="col">{{ Head.info }}</th>
                         <th scope="col">{{ Head.Ipp }}</th>
@@ -69,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="data in desserts" :key="data.name">
+                    <tr v-for="data in allData" :key="data.name">
                         <th scope="row">{{ data.Type }}</th>
                         <td>{{ data.info }}</td>
                         <td>{{ data.Ipp }}</td>

@@ -41,7 +41,6 @@
                     placeholder="Ipp"
                     label="Ipp"
                     v-if="estyle"
-                    @change="table"
                     outlined
                     class="search-input"
                 ></v-text-field>
@@ -90,7 +89,7 @@
             </v-container>
         </v-form>
         <EdataTables v-if="showETable" />
-        <FdataTables v-if="showFTable" />
+        <FdataTables v-else-if="showFTable" />
     </div>
 </template>
 
@@ -109,9 +108,8 @@ export default {
         searchbox: "",
         estyle: true,
         fstyle: false,
-        chose: "",
+
         selected: [],
-        table: "",
     }),
     methods: {
         tswitch(arg) {
@@ -121,14 +119,20 @@ export default {
             } else if (arg == this.Facture) {
                 this.fstyle = true;
                 this.estyle = false;
+                console.log(this.selected.length);
+                console.log(this.searchbox.length);
             }
         },
         showETable() {
-            if (this.selected.length && this.searchbox.length >= 6) return true;
-            return false;
+            if (this.selected.length > 0 && this.searchbox.length >= 6) {
+                return true;
+            } else {
+                return false;
+            }
         },
         showFTable() {
-            if (this.selected.length && this.searchbox.length >= 6) return true;
+            if (this.selected.length > 0 && this.searchbox.length >= 6)
+                return true;
             return false;
         },
     },
