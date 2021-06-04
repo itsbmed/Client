@@ -75,11 +75,11 @@
                 </div>
             </v-container>
         </v-form>
-        <EdataTables :selected="selected" v-if="showETable" />
+        <EdataTables :selected="selected" v-if="showETable()" />
         <FdataTables
             :selected="selected"
             :check="fstyle"
-            v-else-if="showFTable"
+            v-else-if="showFTable()"
         />
     </v-container>
 </template>
