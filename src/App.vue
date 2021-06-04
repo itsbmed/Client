@@ -12,7 +12,10 @@ export default {
 </script>
 
 <style>
-.underlined {
+.rm-underline {
     text-decoration: none !important;
+}
+.underlined-on-hover:hover {
+    text-decoration: underline !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <v-stepper-content step="2" class="pa-0 ma-0">
+    <span>
         <div class="pb-2">
             <v-card flat class="mx-auto px-4 py-4" max-width="700px">
                 <div class="d-flex flex-column align-center">
@@ -135,7 +135,7 @@
                 <v-icon right small> mdi-content-save</v-icon>
             </v-btn>
         </div>
-    </v-stepper-content>
+    </span>
 </template>
 
 <script>

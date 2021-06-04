@@ -1,5 +1,5 @@
 <template>
-    <v-stepper-content step="1" class="pa-0 ma-0">
+    <span>
         <div class="pb-2">
             <v-card flat class="mx-auto px-4 py-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
@@ -77,7 +77,7 @@
             </v-card>
         </div>
         <div class="d-flex justify-center">
-            <router-link to="/patient" class="underlined">
+            <router-link to="/patient" class="rm-underline">
                 <v-btn
                     text
                     elevation="0"
@@ -104,7 +104,7 @@
                 <v-icon right small> mdi-arrow-right</v-icon>
             </v-btn>
         </div>
-    </v-stepper-content>
+    </span>
 </template>
 
 <script>
@@ -168,6 +168,8 @@ export default {
                     this.changeStep();
                 } catch ({ response: err }) {
                     console.error(err);
+                } finally {
+                    this.changeStep();
                 }
 
                 this.loading = false;

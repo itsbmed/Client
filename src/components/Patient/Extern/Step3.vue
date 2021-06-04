@@ -1,8 +1,21 @@
 <template>
-    <v-stepper-content step="3" class="pa-0 ma-0">
+    <span>
         <div class="pb-2">
-            <v-card flat class="mx-auto px-4 py-4" max-width="700px">
+            <v-card flat class="mx-auto px-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
+                    <v-text-field
+                        v-if="context == 'hospFact'"
+                        single-line
+                        v-model="patientData.DateSrt"
+                        rounded
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Date srt"
+                        label="Date srt"
+                        required
+                        clearable
+                        filled
+                    />
                     <v-text-field
                         v-model="patientData.NumFacture"
                         filled
@@ -54,8 +67,21 @@
                         required
                         clearable
                     />
-
                     <v-text-field
+                        v-if="context == 'hospFact'"
+                        v-model="patientData.Nature"
+                        filled
+                        single-line
+                        rounded
+                        :rules="caRules"
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Nature"
+                        label="Nature"
+                        clearable
+                    />
+                    <v-text-field
+                        v-else
                         v-model="patientData.Categorie"
                         filled
                         single-line
@@ -67,6 +93,7 @@
                         label="Categorie"
                         clearable
                     />
+
                     <v-text-field
                         v-model="patientData.NQuitance"
                         filled
@@ -80,15 +107,15 @@
                         clearable
                     />
                 </v-form>
-                <span
-                    >Totale Facture :
+                <span>
+                    Totale Facture :
                     <span style="color: #2ecc71">
-                        {{ this.patientData.Totale + " DH" }}
+                        {{ patientData.Totale + " DH" }}
                     </span>
                 </span>
             </v-card>
         </div>
-        <div class="d-flex pb-10 mx-auto" style="max-width: 650px">
+        <div class="d-flex pb-2 mx-auto" style="max-width: 670px">
             <v-btn
                 elevation="0"
                 text
@@ -96,6 +123,7 @@
                 @click="changeExtStep(2)"
                 class="mr-auto"
                 height="45"
+                v-if="!context"
             >
                 <v-icon left small> mdi-arrow-left</v-icon>
                 prec
@@ -106,12 +134,13 @@
                 color="primary"
                 width="200"
                 height="45"
+                :class="{ 'mx-auto mt-3': context }"
             >
                 Enregistrer
                 <v-icon right small> mdi-content-save</v-icon>
             </v-btn>
         </div>
-    </v-stepper-content>
+    </span>
 </template>
 
 <script>
@@ -120,6 +149,7 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "ExternStep3",
+    props: { context: { type: String, required: false, default: null } },
     data: () => ({
         nfRules: [
             (v) => !!v || "N*Facture est requis",

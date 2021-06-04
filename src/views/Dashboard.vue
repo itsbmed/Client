@@ -75,11 +75,11 @@
                 </div>
             </v-container>
         </v-form>
-        <EdataTables :selected="selected" v-if="showETable() == true" />
+        <EdataTables :selected="selected" v-if="showETable" />
         <FdataTables
             :selected="selected"
             :check="fstyle"
-            v-else-if="showFTable() == true"
+            v-else-if="showFTable"
         />
     </v-container>
 </template>
@@ -88,8 +88,8 @@
 export default {
     name: "Dashboard",
     components: {
-        EdataTables: () => import("../layouts/partials/EdataTables.vue"),
-        FdataTables: () => import("../layouts/partials/FdataTables.vue"),
+        EdataTables: () => import("../components/Dashboard/EdataTables.vue"),
+        FdataTables: () => import("../components/Dashboard/FdataTables.vue"),
     },
     data: () => ({
         valid: true,

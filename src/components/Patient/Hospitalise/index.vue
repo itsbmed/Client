@@ -10,8 +10,12 @@
             </v-stepper-header>
 
             <v-stepper-items>
-                <Step1 caseType="hosp" />
-                <Step2 />
+                <v-stepper-content step="1" class="pa-0 ma-0">
+                    <Step1 caseType="hosp" />
+                </v-stepper-content>
+                <v-stepper-content step="2" class="pa-0 ma-0">
+                    <Step2 />
+                </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
     </v-container>

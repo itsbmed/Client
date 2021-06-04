@@ -36,9 +36,19 @@
                         <td>{{ data.Type_Ad }}</td>
                         <td>{{ data.Tn_Ercure }}</td>
                         <td>{{ data.Tn_Nom }}</td>
-                        <td style="color: red">Pas Facture</td>
                         <td>
-                            <v-icon>mdi-account-edit</v-icon>
+                            <AddFacture>
+                                <v-icon color="primary" size="25">
+                                    mdi-plus
+                                </v-icon>
+                            </AddFacture>
+                        </td>
+                        <td>
+                            <EtableEdit :data="data">
+                                <v-icon color="blue" size="25">
+                                    mdi-square-edit-outline
+                                </v-icon>
+                            </EtableEdit>
                         </td>
                     </tr>
                 </tbody>
@@ -69,6 +79,13 @@
                         <td>{{ data.Date }}</td>
                         <td>{{ data.Nature }}</td>
                         <td>{{ data.Type_Ad }}</td>
+                        <td>
+                            <FtableEdit :data="data">
+                                <v-icon color="blue" size="25">
+                                    mdi-square-edit-outline
+                                </v-icon>
+                            </FtableEdit>
+                        </td>
                     </tr>
                 </tbody>
             </template>
@@ -78,6 +95,11 @@
 <script>
 export default {
     name: "DataTables",
+    components: {
+        EtableEdit: () => import("./EtableEdit"),
+        FtableEdit: () => import("./FtableEdit"),
+        AddFacture: () => import("./AddFacture"),
+    },
     data: () => ({
         H_Head: {
             Type: "Type",

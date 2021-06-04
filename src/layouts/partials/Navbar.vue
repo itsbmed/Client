@@ -6,7 +6,7 @@
                 Dashboard
             </v-btn>
 
-            <router-link to="/patient" class="underlined">
+            <router-link to="/patient" class="rm-underline">
                 <v-btn
                     outlined
                     link

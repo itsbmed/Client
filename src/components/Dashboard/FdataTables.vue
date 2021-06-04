@@ -34,7 +34,11 @@
                         <td>{{ data.Nq }}</td>
                         <td>{{ data.Totale + " DH" }}</td>
                         <td>
-                            <Button><i class="fas fa-edit"></i></Button>
+                            <FtableEdit :data="data">
+                                <v-icon color="blue" size="25">
+                                    mdi-square-edit-outline
+                                </v-icon>
+                            </FtableEdit>
                         </td>
                     </tr>
                 </tbody>
@@ -74,7 +78,11 @@
                         <td>{{ data.Nq }}</td>
                         <td>{{ data.Totale + " DH" }}</td>
                         <td>
-                            <Button><i class="fas fa-edit"></i></Button>
+                            <EtableEdit :data="data">
+                                <v-icon color="blue" size="25">
+                                    mdi-square-edit-outline
+                                </v-icon>
+                            </EtableEdit>
                         </td>
                     </tr>
                 </tbody>
@@ -85,6 +93,10 @@
 <script>
 export default {
     name: "FdataTables",
+    components: {
+        FtableEdit: () => import("./FtableEdit"),
+        EtableEdit: () => import("./EtableEdit"),
+    },
     data: () => ({
         Head: {
             Type: "Type",
