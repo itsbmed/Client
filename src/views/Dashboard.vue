@@ -17,64 +17,62 @@
                 <v-tab @click="tswitch(Facture)">Facture</v-tab>
             </v-tabs>
         </div>
-        <v-form ref="form" v-model="valid" lazy-validation class="mt-10">
-            <v-container class="search-container">
-                <v-text-field
-                    rounded
-                    single-line
-                    v-model="searchbox"
-                    hide-details
-                    placeholder="Ipp"
-                    label="Ipp"
-                    v-if="estyle"
-                    outlined
-                    class="search-input"
-                ></v-text-field>
-                <v-text-field
-                    rounded
-                    single-line
-                    v-model="searchbox"
-                    v-if="fstyle"
-                    hide-details
-                    placeholder="Numero De Facture"
-                    label="Numero De Facture"
-                    outlined
-                    class="search-input"
-                ></v-text-field>
-                <div class="search-menu">
-                    <v-menu
-                        offset-y
-                        :close-on-content-click="false"
-                        nudge-right="10"
-                        left
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-icon size="35" v-bind="attrs" v-on="on">
-                                mdi-chevron-down
-                            </v-icon>
-                        </template>
-                        <div class="white pa-3">
-                            <v-checkbox
-                                v-model="selected"
-                                dense
-                                class="pa-0 ma-0 mb-2"
-                                label="Hospitalise"
-                                value="Hospitalise"
-                                hide-details
-                            />
-                            <v-checkbox
-                                v-model="selected"
-                                dense
-                                class="pa-0 ma-0"
-                                label="Extern"
-                                value="Externe"
-                                hide-details
-                            />
-                        </div>
-                    </v-menu>
-                </div>
-            </v-container>
-        </v-form>
+        <v-container class="search-container mt-8">
+            <v-text-field
+                rounded
+                single-line
+                v-model="searchbox"
+                hide-details
+                placeholder="Ipp"
+                label="Ipp"
+                v-if="estyle"
+                outlined
+                class="search-input"
+            ></v-text-field>
+            <v-text-field
+                rounded
+                single-line
+                v-model="searchbox"
+                v-if="fstyle"
+                hide-details
+                placeholder="Numero De Facture"
+                label="Numero De Facture"
+                outlined
+                class="search-input"
+            ></v-text-field>
+            <div class="search-menu">
+                <v-menu
+                    offset-y
+                    :close-on-content-click="false"
+                    nudge-right="10"
+                    left
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon size="35" v-bind="attrs" v-on="on">
+                            mdi-chevron-down
+                        </v-icon>
+                    </template>
+                    <div class="white pa-3">
+                        <v-checkbox
+                            v-model="selected"
+                            dense
+                            class="pa-0 ma-0 mb-2"
+                            label="Hospitalise"
+                            value="Hospitalise"
+                            hide-details
+                        />
+                        <v-checkbox
+                            v-model="selected"
+                            dense
+                            class="pa-0 ma-0"
+                            label="Extern"
+                            value="Externe"
+                            hide-details
+                        />
+                    </div>
+                </v-menu>
+            </div>
+        </v-container>
         <EdataTables :selected="selected" v-if="showETable()" />
         <FdataTables
             :selected="selected"
@@ -88,8 +86,10 @@
 export default {
     name: "Dashboard",
     components: {
-        EdataTables: () => import("../components/Dashboard/EdataTables.vue"),
-        FdataTables: () => import("../components/Dashboard/FdataTables.vue"),
+        EdataTables: () =>
+            import("../components/Dashboard/Episode/EdataTables.vue"),
+        FdataTables: () =>
+            import("../components/Dashboard/Facture/FdataTables.vue"),
     },
     data: () => ({
         valid: true,

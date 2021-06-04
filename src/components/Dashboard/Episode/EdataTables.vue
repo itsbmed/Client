@@ -44,11 +44,11 @@
                             </AddFacture>
                         </td>
                         <td>
-                            <EtableEdit :data="data">
+                            <HospTableEdit :data="data">
                                 <v-icon color="blue" size="25">
                                     mdi-square-edit-outline
                                 </v-icon>
-                            </EtableEdit>
+                            </HospTableEdit>
                         </td>
                     </tr>
                 </tbody>
@@ -80,11 +80,11 @@
                         <td>{{ data.Nature }}</td>
                         <td>{{ data.Type_Ad }}</td>
                         <td>
-                            <FtableEdit :data="data">
+                            <ExtTableEdit :data="data">
                                 <v-icon color="blue" size="25">
                                     mdi-square-edit-outline
                                 </v-icon>
-                            </FtableEdit>
+                            </ExtTableEdit>
                         </td>
                     </tr>
                 </tbody>
@@ -96,8 +96,8 @@
 export default {
     name: "DataTables",
     components: {
-        EtableEdit: () => import("./EtableEdit"),
-        FtableEdit: () => import("./FtableEdit"),
+        HospTableEdit: () => import("./HospTableEdit"),
+        ExtTableEdit: () => import("./ExtTableEdit"),
         AddFacture: () => import("./AddFacture"),
     },
     data: () => ({
