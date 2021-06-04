@@ -75,8 +75,8 @@
                 </div>
             </v-container>
         </v-form>
-        <EdataTables v-if="showETable" />
-        <FdataTables v-if="showFTable" />
+        <EdataTables :selected="selected" v-if="showETable() == true" />
+        <FdataTables :selected="selected" v-else-if="showFTable() == true" />
     </v-container>
 </template>
 
@@ -107,6 +107,7 @@ export default {
                 this.fstyle = true;
                 this.estyle = false;
                 console.log(this.selected[0]);
+                console.log(this.searchbox);
             }
         },
         showETable() {
