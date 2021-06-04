@@ -6,25 +6,25 @@
                     <p class="text-center pa-0 ma-0">Type D'admission</p>
                     <v-radio-group
                         class="pa-0 mt-3 mb-4"
-                        v-model="patientData.admissionType"
+                        v-model="episodeData.admType"
                         row
                     >
                         <v-radio
                             label="Urgence"
-                            value="Urgence"
+                            value="urgent"
                             color="red"
                             class="mr-5"
                         ></v-radio>
                         <v-radio
                             label="Normale"
-                            value="Normale"
+                            value="normal"
                             color="#2ecc71"
                         ></v-radio>
                     </v-radio-group>
                 </div>
                 <v-form ref="form" lazy-validation>
                     <v-text-field
-                        v-model="patientData.Dex"
+                        v-model="episodeData.initDate"
                         filled
                         single-line
                         rounded
@@ -37,8 +37,8 @@
                         clearable
                     />
                     <v-select
-                        v-model="patientData.Ipp"
-                        :items="nature"
+                        v-model="episodeData.presentationNature"
+                        :items="['CS/SP', 'RX']"
                         filled
                         single-line
                         rounded
@@ -69,7 +69,7 @@
             <v-btn
                 elevation="0"
                 color="primary"
-                @click="changeExtStep(3)"
+                @click="nextStep"
                 width="120"
                 height="35"
             >
@@ -87,13 +87,41 @@ import { mapGetters } from "vuex";
 export default {
     name: "ExternStep2",
     data: () => ({
-        nature: ["CS/SP", "RX"],
+        loading: false,
     }),
     computed: {
-        ...mapGetters(["patientData"]),
+        ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions(["changeExtStep"]),
+        ...mapActions(["changeExtStep", "saveEpisode"]),
+        async nextStep() {
+            this.loading = true;
+            try {
+                this.episodeData.type = "external";
+                let res = await this.saveEpisode([
+                    this.episodeData,
+                    this.getIpp,
+                ]);
+                if (res.status === 200) {
+                    this.$notify({
+                        group: "br",
+                        type: "success",
+                        title: "Enregistrement",
+                        text: "Episode registred",
+                    });
+                    await this.changeExtStep(3);
+                }
+            } catch ({ response: err }) {
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Submit error",
+                    text: err.data.message,
+                });
+            } finally {
+                this.loading = false;
+            }
+        },
     },
 };
 </script>

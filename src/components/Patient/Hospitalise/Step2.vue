@@ -25,9 +25,10 @@
                 <v-form ref="form" lazy-validation>
                     <v-text-field
                         v-model="episodeData.initDate"
-                        :rules="dRules"
                         placeholder="Date"
                         label="Date"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
                         required
                         outlined
                         single-line
@@ -39,6 +40,8 @@
                         :rules="daRules"
                         placeholder="Date D'admission"
                         label="Date D'admission"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
                         required
                         outlined
                         single-line
@@ -72,6 +75,8 @@
                         clearable
                     />
                     <v-select
+                        single-line
+                        clearable
                         :items="['P,P', 'RAMED', 'MAFAR']"
                         placeholder="Type AD"
                         label="Type AD"
