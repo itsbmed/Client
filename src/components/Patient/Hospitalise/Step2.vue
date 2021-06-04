@@ -6,31 +6,28 @@
                     <p class="text-center pa-0 ma-0">Type D'admission</p>
                     <v-radio-group
                         class="pa-0 mt-3 mb-4"
-                        v-model="patientData.admissionType"
+                        v-model="episodeData.admType"
                         row
                     >
                         <v-radio
                             label="Urgence"
-                            value="Urgence"
+                            value="urgent"
                             color="red"
                             class="mr-5"
                         ></v-radio>
                         <v-radio
                             label="Normale"
-                            value="Normale"
+                            value="normal"
                             color="#2ecc71"
                         ></v-radio>
                     </v-radio-group>
                 </div>
                 <v-form ref="form" lazy-validation>
                     <v-text-field
-                        v-model="patientData.date"
+                        v-model="episodeData.initDate"
                         :rules="dRules"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
                         placeholder="Date"
                         label="Date"
-                        onchange="this.className=(this.value!=''?'has-value':'')"
                         required
                         outlined
                         single-line
@@ -38,10 +35,8 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.date_ad"
+                        v-model="episodeData.entryDate"
                         :rules="daRules"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
                         placeholder="Date D'admission"
                         label="Date D'admission"
                         required
@@ -51,7 +46,7 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Service"
+                        v-model="episodeData.service"
                         ref="Sr"
                         :counter="10"
                         :rules="srRules"
@@ -64,7 +59,7 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Situation"
+                        v-model="episodeData.situation"
                         ref="st"
                         :counter="10"
                         :rules="sRules"
@@ -76,21 +71,17 @@
                         class="rounded-lg"
                         clearable
                     />
-                    <v-text-field
-                        v-model="patientData.Categorie"
-                        ref="Ct"
-                        :counter="10"
-                        :rules="cRules"
-                        placeholder="Categorie Comptable"
-                        label="Categorie Comptable"
-                        required
+                    <v-select
+                        :items="['P,P', 'RAMED', 'MAFAR']"
+                        placeholder="Type AD"
+                        label="Type AD"
                         outlined
-                        single-line
                         class="rounded-lg"
-                        clearable
+                        v-model="episodeData.category"
                     />
+
                     <v-text-field
-                        v-model="patientData.Tnom"
+                        v-model="episodeData.tName"
                         ref="Tn"
                         placeholder="Nom De Titulaire"
                         label="Nom De Titulaire"
@@ -100,7 +91,7 @@
                         class="rounded-lg"
                     />
                     <v-text-field
-                        v-model="patientData.Tercure"
+                        v-model="episodeData.tnErcure"
                         ref="Te"
                         placeholder="N*Ercure De Titulaire"
                         label="N*Ercure De Titulaire"
@@ -130,6 +121,9 @@
                 color="primary"
                 width="200"
                 height="45"
+                @click="save"
+                :loading="loading"
+                :disabled="loading"
             >
                 Enregistrer
                 <v-icon right small> mdi-content-save</v-icon>
@@ -145,6 +139,7 @@ import { mapGetters } from "vuex";
 export default {
     name: "HospitaliteStep2",
     data: () => ({
+        loading: false,
         dRules: [(v) => !!v || "La date est requis"],
         daRules: [(v) => !!v || "La date d'admission est requis"],
         sRules: [(v) => !!v || "Le service d'hospilisation est requis"],
@@ -152,12 +147,46 @@ export default {
         cRules: [(v) => !!v || "la categorie comptable est requis"],
     }),
     computed: {
-        ...mapGetters(["patientData"]),
+        ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions(["changeHospStep"]),
+        ...mapActions([
+            "changeHospStep",
+            "saveEpisode",
+            "clearEpisodeData",
+            "clearPetientData",
+        ]),
+        async save() {
+            this.loading = true;
+            try {
+                this.episodeData.type = "hospitalized";
+                let res = await this.saveEpisode([
+                    this.episodeData,
+                    this.getIpp,
+                ]);
+
+                if (res.status === 200) {
+                    this.$notify({
+                        group: "br",
+                        type: "success",
+                        title: "Enregistrement",
+                        text: "Episode registred",
+                    });
+                    await this.clearEpisodeData();
+                    await this.clearPetientData();
+                    await this.$router.push({ name: "Dashboard" });
+                }
+            } catch ({ response: err }) {
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Enregistrement error",
+                    text: err.data.message,
+                });
+            } finally {
+                this.loading = false;
+            }
+        },
     },
 };
 </script>
-
-<style></style>

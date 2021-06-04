@@ -167,9 +167,12 @@ export default {
                     let res = await this.addPatient(this.patientData);
                     this.changeStep();
                 } catch ({ response: err }) {
-                    console.error(err);
-                } finally {
-                    this.changeStep();
+                    this.$notify({
+                        group: "br",
+                        type: "error",
+                        title: "Submit error",
+                        text: err.data.message,
+                    });
                 }
 
                 this.loading = false;

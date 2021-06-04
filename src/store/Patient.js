@@ -2,9 +2,9 @@ import axios from "@/plugins/axios";
 export default {
     state: {
         patientData: {},
+        ipp: "",
         hospStep: 1,
         extStep: 1,
-        caseType: null,
     },
     mutations: {
         CHANGE_HOSP_STEP: (state, step) => {
@@ -17,14 +17,17 @@ export default {
             state.patientData = payload;
         },
         CLEAR_PATIENT_DATA: (state) => {
-            let ipp = state.patientData.ipp;
-            state.patientData = { ipp };
+            state.ipp = state.patientData.ipp;
+            state.patientData = {};
+            state.hospStep = 1;
+            state.extStep = 1;
         },
     },
     getters: {
         hospStep: (state) => state.hospStep,
         extStep: (state) => state.extStep,
         patientData: (state) => state.patientData,
+        getIpp: (state) => state.ipp || state.patientData.ipp,
     },
     actions: {
         changeHospStep(context, step) {
