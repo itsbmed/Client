@@ -43,7 +43,7 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Medicam"
+                        v-model="patientData.Medicame"
                         filled
                         single-line
                         rounded
@@ -110,7 +110,7 @@
                 <span>
                     Totale Facture :
                     <span style="color: #2ecc71">
-                        {{ patientData.Totale + " DH" }}
+                        {{ total + " DH" }}
                     </span>
                 </span>
             </v-card>
@@ -168,17 +168,16 @@ export default {
     }),
     computed: {
         ...mapGetters(["patientData"]),
+        total() {
+            return (
+                (parseInt(this.patientData.Actes) || 0) +
+                (parseInt(this.patientData.Medicame) || 0) +
+                (parseInt(this.patientData.Prothes) || 0)
+            );
+        },
     },
     methods: {
         ...mapActions(["changeExtStep"]),
-        Totale: function () {
-            console.log(this.patientData.Totale);
-            this.patientData.Totale =
-                this.patientData.Actes +
-                this.patientData.Medicame +
-                this.Prothes;
-            return this.patientData.Totale;
-        },
     },
 };
 </script>
