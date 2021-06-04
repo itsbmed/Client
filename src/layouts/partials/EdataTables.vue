@@ -8,23 +8,23 @@
             <template v-slot:default>
                 <thead style="background: #2ecc71; color: white">
                     <tr>
-                        <th scope="col">{{ Head.Type }}</th>
-                        <th scope="col">{{ Head.info }}</th>
-                        <th scope="col">{{ Head.Ipp }}</th>
-                        <th scope="col">{{ Head.Date }}</th>
-                        <th scope="col">{{ Head.Date_AD }}</th>
-                        <th scope="col">{{ Head.Date_Srt }}</th>
-                        <th scope="col">{{ Head.Service }}</th>
-                        <th scope="col">{{ Head.Categorie }}</th>
-                        <th scope="col">{{ Head.Type_Ad }}</th>
-                        <th scope="col">{{ Head.Tn_Ercure }}</th>
-                        <th scope="col">{{ Head.Tn_Nom }}</th>
+                        <th scope="col">{{ H_Head.Type }}</th>
+                        <th scope="col">{{ H_Head.info }}</th>
+                        <th scope="col">{{ H_Head.Ipp }}</th>
+                        <th scope="col">{{ H_Head.Date }}</th>
+                        <th scope="col">{{ H_Head.Date_AD }}</th>
+                        <th scope="col">{{ H_Head.Date_Srt }}</th>
+                        <th scope="col">{{ H_Head.Service }}</th>
+                        <th scope="col">{{ H_Head.Categorie }}</th>
+                        <th scope="col">{{ H_Head.Type_Ad }}</th>
+                        <th scope="col">{{ H_Head.Tn_Ercure }}</th>
+                        <th scope="col">{{ H_Head.Tn_Nom }}</th>
                         <th scope="col">Facturation</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="data in allData" :key="data.name">
+                    <tr v-for="data in H_allData" :key="data.name">
                         <th scope="row">{{ data.Type }}</th>
                         <td>{{ data.info }}</td>
                         <td>{{ data.Ipp }}</td>
@@ -52,26 +52,22 @@
             <template v-slot:default>
                 <thead>
                     <tr>
-                        <th scope="col">{{ Head.Type }}</th>
-                        <th scope="col">{{ Head.Type }}</th>
-                        <th scope="col">{{ Head.info }}</th>
-                        <th scope="col">{{ Head.Ipp }}</th>
-                        <th scope="col">{{ Head.Date }}</th>
-                        <th scope="col" v-if="Head.Nature">
-                            {{ Head.Nature }}
-                        </th>
-                        <th scope="col" v-if="Head.Type_Ad">
-                            {{ Head.Type_Ad }}
-                        </th>
+                        <th scope="col">{{ Ex_Head.Type }}</th>
+                        <th scope="col">{{ Ex_Head.info }}</th>
+                        <th scope="col">{{ Ex_Head.Ipp }}</th>
+                        <th scope="col">{{ Ex_Head.Date }}</th>
+                        <th scope="col">{{ Ex_Head.Nature }}</th>
+                        <th scope="col">{{ Ex_Head.Type_Ad }}</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="data in allData" :key="data.name">
+                    <tr v-for="data in Ex_allData" :key="data.name">
                         <th scope="row">{{ data.Type }}</th>
                         <td>{{ data.info }}</td>
                         <td>{{ data.Ipp }}</td>
-                        <td>{{ data.date }}</td>
+                        <td>{{ data.Date }}</td>
+                        <td>{{ data.Nature }}</td>
                         <td>{{ data.Type_Ad }}</td>
                     </tr>
                 </tbody>
@@ -83,9 +79,8 @@
 export default {
     name: "DataTables",
     data: () => ({
-        Head: {
+        H_Head: {
             Type: "Type",
-            Nature: "",
             info: "Nom et prenom",
             Ipp: "Ipp",
             Date: "Date",
@@ -97,7 +92,15 @@ export default {
             Tn_Ercure: "Tn_Ercure",
             Tn_Nom: "Tn_Nom",
         },
-        allData: [
+        Ex_Head: {
+            Type: "Type",
+            info: "Nom et prenom",
+            Ipp: "Ipp",
+            Date: "Date",
+            Type_Ad: "Type_Ad",
+            Nature: "Nature De Presentation",
+        },
+        H_allData: [
             {
                 Type: "jcb",
                 Nature: "Alcoy",
@@ -377,6 +380,92 @@ export default {
                 Type_Ad: true,
                 Tn_Ercure: "Lemur, lesser mouse",
                 Tn_Nom: "Voyatouch",
+            },
+        ],
+        Ex_allData: [
+            {
+                Type: "jcb",
+                Nature: "Alcoy",
+                info: "Carola Guerrier",
+                Ipp: "99910",
+                Date: "11/27/2020",
+                Date_AD: "10/17/2020",
+                Date_Srt: "4/2/2021",
+                Service: "cguerrier0",
+                Categorie: "cguerrier0",
+                Type_Ad: true,
+                Tn_Ercure: "European red squirrel",
+                Tn_Nom: "Opela",
+            },
+            {
+                Type: "bankcard",
+                Nature: "Jām Sāhib",
+                info: "Gustavus Sefton",
+                Ipp: "76",
+                Date: "7/29/2020",
+                Date_AD: "5/19/2021",
+                Date_Srt: "9/27/2020",
+                Service: "gsefton1",
+                Categorie: "gsefton1",
+                Type_Ad: false,
+                Tn_Ercure: "Grey heron",
+                Tn_Nom: "Bamity",
+            },
+            {
+                Type: "instapayment",
+                Nature: "Minuyan",
+                info: "Meggi Nehlsen",
+                Ipp: "250",
+                Date: "12/28/2020",
+                Date_AD: "4/26/2021",
+                Date_Srt: "12/7/2020",
+                Service: "mnehlsen2",
+                Categorie: "mnehlsen2",
+                Type_Ad: false,
+                Tn_Ercure: "Shrew, mandras tree",
+                Tn_Nom: "Flexidy",
+            },
+            {
+                Type: "switch",
+                Nature: "Pateh Sam",
+                info: "Rivi Tivnan",
+                Ipp: "1913",
+                Date: "9/17/2020",
+                Date_AD: "8/9/2020",
+                Date_Srt: "4/6/2021",
+                Service: "rtivnan3",
+                Categorie: "rtivnan3",
+                Type_Ad: true,
+                Tn_Ercure: "African clawless otter",
+                Tn_Nom: "Domainer",
+            },
+            {
+                Type: "diners-club-carte-blanche",
+                Nature: "Xingpinglu",
+                info: "Lars Cadden",
+                Ipp: "49",
+                Date: "3/20/2021",
+                Date_AD: "11/21/2020",
+                Date_Srt: "11/16/2020",
+                Service: "lcadden4",
+                Categorie: "lcadden4",
+                Type_Ad: false,
+                Tn_Ercure: "Avocet, pied",
+                Tn_Nom: "Quo Lux",
+            },
+            {
+                Type: "diners-club-us-ca",
+                Nature: "Rače",
+                info: "Auberon Lukehurst",
+                Ipp: "82",
+                Date: "5/21/2021",
+                Date_AD: "12/19/2020",
+                Date_Srt: "12/20/2020",
+                Service: "alukehurst5",
+                Categorie: "alukehurst5",
+                Type_Ad: false,
+                Tn_Ercure: "Wapiti, elk,",
+                Tn_Nom: "Matsoft",
             },
         ],
     }),

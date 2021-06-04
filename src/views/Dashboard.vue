@@ -76,7 +76,11 @@
             </v-container>
         </v-form>
         <EdataTables :selected="selected" v-if="showETable() == true" />
-        <FdataTables :selected="selected" v-else-if="showFTable() == true" />
+        <FdataTables
+            :selected="selected"
+            :check="fstyle"
+            v-else-if="showFTable() == true"
+        />
     </v-container>
 </template>
 
@@ -103,22 +107,30 @@ export default {
             if (arg == this.Episode) {
                 this.estyle = true;
                 this.fstyle = false;
+                this.searchbox = "";
             } else if (arg == this.Facture) {
                 this.fstyle = true;
                 this.estyle = false;
-                console.log(this.selected[0]);
-                console.log(this.searchbox);
+                this.searchbox = "";
             }
         },
         showETable() {
-            if (this.selected.length > 0 && this.searchbox.length >= 6) {
+            if (
+                this.selected.length > 0 &&
+                this.searchbox.length >= 6 &&
+                this.estyle == true
+            ) {
                 return true;
             } else {
                 return false;
             }
         },
         showFTable() {
-            if (this.selected.length > 0 && this.searchbox.length >= 6)
+            if (
+                this.selected.length > 0 &&
+                this.searchbox.length >= 5 &&
+                this.fstyle == true
+            )
                 return true;
             return false;
         },
