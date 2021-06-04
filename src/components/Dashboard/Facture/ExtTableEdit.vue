@@ -10,28 +10,6 @@
                 <v-row no-gutters>
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="Nom et Prenom"
-                            label="Nom et Prenom"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Info"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Ipp"
-                            label="Ipp"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Ipp"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <v-col class="me-4">
-                        <v-text-field
                             placeholder="N*Facture"
                             label="N*Facture"
                             clearable
