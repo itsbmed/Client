@@ -2,7 +2,6 @@ import axios from "@/plugins/axios";
 export default {
     state: {
         patientData: {},
-        ipp: "",
         hospStep: 1,
         extStep: 1,
     },
@@ -18,7 +17,6 @@ export default {
             state.patientData.ipp = state.patientData.ipp.toString();
         },
         CLEAR_PATIENT_DATA: (state) => {
-            state.ipp = state.patientData.ipp;
             state.patientData = {};
             state.hospStep = 1;
             state.extStep = 1;

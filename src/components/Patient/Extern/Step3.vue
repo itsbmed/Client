@@ -190,12 +190,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions([
-            "changeExtStep",
-            "clearBillData",
-            "saveBill",
-            "clearPatientData",
-        ]),
+        ...mapActions(["changeExtStep", "clearBillData", "saveBill"]),
         async save() {
             this.loading = true;
             try {
@@ -215,7 +210,6 @@ export default {
                     text: "Facture a été enregistré",
                 });
                 await this.clearBillData();
-                await this.clearPatientData();
                 await this.$router.push({ name: "Dashboard" });
             } catch (err) {
                 console.log(err);

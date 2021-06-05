@@ -195,9 +195,12 @@ export default {
             } catch ({ response: err }) {
                 switch (err?.status) {
                     case 404:
-                        if (this.alreadyRegistered === true)
+                        if (this.alreadyRegistered === true) {
+                            let ipp = this.patientData.ipp;
                             this.clearPetientData();
-                        this.alreadyRegistered = false;
+                            this.patientData.ipp = ipp;
+                            this.alreadyRegistered = false;
+                        }
                         break;
                 }
             }

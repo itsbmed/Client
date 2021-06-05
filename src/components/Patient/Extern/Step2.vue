@@ -93,9 +93,16 @@ export default {
         ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions(["changeExtStep", "saveEpisode", "clearEpisodeData"]),
+        ...mapActions([
+            "changeExtStep",
+            "saveEpisode",
+            "clearEpisodeData",
+            "clearPatientData",
+        ]),
         async nextStep() {
             this.loading = true;
+            console.log(this.getIpp);
+
             try {
                 this.episodeData.type = "external";
                 let res = await this.saveEpisode([
@@ -109,6 +116,7 @@ export default {
                     text: "Episode registred",
                 });
                 await this.clearEpisodeData();
+                await this.clearPatientData();
                 await this.changeExtStep(3);
             } catch (err) {
                 console.log(err);
