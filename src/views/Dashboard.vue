@@ -18,28 +18,44 @@
             </v-tabs>
         </div>
         <v-container class="search-container mt-8">
-            <v-text-field
-                rounded
-                single-line
-                v-model="searchbox"
-                hide-details
-                placeholder="Ipp"
-                label="Ipp"
-                v-if="estyle"
-                outlined
-                class="search-input"
-            ></v-text-field>
-            <v-text-field
-                rounded
-                single-line
-                v-model="searchbox"
-                v-if="fstyle"
-                hide-details
-                placeholder="Numero De Facture"
-                label="Numero De Facture"
-                outlined
-                class="search-input"
-            ></v-text-field>
+            <v-form @submit.prevent="search">
+                <v-text-field
+                    rounded
+                    single-line
+                    v-model="searchbox"
+                    hide-details
+                    placeholder="Ipp"
+                    label="Ipp"
+                    v-if="estyle"
+                    outlined
+                    class="search-input"
+                ></v-text-field>
+                <v-text-field
+                    rounded
+                    single-line
+                    v-model="searchbox"
+                    v-if="fstyle"
+                    hide-details
+                    placeholder="Numero De Facture"
+                    label="Numero De Facture"
+                    outlined
+                    class="search-input"
+                ></v-text-field>
+                <div class="search-btn">
+                    <v-btn
+                        depresses
+                        outlined
+                        type="submit"
+                        color="blue"
+                        class="text-none"
+                        rounded
+                        height="40px"
+                        :disabled="searchbox.length < 6"
+                    >
+                        Rechercher
+                    </v-btn>
+                </div>
+            </v-form>
             <div class="search-menu">
                 <v-menu
                     offset-y
@@ -134,6 +150,9 @@ export default {
                 return true;
             return false;
         },
+        search() {
+            console.log("searching.....");
+        },
     },
 };
 </script>
@@ -153,16 +172,22 @@ export default {
     margin: 0 auto;
     height: 60px;
 }
-.search-menu {
-    position: absolute !important;
-    top: 18%;
-    right: 20px;
-}
+
 .search-input {
     width: 100% !important;
     position: absolute !important;
     top: 0;
     left: 0;
     padding: 0 10px !important;
+}
+.search-btn {
+    position: absolute !important;
+    top: 15%;
+    right: 20px;
+}
+.search-menu {
+    position: absolute !important;
+    top: 18%;
+    right: 150px;
 }
 </style>
