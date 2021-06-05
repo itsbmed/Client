@@ -138,7 +138,7 @@ export default {
     }),
 
     computed: {
-        ...mapGetters(["patientData"]),
+        ...mapGetters(["patientData", "getIpp"]),
     },
     methods: {
         ...mapActions([
@@ -166,6 +166,7 @@ export default {
                 try {
                     let res = await this.addPatient(this.patientData);
                     this.changeStep();
+                    this.alreadyRegistered = true;
                 } catch ({ response: err }) {
                     this.$notify({
                         group: "br",
@@ -173,10 +174,9 @@ export default {
                         title: "Submit error",
                         text: err.data.message,
                     });
+                } finally {
+                    this.loading = false;
                 }
-
-                this.loading = false;
-                return;
             }
 
             this.changeStep();
@@ -191,14 +191,15 @@ export default {
                     case 404:
                         if (this.alreadyRegistered === true)
                             this.clearPetientData();
+                        this.patientData.ipp = this.getIpp;
                         this.alreadyRegistered = false;
-
                         break;
                 }
             }
         },
     },
+    beforeDestroy() {
+        this.clearPetientData();
+    },
 };
 </script>
-
-<style></style>

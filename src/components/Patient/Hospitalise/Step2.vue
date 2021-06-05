@@ -155,12 +155,7 @@ export default {
         ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions([
-            "changeHospStep",
-            "saveEpisode",
-            "clearEpisodeData",
-            "clearPetientData",
-        ]),
+        ...mapActions(["changeHospStep", "saveEpisode", "clearEpisodeData"]),
         async save() {
             this.loading = true;
             try {
@@ -175,18 +170,18 @@ export default {
                         group: "br",
                         type: "success",
                         title: "Enregistrement",
-                        text: "Episode registred",
+                        text: "Episode a été enregistré",
                     });
                     await this.clearEpisodeData();
-                    await this.clearPetientData();
                     await this.$router.push({ name: "Dashboard" });
                 }
-            } catch ({ response: err }) {
+            } catch (err) {
+                console.log(err);
                 this.$notify({
                     group: "br",
                     type: "error",
                     title: "Enregistrement error",
-                    text: err.data.message,
+                    text: err.response.data.message,
                 });
             } finally {
                 this.loading = false;

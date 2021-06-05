@@ -1,8 +1,6 @@
 <template>
     <v-container>
-        <Hospitalise v-if="caseType == 'hosp'" />
-        <Extern v-else-if="caseType == 'ext'" />
-        <div v-else class="mt-5 py-10 align-center d-flex flex-column">
+        <div class="mt-5 py-10 align-center d-flex flex-column">
             <h1 class="title mb-2 text-center">
                 Veuillez sélectionner le type de cas
             </h1>
@@ -36,9 +34,5 @@
 <script>
 export default {
     name: "Patient",
-    components: {
-        Hospitalise: () => import("@/components/Patient/Hospitalise/index"),
-        Extern: () => import("@/components/Patient/Extern/index"),
-    },
 };
 </script>

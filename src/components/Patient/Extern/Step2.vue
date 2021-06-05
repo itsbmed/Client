@@ -93,7 +93,7 @@ export default {
         ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions(["changeExtStep", "saveEpisode"]),
+        ...mapActions(["changeExtStep", "saveEpisode", "clearEpisodeData"]),
         async nextStep() {
             this.loading = true;
             try {
@@ -102,21 +102,21 @@ export default {
                     this.episodeData,
                     this.getIpp,
                 ]);
-                if (res.status === 200) {
-                    this.$notify({
-                        group: "br",
-                        type: "success",
-                        title: "Enregistrement",
-                        text: "Episode registred",
-                    });
-                    await this.changeExtStep(3);
-                }
-            } catch ({ response: err }) {
+                this.$notify({
+                    group: "br",
+                    type: "success",
+                    title: "Enregistrement",
+                    text: "Episode registred",
+                });
+                await this.clearEpisodeData();
+                await this.changeExtStep(3);
+            } catch (err) {
+                console.log(err);
                 this.$notify({
                     group: "br",
                     type: "error",
                     title: "Submit error",
-                    text: err.data.message,
+                    text: err.response.data.message,
                 });
             } finally {
                 this.loading = false;

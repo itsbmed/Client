@@ -6,7 +6,7 @@
                     <v-text-field
                         v-if="context == 'hospFact'"
                         single-line
-                        v-model="patientData.DateSrt"
+                        v-model="billData.exitDate"
                         rounded
                         outlined
                         class="rounded-lg"
@@ -17,7 +17,7 @@
                         filled
                     />
                     <v-text-field
-                        v-model="patientData.NumFacture"
+                        v-model="billData.nBill"
                         filled
                         :rules="nfRules"
                         single-line
@@ -30,7 +30,7 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Actes"
+                        v-model="billData.actes"
                         filled
                         :rules="aRules"
                         single-line
@@ -43,7 +43,7 @@
                         clearable
                     />
                     <v-text-field
-                        v-model="patientData.Medicame"
+                        v-model="billData.medicament"
                         filled
                         single-line
                         rounded
@@ -56,7 +56,7 @@
                     />
 
                     <v-text-field
-                        v-model="patientData.Prothes"
+                        v-model="billData.prosthesis"
                         filled
                         single-line
                         rounded
@@ -67,22 +67,10 @@
                         required
                         clearable
                     />
+
                     <v-text-field
                         v-if="context == 'hospFact'"
-                        v-model="patientData.Nature"
-                        filled
-                        single-line
-                        rounded
-                        :rules="caRules"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Nature"
-                        label="Nature"
-                        clearable
-                    />
-                    <v-text-field
-                        v-else
-                        v-model="patientData.Categorie"
+                        v-model="billData.category"
                         filled
                         single-line
                         rounded
@@ -93,9 +81,22 @@
                         label="Categorie"
                         clearable
                     />
+                    <v-text-field
+                        v-else
+                        v-model="billData.nature"
+                        filled
+                        single-line
+                        rounded
+                        :rules="caRules"
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Nature"
+                        label="Nature"
+                        clearable
+                    />
 
                     <v-text-field
-                        v-model="patientData.NQuitance"
+                        v-model="billData.nReceipt"
                         filled
                         single-line
                         rounded
@@ -135,6 +136,9 @@
                 width="200"
                 height="45"
                 :class="{ 'mx-auto mt-3': context }"
+                :loading="loading"
+                :disabled="loading"
+                @click="save"
             >
                 Enregistrer
                 <v-icon right small> mdi-content-save</v-icon>
@@ -151,6 +155,7 @@ export default {
     name: "ExternStep3",
     props: { context: { type: String, required: false, default: null } },
     data: () => ({
+        loading: false,
         nfRules: [
             (v) => !!v || "N*Facture est requis",
             (v) => v > 0 || "La valeur doit être supérieure à zéro",
@@ -167,17 +172,47 @@ export default {
         ],
     }),
     computed: {
-        ...mapGetters(["patientData"]),
+        ...mapGetters(["billData", "getIpp", "episodeId"]),
         total() {
             return (
-                (parseInt(this.patientData.Actes) || 0) +
-                (parseInt(this.patientData.Medicame) || 0) +
-                (parseInt(this.patientData.Prothes) || 0)
+                (parseInt(this.billData.actes) || 0) +
+                (parseInt(this.billData.medicament) || 0) +
+                (parseInt(this.billData.prosthesis) || 0)
             );
         },
     },
     methods: {
-        ...mapActions(["changeExtStep"]),
+        ...mapActions(["changeExtStep", "clearBillData", "saveBill"]),
+        async save() {
+            this.loading = true;
+            try {
+                this.billData.type = "hospitalized";
+                this.billData.total = this.total;
+
+                let res = await this.saveBill([this.billData, this.episodeId]);
+
+                if (res.status === 200) {
+                    this.$notify({
+                        group: "br",
+                        type: "success",
+                        title: "Enregistrement",
+                        text: "Facture a été enregistré",
+                    });
+                    await this.clearBillData();
+                    await this.$router.push({ name: "Dashboard" });
+                }
+            } catch (err) {
+                console.log(err);
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Enregistrement error",
+                    text: err.response.data.message,
+                });
+            } finally {
+                this.loading = false;
+            }
+        },
     },
 };
 </script>
