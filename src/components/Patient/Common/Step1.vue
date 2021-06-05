@@ -15,6 +15,7 @@
                         placeholder="Ipp"
                         label="Ipp"
                         @keyup="checkIpp"
+                        @focus="checkIpp"
                         required
                         clearable
                     />
@@ -52,7 +53,6 @@
                         :disabled="alreadyRegistered"
                         v-model="patientData.nCode"
                         filled
-                        :rules="ncodeRules"
                         single-line
                         rounded
                         outlined
@@ -123,10 +123,6 @@ export default {
             (v) => !!v || "Ipp est requis",
             (v) => (v && v.length >= 6) || "Ipp doit plus de 6 caractères",
             (v) => (v && v.length <= 10) || "Ipp doit moin de 10 caractères",
-        ],
-        ncodeRules: [
-            (v) =>
-                v.length >= 15 || "nCode doit comporter moins de 15 caractères",
         ],
         nRules: [
             (v) => !!v || "Le nom est requis",
