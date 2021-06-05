@@ -52,6 +52,7 @@
                     <v-text-field
                         :disabled="alreadyRegistered"
                         v-model="patientData.nCode"
+                        :rules="ncodeRules"
                         filled
                         single-line
                         rounded
@@ -130,6 +131,12 @@ export default {
                 (v && v.length <= 10) ||
                 "Le nom doit comporter moins de 10 caractères",
         ],
+        ncodeRules: [
+            (v) =>
+                !v ||
+                (v && v.length >= 15) ||
+                "ncode doit comporter moins de 15 caractères",
+        ],
         pRules: [
             (v) => !!v || "Le prenom est requis",
             (v) =>
@@ -160,6 +167,9 @@ export default {
             if (!this.alreadyRegistered) {
                 this.loading = true;
                 try {
+                    if (!this.patientData.nCode) delete this.patientData.nCode;
+                    if (!this.patientData.nDate) delete this.patientData.nDate;
+
                     let res = await this.addPatient(this.patientData);
                     this.alreadyRegistered = true;
                     this.changeStep();
