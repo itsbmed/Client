@@ -48,11 +48,20 @@
                         class="rounded-lg"
                         clearable
                     />
-                    <v-text-field
+                    <v-select
                         v-model="episodeData.service"
                         ref="Sr"
-                        :counter="10"
                         :rules="srRules"
+                        :items="[
+                            'P1',
+                            'P2',
+                            'P3',
+                            'P4',
+                            'CH-A',
+                            'CH-B',
+                            'CH-C',
+                            'CH-D',
+                        ]"
                         placeholder="Service D'hospilisation"
                         label="Service D'hospilisation"
                         required
@@ -61,11 +70,11 @@
                         class="rounded-lg"
                         clearable
                     />
-                    <v-text-field
+                    <v-select
                         v-model="episodeData.situation"
                         ref="st"
-                        :counter="10"
                         :rules="sRules"
+                        :items="['SDF', 'Ets Social ou Penitentiaire']"
                         placeholder="Situation"
                         label="Situation"
                         required
@@ -78,8 +87,8 @@
                         single-line
                         clearable
                         :items="['P,P', 'RAMED', 'MAFAR']"
-                        placeholder="Type AD"
-                        label="Type AD"
+                        placeholder="Categorie Comptables"
+                        label="Categorie Comptables"
                         outlined
                         class="rounded-lg"
                         v-model="episodeData.category"
@@ -98,6 +107,7 @@
                     <v-text-field
                         v-model="episodeData.tnErcure"
                         ref="Te"
+                        type="number"
                         placeholder="N*Ercure De Titulaire"
                         label="N*Ercure De Titulaire"
                         clearable

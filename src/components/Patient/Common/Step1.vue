@@ -157,7 +157,7 @@ export default {
         },
         checkDate() {
             if (this.patientData.nDate.length == 2) {
-                this.patientData.nDate += " / ";
+                this.patientData.nDate += "/";
             }
         },
         async nextStep() {

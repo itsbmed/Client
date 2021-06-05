@@ -8,6 +8,7 @@
                         single-line
                         v-model="billData.exitDate"
                         rounded
+                        type="number"
                         outlined
                         class="rounded-lg"
                         placeholder="Date srt"
@@ -21,6 +22,7 @@
                         filled
                         :rules="nfRules"
                         single-line
+                        type="number"
                         rounded
                         outlined
                         class="rounded-lg"
@@ -34,6 +36,7 @@
                         filled
                         :rules="aRules"
                         single-line
+                        type="number"
                         rounded
                         outlined
                         class="rounded-lg"
@@ -47,6 +50,7 @@
                         filled
                         single-line
                         rounded
+                        type="number"
                         outlined
                         class="rounded-lg"
                         placeholder="Medicam"
@@ -60,6 +64,7 @@
                         filled
                         single-line
                         rounded
+                        type="number"
                         outlined
                         class="rounded-lg"
                         placeholder="Prothes"
@@ -68,10 +73,11 @@
                         clearable
                     />
 
-                    <v-text-field
-                        v-if="context == 'hospFact'"
+                    <v-select
+                        v-if="context != 'hospFact'"
                         v-model="billData.category"
                         filled
+                        :items="['PAYANT', 'RAMED']"
                         single-line
                         rounded
                         :rules="caRules"
@@ -85,6 +91,7 @@
                         v-else
                         v-model="billData.nature"
                         filled
+                        :items="['HOSPIT MEDICAL', 'HOSPIT CHIRUGICAL']"
                         single-line
                         rounded
                         :rules="caRules"
@@ -99,6 +106,7 @@
                         v-model="billData.nReceipt"
                         filled
                         single-line
+                        type="number"
                         rounded
                         :rules="ncRules"
                         outlined
