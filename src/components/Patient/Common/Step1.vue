@@ -2,7 +2,7 @@
     <span>
         <div class="pb-2">
             <v-card flat class="mx-auto px-4 py-4" max-width="700px">
-                <v-form ref="form" lazy-validation>
+                <v-form ref="patient" lazy-validation>
                     <v-text-field
                         v-model="patientData.ipp"
                         filled
@@ -52,6 +52,7 @@
                         :disabled="alreadyRegistered"
                         v-model="patientData.nCode"
                         filled
+                        :rules="ncodeRules"
                         single-line
                         rounded
                         outlined
@@ -68,7 +69,6 @@
                         rounded
                         outlined
                         class="rounded-lg"
-                        @keypress="checkDate"
                         placeholder="Date D'expirations | MM / YY"
                         label="Date D'expirations | MM / YY"
                         clearable
@@ -122,6 +122,11 @@ export default {
         iRules: [
             (v) => !!v || "Ipp est requis",
             (v) => (v && v.length >= 6) || "Ipp doit plus de 6 caractères",
+            (v) => (v && v.length <= 10) || "Ipp doit moin de 10 caractères",
+        ],
+        ncodeRules: [
+            (v) =>
+                v.length >= 15 || "nCode doit comporter moins de 15 caractères",
         ],
         nRules: [
             (v) => !!v || "Le nom est requis",
@@ -155,18 +160,13 @@ export default {
             if (this.$route.path === "/patient/extern")
                 return this.changeExtStep(2);
         },
-        checkDate() {
-            if (this.patientData.nDate.length == 2) {
-                this.patientData.nDate += "/";
-            }
-        },
         async nextStep() {
             if (!this.alreadyRegistered) {
                 this.loading = true;
                 try {
                     let res = await this.addPatient(this.patientData);
-                    this.changeStep();
                     this.alreadyRegistered = true;
+                    this.changeStep();
                 } catch ({ response: err }) {
                     this.$notify({
                         group: "br",
@@ -177,9 +177,9 @@ export default {
                 } finally {
                     this.loading = false;
                 }
+            } else {
+                this.changeStep();
             }
-
-            this.changeStep();
         },
 
         async checkIpp() {
@@ -191,7 +191,6 @@ export default {
                     case 404:
                         if (this.alreadyRegistered === true)
                             this.clearPetientData();
-                        this.patientData.ipp = this.getIpp;
                         this.alreadyRegistered = false;
                         break;
                 }

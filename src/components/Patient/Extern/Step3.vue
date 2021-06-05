@@ -74,21 +74,7 @@
                     />
 
                     <v-select
-                        v-if="context != 'hospFact'"
-                        v-model="billData.category"
-                        filled
-                        :items="['PAYANT', 'RAMED']"
-                        single-line
-                        rounded
-                        :rules="caRules"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Categorie"
-                        label="Categorie"
-                        clearable
-                    />
-                    <v-text-field
-                        v-else
+                        v-if="context == 'hospFact'"
                         v-model="billData.nature"
                         filled
                         :items="['HOSPIT MEDICAL', 'HOSPIT CHIRUGICAL']"
@@ -99,6 +85,20 @@
                         class="rounded-lg"
                         placeholder="Nature"
                         label="Nature"
+                        clearable
+                    />
+                    <v-select
+                        v-else
+                        v-model="billData.category"
+                        filled
+                        :items="['PAYANT', 'RAMED']"
+                        single-line
+                        rounded
+                        :rules="caRules"
+                        outlined
+                        class="rounded-lg"
+                        placeholder="Categorie"
+                        label="Categorie"
                         clearable
                     />
 

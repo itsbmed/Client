@@ -39,9 +39,15 @@
                 </template>
                 <div class="white d-flex flex-column align-start">
                     <v-btn block text class="text-none">
-                        <v-icon left size="20">mdi-account-cog</v-icon>
-                        Panel
+                        <router-link
+                            to="admin-panel"
+                            class="rm-underline d-block black--text"
+                        >
+                            <v-icon left size="20">mdi-account-cog</v-icon>
+                            Panel
+                        </router-link>
                     </v-btn>
+
                     <v-btn block text class="text-none">
                         <v-icon left size="20">mdi-plus</v-icon>
                         New agent
