@@ -190,25 +190,33 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["changeExtStep", "clearBillData", "saveBill"]),
+        ...mapActions([
+            "changeExtStep",
+            "clearBillData",
+            "saveBill",
+            "clearPatientData",
+        ]),
         async save() {
             this.loading = true;
             try {
-                this.billData.type = "hospitalized";
                 this.billData.total = this.total;
+                this.billData.actes = parseInt(this.billData.actes);
+                this.billData.medicament = parseInt(this.billData.medicament);
+                this.billData.prosthesis = parseInt(this.billData.prosthesis);
+
+                console.log(this.billData);
 
                 let res = await this.saveBill([this.billData, this.episodeId]);
 
-                if (res.status === 200) {
-                    this.$notify({
-                        group: "br",
-                        type: "success",
-                        title: "Enregistrement",
-                        text: "Facture a été enregistré",
-                    });
-                    await this.clearBillData();
-                    await this.$router.push({ name: "Dashboard" });
-                }
+                this.$notify({
+                    group: "br",
+                    type: "success",
+                    title: "Enregistrement",
+                    text: "Facture a été enregistré",
+                });
+                await this.clearBillData();
+                await this.clearPatientData();
+                await this.$router.push({ name: "Dashboard" });
             } catch (err) {
                 console.log(err);
                 this.$notify({

@@ -54,7 +54,47 @@ const routes = [
             authRequired: true,
             adminRequired: true,
         },
+        children: [
+            {
+                path: "/",
+                name: "ProfileEdit",
+                component: () =>
+                    import("@/components/AdminPanel/ProfileEdit.vue"),
+                meta: {
+                    authRequired: true,
+                    adminRequired: true,
+                },
+            },
+            {
+                path: "add-agent",
+                name: "AddAgent",
+                component: () => import("@/components/AdminPanel/AddAgent.vue"),
+                meta: {
+                    authRequired: true,
+                    adminRequired: true,
+                },
+            },
+            {
+                path: "agents",
+                name: "Agents",
+                component: () => import("@/components/AdminPanel/Agents.vue"),
+                meta: {
+                    authRequired: true,
+                    adminRequired: true,
+                },
+            },
+            {
+                path: "settings",
+                name: "Settings",
+                component: () => import("@/components/AdminPanel/Settings.vue"),
+                meta: {
+                    authRequired: true,
+                    adminRequired: true,
+                },
+            },
+        ],
     },
+
     //     {
     //     path: "*",
     //     name: "NotFound",

@@ -15,12 +15,11 @@ export default {
         },
         UPDATE_PATIENT_DATA: (state, payload) => {
             state.patientData = payload;
+            state.patientData.ipp = state.patientData.ipp.toString();
         },
         CLEAR_PATIENT_DATA: (state) => {
             state.ipp = state.patientData.ipp;
-
             state.patientData = {};
-            state.patientData.ipp = state.ipp;
             state.hospStep = 1;
             state.extStep = 1;
         },

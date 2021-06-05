@@ -107,14 +107,19 @@ export default {
     methods: {
         async edit() {
             this.loading = true;
-            console.log(this.data);
             try {
-                const res = await this.patch("/", {});
-                this.loading = false;
+                const res = await this.$axios.patch("/", this.localData);
+                this.data = this.localData;
                 this.dialog = false;
             } catch (err) {
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "save error",
+                    text: err.data.message,
+                });
+            } finally {
                 this.loading = false;
-                console.log(err);
             }
         },
     },

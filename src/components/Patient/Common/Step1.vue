@@ -122,8 +122,8 @@ export default {
         loading: false,
         iRules: [
             (v) => !!v || "Ipp est requis",
-            (v) => (v && v.length >= 6) || "Ipp doit plus de 6 caractères",
-            (v) => (v && v.length <= 10) || "Ipp doit moin de 10 caractères",
+            (v) => (!!v && v.length >= 6) || "Ipp doit plus de 6 caractères",
+            (v) => (!!v && v.length <= 10) || "Ipp doit moin de 10 caractères",
         ],
         nRules: [
             (v) => !!v || "Le nom est requis",
@@ -193,7 +193,7 @@ export default {
                 let res = await this.checkExistence(this.patientData.ipp);
                 this.alreadyRegistered = true;
             } catch ({ response: err }) {
-                switch (err.status) {
+                switch (err?.status) {
                     case 404:
                         if (this.alreadyRegistered === true)
                             this.clearPetientData();

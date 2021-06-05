@@ -25,4 +25,7 @@ axios.interceptors.request.use(async function (config) {
         return config;
     }
 });
+
+Vue.prototype.$axios = axios;
+
 export default axios;

@@ -9,7 +9,6 @@
             <router-link to="/patient" class="rm-underline">
                 <v-btn
                     outlined
-                    link
                     class="ms-10 rounded-lg text-none"
                     color="primary"
                 >
@@ -33,7 +32,7 @@
                         <v-avatar color="primary" size="25">
                             <v-icon color="white"> mdi-account-circle </v-icon>
                         </v-avatar>
-                        <span class="ms-1">{{ agent.firstName }}</span>
+                        <span class="ms-1">{{ agent.userName }}</span>
                         <v-icon> mdi-chevron-down </v-icon>
                     </v-btn>
                 </template>
@@ -47,11 +46,15 @@
                             Panel
                         </router-link>
                     </v-btn>
-
-                    <v-btn block text class="text-none">
-                        <v-icon left size="20">mdi-plus</v-icon>
-                        New agent
-                    </v-btn>
+                    <router-link
+                        to="/admin-panel/add-agent"
+                        class="rm-underline"
+                    >
+                        <v-btn block text class="text-none">
+                            <v-icon left size="20">mdi-plus</v-icon>
+                            New agent
+                        </v-btn>
+                    </router-link>
                     <v-divider class="mt-10"></v-divider>
                     <v-btn
                         block

@@ -165,7 +165,12 @@ export default {
         ...mapGetters(["episodeData", "getIpp"]),
     },
     methods: {
-        ...mapActions(["changeHospStep", "saveEpisode", "clearEpisodeData"]),
+        ...mapActions([
+            "changeHospStep",
+            "saveEpisode",
+            "clearEpisodeData",
+            "clearPatientData",
+        ]),
         async save() {
             this.loading = true;
             try {
@@ -174,17 +179,15 @@ export default {
                     this.episodeData,
                     this.getIpp,
                 ]);
-
-                if (res.status === 200) {
-                    this.$notify({
-                        group: "br",
-                        type: "success",
-                        title: "Enregistrement",
-                        text: "Episode a été enregistré",
-                    });
-                    await this.clearEpisodeData();
-                    await this.$router.push({ name: "Dashboard" });
-                }
+                this.$notify({
+                    group: "br",
+                    type: "success",
+                    title: "Enregistrement",
+                    text: "Episode a été enregistré",
+                });
+                await this.clearEpisodeData();
+                await this.clearPatientData();
+                await this.$router.push({ name: "Dashboard" });
             } catch (err) {
                 console.log(err);
                 this.$notify({
