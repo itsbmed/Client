@@ -20,8 +20,8 @@ export default {
             state.extEpisodes.push(...payload);
         },
         CLEAR_EPISODES(state) {
-            state.extEpisodes.length = 0;
-            state.hospEpisodes.length = 0;
+            state.extEpisodes = [];
+            state.hospEpisodes = [];
         },
     },
     getters: {
