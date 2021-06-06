@@ -29,11 +29,11 @@
                     <td>{{ data.Nq }}</td>
                     <td>{{ data.Totale + " DH" }}</td>
                     <td>
-                        <HospTableEdit :data="data">
+                        <ExtTableEdit :data="data">
                             <v-icon color="blue" size="25">
                                 mdi-square-edit-outline
                             </v-icon>
-                        </HospTableEdit>
+                        </ExtTableEdit>
                     </td>
                 </tr>
             </tbody>
