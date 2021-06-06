@@ -66,6 +66,7 @@
                         :disabled="alreadyRegistered"
                         v-model="patientData.nDate"
                         filled
+                        @keypress="checkDate"
                         single-line
                         rounded
                         outlined
@@ -157,6 +158,11 @@ export default {
             "updatePatientData",
             "clearPetientData",
         ]),
+        checkDate() {
+            if (this.patientData.nDate.length == 2) {
+                this.patientData.nDate += "/";
+            }
+        },
         changeStep() {
             if (this.$route.path === "/patient/hospitalise")
                 return this.changeHospStep(2);
