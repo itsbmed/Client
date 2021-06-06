@@ -1,6 +1,6 @@
 <template>
     <div class="admin-panel__home">
-        <v-card flat class="white edit-data">
+        <v-card flat class="white">
             <div class="d-flex mb-8">
                 <router-link
                     to="/admin-panel/add-agent"

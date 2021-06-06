@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="white edit-data">
+    <v-card flat class="white">
         <v-card-text class="pt-5">
             <v-row no-gutters>
                 <v-col class="me-4">
@@ -96,6 +96,7 @@ export default {
         loading: false,
         agentData: {},
         showPassword: false,
+        repeatPassword: "",
     }),
     methods: {
         async addAgent() {

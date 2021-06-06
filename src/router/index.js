@@ -48,7 +48,6 @@ const routes = [
     },
     {
         path: "/admin-panel",
-        name: "AdminPanel",
         component: () => import("@/views/AdminPanel.vue"),
         meta: {
             authRequired: true,
@@ -56,8 +55,8 @@ const routes = [
         },
         children: [
             {
-                path: "/",
-                name: "ProfileEdit",
+                path: "",
+                name: "AdminPanel",
                 component: () =>
                     import("@/components/AdminPanel/ProfileEdit.vue"),
                 meta: {
@@ -95,14 +94,14 @@ const routes = [
         ],
     },
 
-    //     {
-    //     path: "*",
-    //     name: "NotFound",
-    //     component: NotFound,
-    //     meta: {
-    //       global: true,
-    //     },
-    //   },
+    {
+        path: "*",
+        name: "NotFound",
+        component: () => import("@/views/NotFound.vue"),
+        meta: {
+            global: true,
+        },
+    },
 ];
 const router = new VueRouter({
     mode: "history",

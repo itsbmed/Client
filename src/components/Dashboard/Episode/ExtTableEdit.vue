@@ -10,57 +10,72 @@
                 <v-row no-gutters>
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="Nom et Prenom"
-                            label="Nom et Prenom"
+                            placeholder="Prenom"
+                            label="Prenom"
                             clearable
                             outlined
                             class="rounded-lg"
-                            v-model="localData.info"
+                            v-model="localData.patient.firstName"
                         />
                     </v-col>
-                    <v-col>
+                    <v-col class="me-4">
                         <v-text-field
-                            placeholder="Ipp"
-                            label="Ipp"
+                            placeholder="Nom"
+                            label="Nom"
                             clearable
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Ipp"
+                            v-model="localData.patient.lastName"
                         />
                     </v-col>
                 </v-row>
                 <v-row no-gutters>
                     <v-col class="me-4">
                         <v-text-field
+                            placeholder="Ipp"
+                            label="Ipp"
+                            clearable
+                            outlined
+                            class="rounded-lg"
+                            v-model="localData.patient.ipp"
+                        />
+                    </v-col>
+                    <v-col>
+                        <v-text-field
                             placeholder="Date"
                             label="Date"
                             clearable
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Date"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Nature de presentation"
-                            label="Nature de presentation"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Date_AD"
+                            v-model="localData.initDate"
                         />
                     </v-col>
                 </v-row>
 
                 <v-row no-gutters class="mt-2">
-                    <v-col cols="6">
+                    <v-col class="me-4">
+                        <v-select
+                            v-model="localData.presentationNature"
+                            :items="['CS/SP', 'RX']"
+                            filled
+                            single-line
+                            rounded
+                            outlined
+                            class="rounded-lg"
+                            placeholder="Nature De Presentation"
+                            label="Nature De Presentation"
+                            required
+                            clearable
+                        />
+                    </v-col>
+                    <v-col>
                         <v-select
                             :items="['Urgence', 'Normale']"
                             placeholder="Type AD"
                             label="Type AD"
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Type_Ad"
+                            v-model="localData.admType"
                         />
                     </v-col>
                 </v-row>
@@ -68,7 +83,11 @@
             <v-card-actions>
                 <h3 class="ms-2">
                     Editing
-                    <span class="primary--text"> {{ data.info }}'s </span> data
+                    <span class="primary--text">
+                        {{ localData.patient.firstName }}
+                        {{ localData.patient.lastName }}'s
+                    </span>
+                    data
                 </h3>
                 <v-spacer></v-spacer>
                 <a

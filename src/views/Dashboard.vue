@@ -1,9 +1,6 @@
 <template>
     <v-container fluid>
-        <div
-            class="d-flex justify-center mt-10"
-            style="height: 15%; width: 100%"
-        >
+        <div class="d-flex justify-center mt-2">
             <v-tabs
                 hide-slider
                 class="rounded-lg"
@@ -13,8 +10,8 @@
                 center-active
                 dark
             >
-                <v-tab @click="tswitch(Episode)">Episode</v-tab>
-                <v-tab @click="tswitch(Facture)">Facture</v-tab>
+                <v-tab @click="tswitch()">Episode</v-tab>
+                <v-tab @click="tswitch()">Facture</v-tab>
             </v-tabs>
         </div>
         <v-container class="search-container mt-8">
@@ -26,7 +23,7 @@
                     hide-details
                     placeholder="Ipp"
                     label="Ipp"
-                    v-if="estyle"
+                    v-if="style == 'episode'"
                     outlined
                     class="search-input"
                 ></v-text-field>
@@ -34,7 +31,7 @@
                     rounded
                     single-line
                     v-model="searchbox"
-                    v-if="fstyle"
+                    v-if="style == 'facture'"
                     hide-details
                     placeholder="Numero De Facture"
                     label="Numero De Facture"
@@ -70,94 +67,148 @@
                     </template>
                     <div class="white pa-3">
                         <v-checkbox
-                            v-model="selected"
+                            v-model="searchHosp"
                             dense
                             class="pa-0 ma-0 mb-2"
                             label="Hospitalise"
-                            value="Hospitalise"
                             hide-details
                         />
                         <v-checkbox
-                            v-model="selected"
+                            v-model="searchExtern"
                             dense
                             class="pa-0 ma-0"
                             label="Extern"
-                            value="Externe"
                             hide-details
                         />
                     </div>
                 </v-menu>
             </div>
         </v-container>
-        <EdataTables :selected="selected" v-if="showETable()" />
-        <FdataTables
-            :selected="selected"
-            :check="fstyle"
-            v-else-if="showFTable()"
-        />
+        <div
+            class="d-flex align-center px-4 mt-4 mb-5 mx-auto"
+            style="max-width: 450px"
+        >
+            <div class="d-flex mb-4">
+                <v-checkbox
+                    v-model="hosp"
+                    label="Hospitalises"
+                    color="primary"
+                    hide-details
+                    class="mr-4"
+                />
+                <v-checkbox
+                    v-model="extern"
+                    label="Extern"
+                    color="primary"
+                    hide-details
+                />
+            </div>
+            <v-btn
+                depresses
+                outlined
+                type="submit"
+                color="blue"
+                class="text-none ms-auto"
+                rounded
+                width="100px"
+                @click="clearEpisodes()"
+            >
+                clear
+            </v-btn>
+        </div>
+        <EpisodeHospTable v-if="style == 'episode' && hosp" />
+        <EpisodeExtTable v-if="style == 'episode' && extern" />
+        <FactureHospTable v-if="style == 'facture' && hosp" />
+        <FactureExtTable v-if="style == 'facture' && extern" />
     </v-container>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
+import EpisodeExtTable from "@/components/Dashboard/Episode/ExtTable.vue";
+import EpisodeHospTable from "@/components/Dashboard/Episode/HospTable.vue";
+
+import FactureExtTable from "@/components/Dashboard/Facture/ExtTable.vue";
+import FactureHospTable from "@/components/Dashboard/Facture/HospTable.vue";
+
 export default {
     name: "Dashboard",
     components: {
-        EdataTables: () =>
-            import("../components/Dashboard/Episode/EdataTables.vue"),
-        FdataTables: () =>
-            import("../components/Dashboard/Facture/FdataTables.vue"),
+        EpisodeExtTable,
+        EpisodeHospTable,
+        FactureExtTable,
+        FactureHospTable,
     },
     data: () => ({
-        valid: true,
-        sfx: "On Hospitalise",
-        Episode: "Episode",
-        Facture: "Facture",
         searchbox: "",
-        estyle: true,
-        fstyle: false,
-
+        style: "episode",
         selected: [],
+        searching: false,
+        hosp: true,
+        extern: true,
+        searchHosp: true,
+        searchExtern: true,
     }),
     methods: {
-        tswitch(arg) {
-            if (arg == this.Episode) {
-                this.estyle = true;
-                this.fstyle = false;
-                this.searchbox = "";
-            } else if (arg == this.Facture) {
-                this.fstyle = true;
-                this.estyle = false;
-                this.searchbox = "";
+        ...mapActions(["getHospEpisodes", "getExtEpisodes", "clearEpisodes"]),
+        tswitch() {
+            if (this.style == "episode") return (this.style = "facture");
+            this.style = "episode";
+        },
+        async getEpisodeData() {
+            this.searching = true;
+            try {
+                if (this.searchHosp && this.searchExtern) {
+                    await this.getHospEpisodes(this.searchbox);
+                    await this.getExtEpisodes(this.searchbox);
+                    return;
+                }
+                if (this.searchHosp) {
+                    try {
+                        await this.getHospEpisodes(this.searchbox);
+                    } catch (err) {
+                        console.log(err);
+                        this.$notify({
+                            group: "br",
+                            type: "error",
+                            title: "Get Episodes error",
+                            text: err.data.message,
+                        });
+                    }
+                    return;
+                }
+                await this.getExtEpisodes(this.searchbox);
+            } catch (err) {
+                console.log(err);
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Get Episodes error",
+                    text: err.data.message,
+                });
             }
         },
-        showETable() {
-            if (
-                this.selected.length > 0 &&
-                this.searchbox.length >= 6 &&
-                this.estyle == true
-            ) {
-                return true;
+        async getFactureData() {
+            this.$notify({
+                group: "br",
+                type: "error",
+                title: "Get facture error",
+                text: "no factures inmplemetation yet",
+            });
+        },
+        async search() {
+            if (this.style == "episode") {
+                await this.getEpisodeData();
             } else {
-                return false;
+                await this.getFactureData();
             }
-        },
-        showFTable() {
-            if (
-                this.selected.length > 0 &&
-                this.searchbox.length >= 5 &&
-                this.fstyle == true
-            )
-                return true;
-            return false;
-        },
-        search() {
-            console.log("searching.....");
         },
     },
 };
 </script>
 
-<style scoped>
+<style>
 .switcher {
     transition: background 0.3s, color 0.3s;
     background: white;
@@ -168,7 +219,7 @@ export default {
 .search-container {
     position: relative !important;
     width: 100%;
-    max-width: 800px;
+    max-width: 800px !important;
     margin: 0 auto;
     height: 60px;
 }
@@ -189,5 +240,23 @@ export default {
     position: absolute !important;
     top: 18%;
     right: 150px;
+}
+#data-table {
+    margin-top: 10px;
+}
+#data-table .v-data-table__wrapper {
+    max-width: 1600px;
+    max-height: 500px;
+}
+#data-table td,
+#data-table th {
+    border: 1px solid #4bc58e8a;
+}
+#data-table tr:nth-child(even) {
+    background: #f3f3f3;
+}
+#data-table th {
+    background: #42b983;
+    color: white;
 }
 </style>
