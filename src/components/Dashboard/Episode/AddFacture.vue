@@ -172,10 +172,9 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
 export default {
-    name: "ExternStep3",
+    name: "AddFacture",
     props: {
-        context: { type: String, required: false, default: null },
-        epId: { type: Number, required: false, default: null },
+        episode: { type: Object, required: true },
     },
     data: () => ({
         loading: false,
@@ -197,7 +196,7 @@ export default {
         ],
     }),
     computed: {
-        ...mapGetters(["billData", "getIpp", "episodeId"]),
+        ...mapGetters(["billData", "getIpp"]),
         total() {
             return (
                 (parseInt(this.billData.actes) || 0) +
@@ -216,10 +215,7 @@ export default {
                 this.billData.medicament = parseInt(this.billData.medicament);
                 this.billData.prosthesis = parseInt(this.billData.prosthesis);
 
-                console.log(this.billData);
-                let epId = this.epId || this.episodeId;
-
-                let res = await this.saveBill([this.billData, epId]);
+                let res = await this.saveBill([this.billData, this.episode.id]);
 
                 this.$notify({
                     group: "br",
@@ -228,7 +224,8 @@ export default {
                     text: "Facture a été enregistré",
                 });
                 await this.clearBillData();
-                await this.$router.push({ name: "Dashboard" });
+                this.dialog = false;
+                this.episode.facture = true;
             } catch (err) {
                 console.log(err);
                 this.$notify({

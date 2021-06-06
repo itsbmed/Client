@@ -49,6 +49,7 @@ export default {
                 axios
                     .get(`/patients/${ipp}/episodes?type=hospitalized`)
                     .then((res) => {
+                        console.log(res.data);
                         context.commit("ADD_HOSP_EPISODES", res.data);
                         resolve(res);
                     })

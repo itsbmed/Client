@@ -203,7 +203,6 @@ export default {
                 this.billData.medicament = parseInt(this.billData.medicament);
                 this.billData.prosthesis = parseInt(this.billData.prosthesis);
 
-                console.log(this.billData);
                 let epId = this.epId || this.episodeId;
 
                 let res = await this.saveBill([this.billData, epId]);
