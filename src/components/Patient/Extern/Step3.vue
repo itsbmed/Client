@@ -8,8 +8,9 @@
                         single-line
                         v-model="billData.exitDate"
                         rounded
-                        type="number"
                         outlined
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
                         class="rounded-lg"
                         placeholder="Date srt"
                         label="Date srt"
@@ -161,7 +162,10 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "ExternStep3",
-    props: { context: { type: String, required: false, default: null } },
+    props: {
+        context: { type: String, required: false, default: null },
+        epId: { type: Number, required: false, default: null },
+    },
     data: () => ({
         loading: false,
         nfRules: [
@@ -200,8 +204,9 @@ export default {
                 this.billData.prosthesis = parseInt(this.billData.prosthesis);
 
                 console.log(this.billData);
+                let epId = this.epId || this.episodeId;
 
-                let res = await this.saveBill([this.billData, this.episodeId]);
+                let res = await this.saveBill([this.billData, epId]);
 
                 this.$notify({
                     group: "br",

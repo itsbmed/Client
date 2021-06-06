@@ -35,7 +35,7 @@
                     <td>{{ hospEpisode.tnErcure }}</td>
                     <td>{{ hospEpisode.tName }}</td>
                     <td>
-                        <AddFacture>
+                        <AddFacture :episodeId="hospEpisode.id">
                             <v-icon color="primary" size="25">
                                 mdi-plus
                             </v-icon>
