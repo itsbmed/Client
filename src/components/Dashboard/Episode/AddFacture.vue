@@ -12,18 +12,17 @@
                         <v-row>
                             <v-col class="mr-4">
                                 <v-text-field
-                                    single-line
-                                    v-model="exitDate"
-                                    rounded
-                                    outlined
-                                    onfocus="(this.type='date')"
-                                    onblur="(this.type='text')"
-                                    class="rounded-lg"
-                                    placeholder="Date srt"
-                                    label="Date srt"
-                                    required
-                                    clearable
+                                    v-model="billData.nReceipt"
                                     filled
+                                    single-line
+                                    type="number"
+                                    rounded
+                                    :rules="ncRules"
+                                    outlined
+                                    class="rounded-lg"
+                                    placeholder="N*Quitance"
+                                    label="N*Quitance"
+                                    clearable
                                 />
                             </v-col>
                             <v-col>
@@ -111,23 +110,6 @@
                                 />
                             </v-col>
                         </v-row>
-                        <v-row>
-                            <v-col class="mr-4">
-                                <v-text-field
-                                    v-model="billData.nReceipt"
-                                    filled
-                                    single-line
-                                    type="number"
-                                    rounded
-                                    :rules="ncRules"
-                                    outlined
-                                    class="rounded-lg"
-                                    placeholder="N*Quitance"
-                                    label="N*Quitance"
-                                    clearable
-                                />
-                            </v-col>
-                        </v-row>
                     </v-form>
                     <span>
                         Totale Facture :
@@ -178,7 +160,6 @@ export default {
     },
     data: () => ({
         loading: false,
-        exitDate: "",
         dialog: false,
         nfRules: [
             (v) => !!v || "N*Facture est requis",
@@ -224,8 +205,10 @@ export default {
                     text: "Facture a été enregistré",
                 });
                 await this.clearBillData();
+                this.episode.bill = true;
+                this.episode.exitDate = Date.now();
+
                 this.dialog = false;
-                this.episode.facture = true;
             } catch (err) {
                 console.log(err);
                 this.$notify({

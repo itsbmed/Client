@@ -19,37 +19,56 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="hospEpisode in hospEpisodes" :key="hospEpisode.name">
+                <tr v-for="hospEpisode in hospEpisodes" :key="hospEpisode.id">
                     <td>{{ hospEpisode.type }}</td>
                     <td>
                         {{ hospEpisode.patient.firstName }}
                         {{ hospEpisode.patient.lastName }}
                     </td>
                     <td>{{ hospEpisode.patient.ipp }}</td>
-                    <td>{{ hospEpisode.initDate.slice(0, 10) }}</td>
-                    <td>{{ hospEpisode.entryDate.slice(0, 10) }}</td>
-                    <td>{{ hospEpisode.exitDate }}</td>
+                    <td>{{ formatDate(hospEpisode.initDate) }}</td>
+                    <td>{{ formatDate(hospEpisode.entryDate) }}</td>
+                    <td>{{ formatDate(hospEpisode.exitDate) }}</td>
                     <td>{{ hospEpisode.service }}</td>
                     <td>{{ hospEpisode.category }}</td>
                     <td>{{ hospEpisode.admType }}</td>
                     <td>{{ hospEpisode.tnErcure }}</td>
                     <td>{{ hospEpisode.tName }}</td>
-                    <td>
-                        <AddFacture
-                            v-if="!hospEpisode.facture"
-                            :episode="hospEpisode"
-                        >
-                            <v-icon color="primary" size="25">
-                                mdi-plus
-                            </v-icon>
-                        </AddFacture>
+                    <td class="text-center">
+                        <span v-if="!hospEpisode.bill">
+                            <AddFacture :episode="hospEpisode">
+                                <v-icon color="primary" size="25">
+                                    mdi-plus
+                                </v-icon>
+                            </AddFacture>
+                        </span>
+                        <span v-else class="primary--text">Added</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <HospTableEdit :data="hospEpisode">
                             <v-icon color="blue" size="25">
                                 mdi-square-edit-outline
                             </v-icon>
                         </HospTableEdit>
+                    </td>
+                </tr>
+                <tr class="white" v-if="moreData && hospEpisodes.length >= 10">
+                    <td colspan="13" class="text-center">
+                        <v-btn
+                            class="text-none"
+                            @click="loadMore()"
+                            outlined
+                            color="blue"
+                            :loading="loading"
+                            :disabled="loading"
+                        >
+                            Load more
+                        </v-btn>
+                    </td>
+                </tr>
+                <tr class="white" v-if="!hospEpisodes.length">
+                    <td colspan="13" class="text-center">
+                        No data found for this Ipp
                     </td>
                 </tr>
             </tbody>
@@ -59,15 +78,13 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
     name: "HospTable",
     components: {
         HospTableEdit: () => import("./HospTableEdit"),
         AddFacture: () => import("./AddFacture"),
-    },
-    computed: {
-        ...mapGetters(["hospEpisodes"]),
     },
     data: () => ({
         H_Head: {
@@ -83,6 +100,27 @@ export default {
             Tn_Ercure: "Tn_Ercure",
             Tn_Nom: "Tn_Nom",
         },
+        loading: false,
+        page: 2,
+        moreData: true,
     }),
+    computed: {
+        ...mapGetters(["hospEpisodes"]),
+    },
+    methods: {
+        ...mapActions(["pushHospEpisodes"]),
+        async loadMore() {
+            this.loading = true;
+            let ipp = this.hospEpisodes[0].patient.ipp;
+            let res = await this.pushHospEpisodes([ipp, this.page]);
+            if (res.data.length < 10) this.moreData = false;
+            this.loading = false;
+            this.page++;
+        },
+        formatDate(date) {
+            if (date) return date.toString().slice(0, 10);
+            else return null;
+        },
+    },
 };
 </script>

@@ -7,51 +7,6 @@
         </template>
         <v-card class="white edit-data">
             <v-card-text class="pt-5">
-                <v-row no-gutters>
-                    <v-col class="me-4">
-                        <v-text-field
-                            placeholder="Prenom"
-                            label="Prenom"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.patient.firstName"
-                        />
-                    </v-col>
-                    <v-col class="me-4">
-                        <v-text-field
-                            placeholder="Nom"
-                            label="Nom"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.patient.lastName"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <v-col class="me-4">
-                        <v-text-field
-                            placeholder="Ipp"
-                            label="Ipp"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.patient.ipp"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Date"
-                            label="Date"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.initDate"
-                        />
-                    </v-col>
-                </v-row>
-
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
                         <v-select
@@ -76,6 +31,20 @@
                             outlined
                             class="rounded-lg"
                             v-model="localData.admType"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row no-gutters>
+                    <v-col cols="6">
+                        <v-text-field
+                            placeholder="Date"
+                            label="Date"
+                            onfocus="(this.type='date')"
+                            onblur="(this.type='text')"
+                            clearable
+                            outlined
+                            class="rounded-lg"
+                            v-model="localData.initDate"
                         />
                     </v-col>
                 </v-row>
@@ -121,21 +90,36 @@ export default {
     data: (props) => ({
         dialog: false,
         loading: false,
-        localData: { ...props.data },
+        localData: props.data,
     }),
     methods: {
         async edit() {
             this.loading = true;
             try {
-                const res = await this.$axios.patch("/", this.localData);
-                this.data = this.localData;
+                let { presentationNature, initDate, admType, id } =
+                    this.localData;
+                const res = await this.$axios.put(
+                    `/episodes/${id}?type=external`,
+                    {
+                        presentationNature,
+                        initDate,
+                        admType,
+                    }
+                );
                 this.dialog = false;
+                this.$notify({
+                    group: "br",
+                    type: "success",
+                    title: "Saved",
+                    text: "Patient data updated successfully",
+                });
             } catch (err) {
+                console.log(err);
                 this.$notify({
                     group: "br",
                     type: "error",
                     title: "save error",
-                    text: err.data.message,
+                    text: err.response.message,
                 });
             } finally {
                 this.loading = false;
@@ -148,13 +132,5 @@ export default {
 <style>
 .edit-data .v-card__actions {
     box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2);
-}
-.edit-data .image {
-    position: relative;
-}
-.edit-data .edit-img {
-    position: absolute;
-    left: 47%;
-    top: 42%;
 }
 </style>

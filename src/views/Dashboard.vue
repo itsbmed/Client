@@ -10,8 +10,8 @@
                 center-active
                 dark
             >
-                <v-tab @click="tswitch()">Episode</v-tab>
-                <v-tab @click="tswitch()">Facture</v-tab>
+                <v-tab @click="style = 'episode'">Episode</v-tab>
+                <v-tab @click="style = 'facture'">Facture</v-tab>
             </v-tabs>
         </div>
         <v-container class="search-container mt-8">
@@ -74,7 +74,7 @@
                             hide-details
                         />
                         <v-checkbox
-                            v-model="searchExtern"
+                            v-model="searchExt"
                             dense
                             class="pa-0 ma-0"
                             label="Extern"
@@ -87,6 +87,7 @@
         <div
             class="d-flex align-center px-4 mt-4 mb-5 mx-auto"
             style="max-width: 450px"
+            v-if="searching"
         >
             <div class="d-flex mb-4">
                 <v-checkbox
@@ -116,10 +117,12 @@
                 clear
             </v-btn>
         </div>
-        <EpisodeHospTable v-if="style == 'episode' && hosp" />
-        <EpisodeExtTable v-if="style == 'episode' && extern" />
-        <FactureHospTable v-if="style == 'facture' && hosp" />
-        <FactureExtTable v-if="style == 'facture' && extern" />
+        <div v-if="searching">
+            <EpisodeHospTable v-if="style == 'episode' && hosp && searchHosp" />
+            <EpisodeExtTable v-if="style == 'episode' && extern && searchExt" />
+            <FactureHospTable v-if="style == 'facture' && hosp && searchHosp" />
+            <FactureExtTable v-if="style == 'facture' && extern && searchExt" />
+        </div>
     </v-container>
 </template>
 
@@ -148,18 +151,14 @@ export default {
         hosp: true,
         extern: true,
         searchHosp: true,
-        searchExtern: true,
+        searchExt: true,
     }),
     methods: {
         ...mapActions(["getHospEpisodes", "getExtEpisodes", "clearEpisodes"]),
-        tswitch() {
-            if (this.style == "episode") return (this.style = "facture");
-            this.style = "episode";
-        },
         async getEpisodeData() {
             this.searching = true;
             try {
-                if (this.searchHosp && this.searchExtern) {
+                if (this.searchHosp && this.searchExt) {
                     await this.getHospEpisodes(this.searchbox);
                     await this.getExtEpisodes(this.searchbox);
                     return;
@@ -198,6 +197,10 @@ export default {
             });
         },
         async search() {
+            if (!this.searchHosp) this.hosp = false;
+            if (!this.searchExt) this.extern = false;
+
+            this.searching = true;
             if (this.style == "episode") {
                 await this.getEpisodeData();
             } else {

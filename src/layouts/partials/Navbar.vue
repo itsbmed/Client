@@ -23,7 +23,6 @@
                     <v-btn
                         elevation="0"
                         text
-                        width="110"
                         rounded
                         v-bind="attrs"
                         v-on="on"
@@ -37,7 +36,7 @@
                     </v-btn>
                 </template>
                 <div class="white d-flex flex-column align-start">
-                    <v-btn block text class="text-none">
+                    <v-btn block text class="text-none" v-if="agent.isAdmin">
                         <router-link
                             to="admin-panel"
                             class="rm-underline d-block black--text"
@@ -46,15 +45,17 @@
                             Panel
                         </router-link>
                     </v-btn>
-                    <router-link
-                        to="/admin-panel/add-agent"
-                        class="rm-underline"
-                    >
-                        <v-btn block text class="text-none">
+                    <v-btn block text class="text-none">
+                        <router-link
+                            to="/admin-panel/add-agent"
+                            class="rm-underline d-block black--text"
+                            v-if="agent.isAdmin"
+                        >
                             <v-icon left size="20">mdi-plus</v-icon>
                             New agent
-                        </v-btn>
-                    </router-link>
+                        </router-link>
+                    </v-btn>
+
                     <v-divider class="mt-10"></v-divider>
                     <v-btn
                         block

@@ -48,8 +48,9 @@ export default {
                     });
             });
         },
-        logout: (context) => {
-            context.commit("DESTROY_SESSION");
+        async logout(context) {
+            await context.commit("DESTROY_SESSION");
+            window.location.reload();
         },
     },
 };

@@ -14,9 +14,15 @@ export default {
             state.episodeId = id;
         },
         ADD_HOSP_EPISODES(state, payload) {
+            state.hospEpisodes = payload;
+        },
+        PUSH_HOSP_EPISODES(state, payload) {
             state.hospEpisodes.push(...payload);
         },
         ADD_EXT_EPISODES(state, payload) {
+            state.extEpisodes = payload;
+        },
+        PUSH_EXT_EPISODES(state, payload) {
             state.extEpisodes.push(...payload);
         },
         CLEAR_EPISODES(state) {
@@ -29,6 +35,7 @@ export default {
         episodeId: (state) => state.episodeId,
         extEpisodes: (state) => state.extEpisodes,
         hospEpisodes: (state) => state.hospEpisodes,
+        isThereMoreData: (state) => state.moreData,
     },
     actions: {
         saveEpisode(context, [payload, ipp]) {
@@ -49,8 +56,22 @@ export default {
                 axios
                     .get(`/patients/${ipp}/episodes?type=hospitalized`)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("ADD_HOSP_EPISODES", res.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        pushHospEpisodes(context, [ipp, page]) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(
+                        `/patients/${ipp}/episodes?type=hospitalized&page=${page}`
+                    )
+                    .then((res) => {
+                        context.commit("PUSH_HOSP_EPISODES", res.data);
                         resolve(res);
                     })
                     .catch((err) => {
@@ -71,6 +92,20 @@ export default {
                     });
             });
         },
+        pushExtEpisodes(context, [ipp, page]) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(`/patients/${ipp}/episodes?type=external&page=${page}`)
+                    .then((res) => {
+                        context.commit("PUSH_EXT_EPISODES", res.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+
         async clearEpisodes(context) {
             await context.commit("CLEAR_EPISODES");
         },
