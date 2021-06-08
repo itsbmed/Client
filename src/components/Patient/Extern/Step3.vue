@@ -2,11 +2,12 @@
     <span>
         <div class="pb-2">
             <v-card flat class="mx-auto px-4 py-4" max-width="700px">
-                <v-form ref="form" lazy-validation>
+                <v-form ref="facture" lazy-validation>
                     <v-row no-gutters>
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="billData.billNum"
+                                :rules="[required('Facture number')]"
                                 placeholder="Facture number"
                                 label="Facture number"
                                 outlined
@@ -17,6 +18,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="billData.medicalBiology"
+                                :rules="[required('Biologie medical')]"
                                 placeholder="Biologie medical"
                                 label="Biologie medical"
                                 outlined
@@ -30,6 +32,7 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="billData.medicalImaging"
+                                :rules="[required('Medical Imaging')]"
                                 placeholder="Medical Imaging"
                                 label="Medical Imaging"
                                 outlined
@@ -40,6 +43,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="billData.prosthesis"
+                                :rules="[required('Prosthesis')]"
                                 placeholder="Prosthesis"
                                 label="Prosthesis"
                                 outlined
@@ -52,6 +56,7 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="billData.invoicedStay"
+                                :rules="[required('Invoice de Stay')]"
                                 placeholder="Invoice de Stay"
                                 label="Invoice de Stay"
                                 outlined
@@ -62,6 +67,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="billData.medicalFees"
+                                :rules="[required('Medical Fees')]"
                                 placeholder="Medical Fees"
                                 label="Medical Fees"
                                 outlined
@@ -74,6 +80,7 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="billData.billedMedication"
+                                :rules="[required('Billed Medication')]"
                                 placeholder="Billed Medication"
                                 label="Billed Medication"
                                 outlined
@@ -84,6 +91,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="billData.actes"
+                                :rules="[required('Actes')]"
                                 placeholder="Actes"
                                 label="Actes"
                                 outlined
@@ -96,6 +104,7 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="billData.organismPart"
+                                :rules="[required('Parte Organisme')]"
                                 placeholder="Parte Organisme"
                                 label="Parte Organisme"
                                 outlined
@@ -107,6 +116,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="billData.adherentPart"
+                                :rules="[required('Parte adherent')]"
                                 placeholder="Parte adherent"
                                 label="Parte adherent"
                                 outlined
@@ -160,6 +170,7 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
+import { required } from "@/helpers/inputsRules";
 
 export default {
     name: "ExternStep3",
@@ -168,20 +179,7 @@ export default {
     },
     data: () => ({
         loading: false,
-        nfRules: [
-            (v) => !!v || "N*Facture est requis",
-            (v) => v > 0 || "La valeur doit être supérieure à zéro",
-        ],
-        aRules: [
-            (v) => !!v || "Actes est requis",
-            (v) => v > 0 || "La valeur doit être supérieure à zéro",
-        ],
-
-        caRules: [(v) => !!v || "Categorie est requis"],
-        ncRules: [
-            (v) => !!v || "N*Quitance est requis",
-            (v) => v > 0 || "La valeur doit être supérieure à zéro",
-        ],
+        required,
     }),
     computed: {
         ...mapGetters(["billData", "getIpp", "episodeId"]),
@@ -195,6 +193,7 @@ export default {
     methods: {
         ...mapActions(["changeExtStep", "clearBillData", "saveBill"]),
         async save() {
+            if (!this.$refs.facture.validate()) return;
             this.loading = true;
             try {
                 this.billData.total = this.total;

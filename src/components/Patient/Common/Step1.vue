@@ -6,19 +6,18 @@
                     <v-text-field
                         v-model="patientData.ipp"
                         type="number"
-                        :rules="iRules"
+                        :rules="ippRule"
                         outlined
                         class="rounded-lg"
                         placeholder="Ipp"
                         label="Ipp"
                         @keyup="checkIpp"
                         @focus="checkIpp"
-                        required
                     />
                     <v-text-field
                         :disabled="alreadyRegistered"
                         v-model="patientData.lastName"
-                        :rules="nRules"
+                        :rules="lastnameRule"
                         outlined
                         class="rounded-lg mt-3"
                         placeholder="Nom"
@@ -29,11 +28,10 @@
                         :disabled="alreadyRegistered"
                         v-model="patientData.firstName"
                         outlined
-                        :rules="pRules"
+                        :rules="firstnameRule"
                         class="rounded-lg mt-3"
                         placeholder="Prenom"
                         label="Prenom"
-                        required
                     />
                 </v-form>
             </v-card>
@@ -72,6 +70,7 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
+import { ippRule, firstnameRule, lastnameRule } from "@/helpers/inputsRules";
 
 export default {
     name: "Step1",
@@ -81,29 +80,9 @@ export default {
     data: () => ({
         alreadyRegistered: false,
         loading: false,
-        iRules: [
-            (v) => !!v || "Ipp est requis",
-            (v) => (!!v && v.length >= 6) || "Ipp doit plus de 6 caractères",
-            (v) => (!!v && v.length <= 10) || "Ipp doit moin de 10 caractères",
-        ],
-        nRules: [
-            (v) => !!v || "Le nom est requis",
-            (v) =>
-                (v && v.length <= 10) ||
-                "Le nom doit comporter moins de 10 caractères",
-        ],
-        ncodeRules: [
-            (v) =>
-                !v ||
-                (v && v.length >= 15) ||
-                "ncode doit comporter moins de 15 caractères",
-        ],
-        pRules: [
-            (v) => !!v || "Le prenom est requis",
-            (v) =>
-                (v && v.length <= 10) ||
-                "Le prenom doit comporter moins de 10 caractères",
-        ],
+        ippRule,
+        firstnameRule,
+        lastnameRule,
     }),
 
     computed: {
@@ -130,6 +109,7 @@ export default {
                 return this.changeExtStep(2);
         },
         async nextStep() {
+            if (!this.$refs.patient.validate()) return;
             if (!this.alreadyRegistered) {
                 this.loading = true;
                 try {

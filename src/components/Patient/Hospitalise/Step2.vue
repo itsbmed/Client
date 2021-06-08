@@ -2,13 +2,14 @@
     <span>
         <div class="pb-2">
             <v-card flat class="mx-auto px-4" max-width="700px">
-                <v-form ref="form" lazy-validation>
+                <v-form ref="episode" lazy-validation>
                     <div class="d-flex flex-column align-center mb-2">
                         <p class="text-center pa-0 ma-0">Type D'admission</p>
                         <v-radio-group
                             class="pa-0 mt-2"
                             v-model="hospEpisodeFrom.admType"
                             row
+                            :rules="[required('Type D\'admission')]"
                         >
                             <v-radio
                                 label="Urgence"
@@ -27,9 +28,9 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="hospEpisodeFrom.firstName"
+                                :rules="firstnameRule"
                                 placeholder="Prenom"
                                 label="Prenom"
-                                required
                                 outlined
                                 class="rounded-lg"
                             />
@@ -37,6 +38,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="hospEpisodeFrom.lastName"
+                                :rules="lastnameRule"
                                 placeholder="Nom"
                                 label="Nom"
                                 outlined
@@ -48,9 +50,9 @@
                         <v-col class="me-4">
                             <v-text-field
                                 v-model="hospEpisodeFrom.address"
+                                :rules="addressRule"
                                 placeholder="Adrress"
                                 label="Adrress"
-                                required
                                 outlined
                                 class="rounded-lg"
                             />
@@ -58,7 +60,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="hospEpisodeFrom.cin"
-                                :rules="daRules"
+                                :rules="cinRule"
                                 placeholder="CIN"
                                 label="CIN"
                                 required
@@ -73,11 +75,10 @@
                             <v-select
                                 v-model="hospEpisodeFrom.service"
                                 ref="Sr"
-                                :rules="srRules"
+                                :rules="[required('Service D\'hospilisation')]"
                                 :items="services"
                                 placeholder="Service D'hospilisation"
                                 label="Service D'hospilisation"
-                                required
                                 outlined
                                 class="rounded-lg"
                             />
@@ -85,7 +86,7 @@
                         <v-col>
                             <v-text-field
                                 v-model="hospEpisodeFrom.entryDate"
-                                :rules="daRules"
+                                :rules="[required('Date D\'admission')]"
                                 placeholder="Date D'admission"
                                 label="Date D'admission"
                                 onfocus="(this.type='date')"
@@ -101,6 +102,7 @@
                         <v-col class="me-4">
                             <v-select
                                 :items="presentations"
+                                :rules="[required('Nature de presentation')]"
                                 placeholder="Nature de presentation"
                                 label="Nature de presentation"
                                 outlined
@@ -111,6 +113,7 @@
                         <v-col>
                             <v-select
                                 :items="categories"
+                                :rules="[required('Categorie Comptables')]"
                                 placeholder="Categorie Comptables"
                                 label="Categorie Comptables"
                                 outlined
@@ -125,24 +128,26 @@
                     >
                         <v-col class="me-4">
                             <v-text-field
+                                v-model="hospEpisodeFrom.ramedNum"
+                                :rules="ramedNumRule"
                                 placeholder="Numero du facture"
                                 label="Numero du facture"
                                 outlined
                                 class="rounded-lg"
                                 type="number"
-                                v-model="hospEpisodeFrom.ramedNum"
                             />
                         </v-col>
                         <v-col>
                             <v-text-field
                                 v-if="hospEpisodeFrom.category == 'RAMED'"
+                                v-model="hospEpisodeFrom.ramedExpDate"
+                                :rules="[required('Ramed expiration date')]"
                                 placeholder="Ramed Expiration Date"
                                 label="Ramed Expiration Date"
                                 outlined
                                 onfocus="(this.type='date')"
                                 onblur="(this.type='text')"
                                 class="rounded-lg"
-                                v-model="hospEpisodeFrom.ramedExpDate"
                             />
                         </v-col>
                     </v-row>
@@ -182,15 +187,19 @@
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
+import {
+    firstnameRule,
+    lastnameRule,
+    addressRule,
+    cinRule,
+    required,
+    ramedNumRule,
+} from "@/helpers/inputsRules";
+
 export default {
     name: "HospitaliteStep2",
     data: () => ({
         loading: false,
-        dRules: [(v) => !!v || "La date est requis"],
-        daRules: [(v) => !!v || "La date d'admission est requis"],
-        sRules: [(v) => !!v || "Le service d'hospilisation est requis"],
-        srRules: [(v) => !!v || "Le service d'hospilisation est requis"],
-        cRules: [(v) => !!v || "la categorie comptable est requis"],
         categories: [
             "PAID",
             "POTENTIAL",
@@ -216,6 +225,12 @@ export default {
             "REAB",
         ],
         presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
+        firstnameRule,
+        lastnameRule,
+        addressRule,
+        cinRule,
+        required,
+        ramedNumRule,
     }),
     computed: {
         ...mapGetters(["hospEpisodeFrom", "getIpp"]),
@@ -228,6 +243,7 @@ export default {
             "clearPatientData",
         ]),
         async save() {
+            if (!this.$refs.episode.validate()) return;
             this.loading = true;
             try {
                 this.hospEpisodeFrom.type = "hospitalized";
