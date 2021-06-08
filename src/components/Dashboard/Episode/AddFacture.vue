@@ -22,20 +22,6 @@
                             </v-col>
                             <v-col>
                                 <v-text-field
-                                    v-model="billData.billDate"
-                                    placeholder="Facture Date"
-                                    label="Facture Date"
-                                    onfocus="(this.type='date')"
-                                    onblur="(this.type='text')"
-                                    outlined
-                                    class="rounded-lg"
-                                />
-                            </v-col>
-                        </v-row>
-
-                        <v-row no-gutters class="mt-2">
-                            <v-col class="me-4">
-                                <v-text-field
                                     v-model="billData.medicalBiology"
                                     placeholder="Biologie medical"
                                     label="Biologie medical"
@@ -44,7 +30,10 @@
                                     type="number"
                                 />
                             </v-col>
-                            <v-col>
+                        </v-row>
+
+                        <v-row no-gutters class="mt-2">
+                            <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.medicalImaging"
                                     placeholder="Medical Imaging"
@@ -54,9 +43,7 @@
                                     type="number"
                                 />
                             </v-col>
-                        </v-row>
-                        <v-row no-gutters>
-                            <v-col class="me-4">
+                            <v-col>
                                 <v-text-field
                                     v-model="billData.prosthesis"
                                     placeholder="Prosthesis"
@@ -66,7 +53,9 @@
                                     type="number"
                                 />
                             </v-col>
-                            <v-col>
+                        </v-row>
+                        <v-row no-gutters>
+                            <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.invoicedStay"
                                     placeholder="Invoice de Stay"
@@ -76,9 +65,7 @@
                                     type="number"
                                 />
                             </v-col>
-                        </v-row>
-                        <v-row no-gutters>
-                            <v-col class="me-4">
+                            <v-col>
                                 <v-text-field
                                     v-model="billData.medicalFees"
                                     placeholder="Medical Fees"
@@ -88,7 +75,9 @@
                                     type="number"
                                 />
                             </v-col>
-                            <v-col>
+                        </v-row>
+                        <v-row no-gutters>
+                            <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.billedMedication"
                                     placeholder="Billed Medication"
@@ -98,13 +87,34 @@
                                     type="number"
                                 />
                             </v-col>
-                        </v-row>
-                        <v-row no-gutters>
-                            <v-col cols="6">
+                            <v-col>
                                 <v-text-field
                                     v-model="billData.actes"
                                     placeholder="Actes"
                                     label="Actes"
+                                    outlined
+                                    class="rounded-lg"
+                                    type="number"
+                                />
+                            </v-col>
+                        </v-row>
+                        <v-row no-gutters>
+                            <v-col class="me-4">
+                                <v-text-field
+                                    v-model="billData.organismPart"
+                                    placeholder="Parte Organisme"
+                                    label="Parte Organisme"
+                                    outlined
+                                    class="rounded-lg"
+                                    type="number"
+                                />
+                            </v-col>
+
+                            <v-col>
+                                <v-text-field
+                                    v-model="billData.adherentPart"
+                                    placeholder="Parte adherent"
+                                    label="Parte adherent"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -117,18 +127,6 @@
                             Totale Facture :
                             <span style="color: #2ecc71">
                                 {{ total + " DH" }}
-                            </span>
-                        </v-col>
-                        <v-col>
-                            Organism Part :
-                            <span style="color: #2ecc71">
-                                {{ total / 2 + " DH" }}
-                            </span>
-                        </v-col>
-                        <v-col>
-                            Adherent Part :
-                            <span style="color: #2ecc71">
-                                {{ total / 2 + " DH" }}
                             </span>
                         </v-col>
                     </v-row>
@@ -180,20 +178,17 @@ export default {
     props: {
         episode: { type: Object, required: true },
     },
-    data: (props) => ({
+    data: () => ({
         loading: false,
         dialog: false,
     }),
     computed: {
         ...mapGetters(["billData", "getIpp"]),
         total() {
-            let sum = 0;
-            Object.keys(this.billData).forEach((key) => {
-                if (!excludedTotalItems.includes(key)) {
-                    sum += Number(this.billData[key]);
-                }
-            });
-            return sum;
+            let some = 0;
+            some += Number(this.billData.organismPart) || 0;
+            some += Number(this.billData.adherentPart) || 0;
+            return some;
         },
     },
     methods: {
@@ -202,8 +197,6 @@ export default {
             this.loading = true;
             try {
                 this.billData.total = this.total;
-                this.billData.organismPart = this.total / 2;
-                this.billData.adherentPart = this.total / 2;
 
                 let res = await this.saveBill([this.billData, this.episode.id]);
 
