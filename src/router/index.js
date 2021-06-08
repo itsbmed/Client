@@ -83,9 +83,10 @@ const routes = [
                 },
             },
             {
-                path: "settings",
-                name: "Settings",
-                component: () => import("@/components/AdminPanel/Settings.vue"),
+                path: "analytics",
+                name: "Analytics",
+                component: () =>
+                    import("@/components/AdminPanel/Analytics.vue"),
                 meta: {
                     authRequired: true,
                     adminRequired: true,
