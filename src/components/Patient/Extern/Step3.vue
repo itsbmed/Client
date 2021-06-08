@@ -1,128 +1,131 @@
 <template>
     <span>
         <div class="pb-2">
-            <v-card flat class="mx-auto px-4" max-width="700px">
+            <v-card flat class="mx-auto px-4 py-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
-                    <v-text-field
-                        v-if="context == 'hospFact'"
-                        single-line
-                        v-model="billData.exitDate"
-                        rounded
-                        outlined
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
-                        class="rounded-lg"
-                        placeholder="Date srt"
-                        label="Date srt"
-                        required
-                        clearable
-                        filled
-                    />
-                    <v-text-field
-                        v-model="billData.nBill"
-                        filled
-                        :rules="nfRules"
-                        single-line
-                        type="number"
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Num Facture"
-                        label="Num Facture"
-                        required
-                        clearable
-                    />
-                    <v-text-field
-                        v-model="billData.actes"
-                        filled
-                        :rules="aRules"
-                        single-line
-                        type="number"
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Actes"
-                        label="Actes"
-                        required
-                        clearable
-                    />
-                    <v-text-field
-                        v-model="billData.medicament"
-                        filled
-                        single-line
-                        rounded
-                        type="number"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Medicam"
-                        label="Medicam"
-                        required
-                        clearable
-                    />
+                    <v-row no-gutters>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="billData.billNum"
+                                placeholder="Facture number"
+                                label="Facture number"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="billData.billDate"
+                                placeholder="Facture Date"
+                                label="Facture Date"
+                                onfocus="(this.type='date')"
+                                onblur="(this.type='text')"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
 
-                    <v-text-field
-                        v-model="billData.prosthesis"
-                        filled
-                        single-line
-                        rounded
-                        type="number"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Prothes"
-                        label="Prothes"
-                        required
-                        clearable
-                    />
-
-                    <v-select
-                        v-if="context == 'hospFact'"
-                        v-model="billData.nature"
-                        filled
-                        :items="['HOSPIT MEDICAL', 'HOSPIT CHIRUGICAL']"
-                        single-line
-                        rounded
-                        :rules="caRules"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Nature"
-                        label="Nature"
-                        clearable
-                    />
-                    <v-select
-                        v-else
-                        v-model="billData.category"
-                        filled
-                        :items="['PAYANT', 'RAMED']"
-                        single-line
-                        rounded
-                        :rules="caRules"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Categorie"
-                        label="Categorie"
-                        clearable
-                    />
-
-                    <v-text-field
-                        v-model="billData.nReceipt"
-                        filled
-                        single-line
-                        type="number"
-                        rounded
-                        :rules="ncRules"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="N*Quitance"
-                        label="N*Quitance"
-                        clearable
-                    />
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="billData.medicalBiology"
+                                placeholder="Biologie medical"
+                                label="Biologie medical"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="billData.medicalImaging"
+                                placeholder="Medical Imaging"
+                                label="Medical Imaging"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="billData.prosthesis"
+                                placeholder="Prosthesis"
+                                label="Prosthesis"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="billData.invoicedStay"
+                                placeholder="Invoice de Stay"
+                                label="Invoice de Stay"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="billData.medicalFees"
+                                placeholder="Medical Fees"
+                                label="Medical Fees"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="billData.billedMedication"
+                                placeholder="Billed Medication"
+                                label="Billed Medication"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col cols="6">
+                            <v-text-field
+                                v-model="billData.actes"
+                                placeholder="Actes"
+                                label="Actes"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                            />
+                        </v-col>
+                    </v-row>
                 </v-form>
-                <span>
-                    Totale Facture :
-                    <span style="color: #2ecc71">
-                        {{ total + " DH" }}
-                    </span>
-                </span>
+                <v-row no-gutters>
+                    <v-col>
+                        Totale Facture :
+                        <span style="color: #2ecc71">
+                            {{ total + " DH" }}
+                        </span>
+                    </v-col>
+                    <v-col>
+                        Organism Part :
+                        <span style="color: #2ecc71">
+                            {{ total / 2 + " DH" }}
+                        </span>
+                    </v-col>
+                    <v-col>
+                        Adherent Part :
+                        <span style="color: #2ecc71">
+                            {{ total / 2 + " DH" }}
+                        </span>
+                    </v-col>
+                </v-row>
             </v-card>
         </div>
         <div class="d-flex pb-2 mx-auto" style="max-width: 670px">
@@ -159,12 +162,17 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
+let excludedTotalItems = [
+    "organismPart",
+    "adherentPart",
+    "billDate",
+    "billNum",
+];
 
 export default {
     name: "ExternStep3",
     props: {
         context: { type: String, required: false, default: null },
-        epId: { type: Number, required: false, default: null },
     },
     data: () => ({
         loading: false,
@@ -186,11 +194,13 @@ export default {
     computed: {
         ...mapGetters(["billData", "getIpp", "episodeId"]),
         total() {
-            return (
-                (parseInt(this.billData.actes) || 0) +
-                (parseInt(this.billData.medicament) || 0) +
-                (parseInt(this.billData.prosthesis) || 0)
-            );
+            let sum = 0;
+            Object.keys(this.billData).forEach((key) => {
+                if (!excludedTotalItems.includes(key)) {
+                    sum += parseFloat(this.billData[key]);
+                }
+            });
+            return sum;
         },
     },
     methods: {
@@ -199,13 +209,10 @@ export default {
             this.loading = true;
             try {
                 this.billData.total = this.total;
-                this.billData.actes = parseInt(this.billData.actes);
-                this.billData.medicament = parseInt(this.billData.medicament);
-                this.billData.prosthesis = parseInt(this.billData.prosthesis);
+                this.billData.organismPart = this.total / 2;
+                this.billData.adherentPart = this.total / 2;
 
-                let epId = this.epId || this.episodeId;
-
-                let res = await this.saveBill([this.billData, epId]);
+                let res = await this.saveBill([this.billData, this.episodeId]);
 
                 this.$notify({
                     group: "br",

@@ -1,54 +1,117 @@
 <template>
     <span>
         <div class="pb-2">
-            <v-card flat class="mx-auto px-4 py-4" max-width="700px">
-                <div class="d-flex flex-column align-center">
-                    <p class="text-center pa-0 ma-0">Type D'admission</p>
-                    <v-radio-group
-                        class="pa-0 mt-3 mb-4"
-                        v-model="episodeData.admType"
-                        row
-                    >
-                        <v-radio
-                            label="Urgence"
-                            value="urgent"
-                            color="red"
-                            class="mr-5"
-                        ></v-radio>
-                        <v-radio
-                            label="Normale"
-                            value="normal"
-                            color="#2ecc71"
-                        ></v-radio>
-                    </v-radio-group>
-                </div>
+            <v-card flat class="mx-auto px-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
-                    <v-text-field
-                        v-model="episodeData.initDate"
-                        filled
-                        single-line
-                        rounded
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Date"
-                        label="Date"
-                        clearable
-                    />
-                    <v-select
-                        v-model="episodeData.presentationNature"
-                        :items="['CS/SP', 'RX']"
-                        filled
-                        single-line
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Nature De Presentation"
-                        label="Nature De Presentation"
-                        required
-                        clearable
-                    />
+                    <div class="d-flex flex-column align-center">
+                        <p class="text-center pa-0 ma-0">Type D'admission</p>
+                        <v-radio-group
+                            class="pa-0 mt-3 mb-4"
+                            v-model="extEpisodeData.admType"
+                            row
+                        >
+                            <v-radio
+                                label="Urgence"
+                                value="urgent"
+                                color="red"
+                                class="mr-5"
+                            ></v-radio>
+                            <v-radio
+                                label="Normale"
+                                value="normal"
+                                color="#2ecc71"
+                            ></v-radio>
+                        </v-radio-group>
+                    </div>
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="extEpisodeData.firstName"
+                                placeholder="Prenom"
+                                label="Prenom"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="extEpisodeData.lastName"
+                                placeholder="Nom"
+                                label="Nom"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="extEpisodeData.address"
+                                placeholder="Adrress"
+                                label="Adrress"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="extEpisodeData.cin"
+                                placeholder="CIN"
+                                label="CIN"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
+
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-select
+                                :items="presentations"
+                                placeholder="Nature de presentation"
+                                label="Nature de presentation"
+                                outlined
+                                class="rounded-lg"
+                                v-model="extEpisodeData.presentationNature"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-select
+                                :items="categories"
+                                placeholder="Categorie Comptables"
+                                label="Categorie Comptables"
+                                outlined
+                                class="rounded-lg"
+                                v-model="extEpisodeData.category"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters v-if="extEpisodeData.category == 'RAMED'">
+                        <v-col class="me-4">
+                            <v-text-field
+                                placeholder="Numero du facture"
+                                label="Numero du facture"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                                v-model="extEpisodeData.ramedNum"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                placeholder="Ramed Expiration Date"
+                                label="Ramed Expiration Date"
+                                outlined
+                                onfocus="(this.type='date')"
+                                onblur="(this.type='text')"
+                                class="rounded-lg"
+                                v-model="extEpisodeData.ramedExpDate"
+                            />
+                        </v-col>
+                    </v-row>
                 </v-form>
             </v-card>
         </div>
@@ -88,25 +151,34 @@ export default {
     name: "ExternStep2",
     data: () => ({
         loading: false,
+        categories: [
+            "PAID",
+            "POTENTIAL",
+            "RAMED",
+            "CNOPS",
+            "MAFAR",
+            "CNSS",
+            "ORGANISM",
+        ],
+        presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
     }),
     computed: {
-        ...mapGetters(["episodeData", "getIpp"]),
+        ...mapGetters(["extEpisodeData", "getIpp"]),
     },
     methods: {
         ...mapActions([
             "changeExtStep",
             "saveEpisode",
-            "clearEpisodeData",
+            "clearExtEpisodeData",
             "clearPatientData",
         ]),
         async nextStep() {
             this.loading = true;
-            console.log(this.getIpp);
 
             try {
-                this.episodeData.type = "external";
+                this.extEpisodeData.type = "external";
                 let res = await this.saveEpisode([
-                    this.episodeData,
+                    this.extEpisodeData,
                     this.getIpp,
                 ]);
                 this.$notify({
@@ -115,7 +187,7 @@ export default {
                     title: "Enregistrement",
                     text: "Episode registred",
                 });
-                await this.clearEpisodeData();
+                await this.clearExtEpisodeData();
                 await this.clearPatientData();
                 await this.changeExtStep(3);
             } catch (err) {

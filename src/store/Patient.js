@@ -26,7 +26,7 @@ export default {
         hospStep: (state) => state.hospStep,
         extStep: (state) => state.extStep,
         patientData: (state) => state.patientData,
-        getIpp: (state) => state.ipp || state.patientData.ipp,
+        getIpp: (state) => state.patientData.ipp,
     },
     actions: {
         changeHospStep(context, step) {
@@ -60,7 +60,7 @@ export default {
                     });
             });
         },
-        clearPetientData(context) {
+        clearPatientData(context) {
             context.commit("CLEAR_PATIENT_DATA");
         },
     },

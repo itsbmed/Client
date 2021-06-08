@@ -1,14 +1,20 @@
 import axios from "@/plugins/axios";
 export default {
     state: {
-        episodeData: {},
+        hospEpisodeData: {},
+        extEpisodeData: {},
+
         extEpisodes: [],
         hospEpisodes: [],
+
         episodeId: null,
     },
     mutations: {
-        CLEAR_EPISODE_DATA(state) {
-            state.episodeData = {};
+        CLEAR_HOSP_EPISODE_DATA(state) {
+            state.hospEpisodeData = {};
+        },
+        CLEAR_EXT_EPISODE_DATA(state) {
+            state.extEpisodeData = {};
         },
         SAVE_EPISODE_ID(state, id) {
             state.episodeId = id;
@@ -31,7 +37,8 @@ export default {
         },
     },
     getters: {
-        episodeData: (state) => state.episodeData,
+        hospEpisodeData: (state) => state.hospEpisodeData,
+        extEpisodeData: (state) => state.extEpisodeData,
         episodeId: (state) => state.episodeId,
         extEpisodes: (state) => state.extEpisodes,
         hospEpisodes: (state) => state.hospEpisodes,
@@ -109,8 +116,11 @@ export default {
         async clearEpisodes(context) {
             await context.commit("CLEAR_EPISODES");
         },
-        async clearEpisodeData(context) {
-            await context.commit("CLEAR_EPISODE_DATA");
+        async clearHospEpisodeData(context) {
+            await context.commit("CLEAR_HOSP_EPISODE_DATA");
+        },
+        async clearExtEpisodeData(context) {
+            await context.commit("CLEAR_EXT_EPISODE_DATA");
         },
     },
 };

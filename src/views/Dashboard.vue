@@ -18,9 +18,8 @@
             <v-form @submit.prevent="search">
                 <v-text-field
                     rounded
-                    single-line
                     v-model="searchbox"
-                    hide-details
+                    ils
                     placeholder="Ipp"
                     label="Ipp"
                     v-if="style == 'episode'"
@@ -29,10 +28,9 @@
                 ></v-text-field>
                 <v-text-field
                     rounded
-                    single-line
                     v-model="searchbox"
                     v-if="style == 'facture'"
-                    hide-details
+                    ils
                     placeholder="Numero De Facture"
                     label="Numero De Facture"
                     outlined
@@ -71,14 +69,14 @@
                             dense
                             class="pa-0 ma-0 mb-2"
                             label="Hospitalise"
-                            hide-details
+                            ils
                         />
                         <v-checkbox
                             v-model="searchExt"
                             dense
                             class="pa-0 ma-0"
                             label="Extern"
-                            hide-details
+                            ils
                         />
                     </div>
                 </v-menu>
@@ -94,14 +92,14 @@
                     v-model="hosp"
                     label="Hospitalises"
                     color="primary"
-                    hide-details
+                    ils
                     class="mr-4"
                 />
                 <v-checkbox
                     v-model="extern"
                     label="Extern"
                     color="primary"
-                    hide-details
+                    ils
                 />
             </div>
             <v-btn

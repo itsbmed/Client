@@ -1,6 +1,6 @@
 <template>
     <div class="admin-panel__home">
-        <v-card flat class="white">
+        <v-card flat class="white px-10">
             <div class="d-flex mb-8">
                 <router-link
                     to="/admin-panel/add-agent"
@@ -51,6 +51,33 @@
                         />
                     </v-col>
                 </v-row>
+                <v-row>
+                    <v-col class="mr-4">
+                        <v-text-field
+                            class="rounded-lg"
+                            outlined
+                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :type="show1 ? 'text' : 'password'"
+                            v-model="adminData.passWord"
+                            label="Password"
+                            placeholder="Password"
+                            @click:append="show1 = !show1"
+                        />
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                            class="rounded-lg"
+                            outlined
+                            :error="repeatPassword !== adminData.passWord"
+                            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :type="show2 ? 'text' : 'password'"
+                            v-model="repeatPassword"
+                            label="Repeat Password"
+                            placeholder="Repeat Password"
+                            @click:append="show2 = !show2"
+                        />
+                    </v-col>
+                </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center">
                 <v-btn
@@ -75,6 +102,9 @@ export default {
     name: "ProfileEdit",
     data: () => ({
         loading: false,
+        show1: false,
+        show2: false,
+        repeatPassword: "",
     }),
     computed: {
         adminData() {

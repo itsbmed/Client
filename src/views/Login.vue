@@ -23,7 +23,6 @@
                         <v-text-field
                             filled
                             rounded
-                            single-line
                             v-model="username"
                             :rules="usernameRules"
                             label="Username"
@@ -36,7 +35,6 @@
                         <v-text-field
                             filled
                             rounded
-                            single-line
                             :append-icon="
                                 showPassword ? 'mdi-eye' : 'mdi-eye-off'
                             "

@@ -17,9 +17,11 @@
                     <td>{{ agent.userName }}</td>
                     <td>{{ agent.isAdmin }}</td>
                     <td>
-                        <v-icon color="blue" size="25">
-                            mdi-square-edit-outline
-                        </v-icon>
+                        <v-btn icon>
+                            <v-icon color="blue" size="25">
+                                mdi-square-edit-outline
+                            </v-icon>
+                        </v-btn>
                     </td>
                 </tr>
             </tbody>

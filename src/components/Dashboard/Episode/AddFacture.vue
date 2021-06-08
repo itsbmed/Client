@@ -14,7 +14,6 @@
                                 <v-text-field
                                     v-model="billData.nReceipt"
                                     filled
-                                    single-line
                                     type="number"
                                     rounded
                                     :rules="ncRules"
@@ -30,7 +29,6 @@
                                     v-model="billData.nBill"
                                     filled
                                     :rules="nfRules"
-                                    single-line
                                     type="number"
                                     rounded
                                     outlined
@@ -48,7 +46,6 @@
                                     v-model="billData.actes"
                                     filled
                                     :rules="aRules"
-                                    single-line
                                     type="number"
                                     rounded
                                     outlined
@@ -63,7 +60,6 @@
                                 <v-text-field
                                     v-model="billData.medicament"
                                     filled
-                                    single-line
                                     rounded
                                     type="number"
                                     outlined
@@ -80,7 +76,6 @@
                                 <v-text-field
                                     v-model="billData.prosthesis"
                                     filled
-                                    single-line
                                     rounded
                                     type="number"
                                     outlined
@@ -99,7 +94,6 @@
                                         'HOSPIT MEDICAL',
                                         'HOSPIT CHIRUGICAL',
                                     ]"
-                                    single-line
                                     rounded
                                     :rules="caRules"
                                     outlined

@@ -5,9 +5,6 @@
                 <v-form ref="patient" lazy-validation>
                     <v-text-field
                         v-model="patientData.ipp"
-                        filled
-                        single-line
-                        rounded
                         type="number"
                         :rules="iRules"
                         outlined
@@ -17,63 +14,26 @@
                         @keyup="checkIpp"
                         @focus="checkIpp"
                         required
-                        clearable
                     />
                     <v-text-field
                         :disabled="alreadyRegistered"
                         v-model="patientData.lastName"
-                        filled
-                        single-line
-                        rounded
                         :rules="nRules"
                         outlined
-                        class="rounded-lg"
+                        class="rounded-lg mt-3"
                         placeholder="Nom"
                         label="Nom"
                         required
-                        clearable
                     />
-
                     <v-text-field
                         :disabled="alreadyRegistered"
                         v-model="patientData.firstName"
-                        filled
-                        single-line
-                        rounded
                         outlined
                         :rules="pRules"
-                        class="rounded-lg"
+                        class="rounded-lg mt-3"
                         placeholder="Prenom"
                         label="Prenom"
                         required
-                        clearable
-                    />
-
-                    <v-text-field
-                        :disabled="alreadyRegistered"
-                        v-model="patientData.nCode"
-                        :rules="ncodeRules"
-                        filled
-                        single-line
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="N* de carte ou d'identifiant"
-                        label="N* de carte ou d'identifiant"
-                        clearable
-                    />
-                    <v-text-field
-                        :disabled="alreadyRegistered"
-                        v-model="patientData.nDate"
-                        filled
-                        @keypress="checkDate"
-                        single-line
-                        rounded
-                        outlined
-                        class="rounded-lg"
-                        placeholder="Date D'expirations | MM / YY"
-                        label="Date D'expirations | MM / YY"
-                        clearable
                     />
                 </v-form>
             </v-card>
@@ -156,7 +116,7 @@ export default {
             "checkExistence",
             "addPatient",
             "updatePatientData",
-            "clearPetientData",
+            "clearPatientData",
         ]),
         checkDate() {
             if (this.patientData.nDate.length == 2) {
@@ -203,7 +163,7 @@ export default {
                     case 404:
                         if (this.alreadyRegistered === true) {
                             let ipp = this.patientData.ipp;
-                            this.clearPetientData();
+                            this.clearPatientData();
                             this.patientData.ipp = ipp;
                             this.alreadyRegistered = false;
                         }
@@ -213,7 +173,7 @@ export default {
         },
     },
     beforeDestroy() {
-        this.clearPetientData();
+        this.clearPatientData();
     },
 };
 </script>

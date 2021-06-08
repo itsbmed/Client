@@ -75,7 +75,6 @@
                             v-model="localData.category"
                             filled
                             :items="['PAYANT', 'RAMED']"
-                            single-line
                             rounded
                             outlined
                             class="rounded-lg"

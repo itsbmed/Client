@@ -13,7 +13,6 @@
                             v-model="localData.presentationNature"
                             :items="['CS/SP', 'RX']"
                             filled
-                            single-line
                             rounded
                             outlined
                             class="rounded-lg"

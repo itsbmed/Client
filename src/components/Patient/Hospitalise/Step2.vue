@@ -1,120 +1,151 @@
 <template>
     <span>
         <div class="pb-2">
-            <v-card flat class="mx-auto px-4 py-4" max-width="700px">
-                <div class="d-flex flex-column align-center">
-                    <p class="text-center pa-0 ma-0">Type D'admission</p>
-                    <v-radio-group
-                        class="pa-0 mt-3 mb-4"
-                        v-model="episodeData.admType"
-                        row
-                    >
-                        <v-radio
-                            label="Urgence"
-                            value="urgent"
-                            color="red"
-                            class="mr-5"
-                        ></v-radio>
-                        <v-radio
-                            label="Normale"
-                            value="normal"
-                            color="#2ecc71"
-                        ></v-radio>
-                    </v-radio-group>
-                </div>
+            <v-card flat class="mx-auto px-4" max-width="700px">
                 <v-form ref="form" lazy-validation>
-                    <v-text-field
-                        v-model="episodeData.initDate"
-                        placeholder="Date"
-                        label="Date"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
-                        required
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                        clearable
-                    />
-                    <v-text-field
-                        v-model="episodeData.entryDate"
-                        :rules="daRules"
-                        placeholder="Date D'admission"
-                        label="Date D'admission"
-                        onfocus="(this.type='date')"
-                        onblur="(this.type='text')"
-                        required
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                        clearable
-                    />
-                    <v-select
-                        v-model="episodeData.service"
-                        ref="Sr"
-                        :rules="srRules"
-                        :items="[
-                            'P1',
-                            'P2',
-                            'P3',
-                            'P4',
-                            'CH-A',
-                            'CH-B',
-                            'CH-C',
-                            'CH-D',
-                        ]"
-                        placeholder="Service D'hospilisation"
-                        label="Service D'hospilisation"
-                        required
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                        clearable
-                    />
-                    <v-select
-                        v-model="episodeData.situation"
-                        ref="st"
-                        :rules="sRules"
-                        :items="['SDF', 'Ets Social ou Penitentiaire']"
-                        placeholder="Situation"
-                        label="Situation"
-                        required
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                        clearable
-                    />
-                    <v-select
-                        single-line
-                        clearable
-                        :items="['P,P', 'RAMED', 'MAFAR']"
-                        placeholder="Categorie Comptables"
-                        label="Categorie Comptables"
-                        outlined
-                        class="rounded-lg"
-                        v-model="episodeData.category"
-                    />
+                    <div class="d-flex flex-column align-center mb-2">
+                        <p class="text-center pa-0 ma-0">Type D'admission</p>
+                        <v-radio-group
+                            class="pa-0 mt-2"
+                            v-model="hospEpisodeData.admType"
+                            row
+                        >
+                            <v-radio
+                                label="Urgence"
+                                value="urgent"
+                                color="red"
+                                class="mr-5"
+                            ></v-radio>
+                            <v-radio
+                                label="Normale"
+                                value="normal"
+                                color="#2ecc71"
+                            ></v-radio>
+                        </v-radio-group>
+                    </div>
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="hospEpisodeData.firstName"
+                                placeholder="Prenom"
+                                label="Prenom"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="hospEpisodeData.lastName"
+                                placeholder="Nom"
+                                label="Nom"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="hospEpisodeData.address"
+                                placeholder="Adrress"
+                                label="Adrress"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="hospEpisodeData.cin"
+                                :rules="daRules"
+                                placeholder="CIN"
+                                label="CIN"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
 
-                    <v-text-field
-                        v-model="episodeData.tName"
-                        ref="Tn"
-                        placeholder="Nom De Titulaire"
-                        label="Nom De Titulaire"
-                        clearable
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                    />
-                    <v-text-field
-                        v-model="episodeData.tnErcure"
-                        ref="Te"
-                        type="number"
-                        placeholder="N*Ercure De Titulaire"
-                        label="N*Ercure De Titulaire"
-                        clearable
-                        outlined
-                        single-line
-                        class="rounded-lg"
-                    />
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-select
+                                v-model="hospEpisodeData.service"
+                                ref="Sr"
+                                :rules="srRules"
+                                :items="services"
+                                placeholder="Service D'hospilisation"
+                                label="Service D'hospilisation"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="hospEpisodeData.entryDate"
+                                :rules="daRules"
+                                placeholder="Date D'admission"
+                                label="Date D'admission"
+                                onfocus="(this.type='date')"
+                                onblur="(this.type='text')"
+                                required
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
+
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="me-4">
+                            <v-select
+                                :items="presentations"
+                                placeholder="Nature de presentation"
+                                label="Nature de presentation"
+                                outlined
+                                class="rounded-lg"
+                                v-model="hospEpisodeData.presentationNature"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-select
+                                :items="categories"
+                                placeholder="Categorie Comptables"
+                                label="Categorie Comptables"
+                                outlined
+                                class="rounded-lg"
+                                v-model="hospEpisodeData.category"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row
+                        no-gutters
+                        v-if="hospEpisodeData.category == 'RAMED'"
+                    >
+                        <v-col class="me-4">
+                            <v-text-field
+                                placeholder="Numero du facture"
+                                label="Numero du facture"
+                                outlined
+                                class="rounded-lg"
+                                type="number"
+                                v-model="hospEpisodeData.ramedNum"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-if="hospEpisodeData.category == 'RAMED'"
+                                placeholder="Ramed Expiration Date"
+                                label="Ramed Expiration Date"
+                                outlined
+                                onfocus="(this.type='date')"
+                                onblur="(this.type='text')"
+                                class="rounded-lg"
+                                v-model="hospEpisodeData.ramedExpDate"
+                            />
+                        </v-col>
+                    </v-row>
                 </v-form>
             </v-card>
         </div>
@@ -160,23 +191,48 @@ export default {
         sRules: [(v) => !!v || "Le service d'hospilisation est requis"],
         srRules: [(v) => !!v || "Le service d'hospilisation est requis"],
         cRules: [(v) => !!v || "la categorie comptable est requis"],
+        categories: [
+            "PAID",
+            "POTENTIAL",
+            "RAMED",
+            "CNOPS",
+            "MAFAR",
+            "CNSS",
+            "ORGANISM",
+        ],
+        services: [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "CHA",
+            "CHB",
+            "CHC",
+            "CHD",
+            "CHOP",
+            "UPM",
+            "UPC",
+            "REAA",
+            "REAB",
+        ],
+        presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
     }),
     computed: {
-        ...mapGetters(["episodeData", "getIpp"]),
+        ...mapGetters(["hospEpisodeData", "getIpp"]),
     },
     methods: {
         ...mapActions([
             "changeHospStep",
             "saveEpisode",
-            "clearEpisodeData",
+            "clearHospEpisodeData",
             "clearPatientData",
         ]),
         async save() {
             this.loading = true;
             try {
-                this.episodeData.type = "hospitalized";
+                this.hospEpisodeData.type = "hospitalized";
                 let res = await this.saveEpisode([
-                    this.episodeData,
+                    this.hospEpisodeData,
                     this.getIpp,
                 ]);
                 this.$notify({
@@ -185,7 +241,7 @@ export default {
                     title: "Enregistrement",
                     text: "Episode a été enregistré",
                 });
-                await this.clearEpisodeData();
+                await this.clearHospEpisodeData();
                 await this.clearPatientData();
                 await this.$router.push({ name: "Dashboard" });
             } catch (err) {

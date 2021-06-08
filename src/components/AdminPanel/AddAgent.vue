@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="white">
+    <v-card flat class="white px-10">
         <v-card-text class="pt-5">
             <v-row no-gutters>
                 <v-col class="me-4">
@@ -40,24 +40,25 @@
                     <v-text-field
                         class="rounded-lg"
                         outlined
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="showPassword ? 'text' : 'password'"
+                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show1 ? 'text' : 'password'"
                         v-model="agentData.passWord"
                         label="Password"
                         placeholder="Password"
-                        @click:append="showPassword = !showPassword"
+                        @click:append="show1 = !show1"
                     />
                 </v-col>
                 <v-col>
                     <v-text-field
                         class="rounded-lg"
                         outlined
-                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="showPassword ? 'text' : 'password'"
+                        :error="repeatPassword !== agentData.passWord"
+                        :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show2 ? 'text' : 'password'"
                         v-model="repeatPassword"
                         label="Repeat Password"
                         placeholder="Repeat Password"
-                        @click:append="showPassword = !showPassword"
+                        @click:append="show2 = !show2"
                     />
                 </v-col>
             </v-row>
@@ -95,9 +96,11 @@ export default {
     data: () => ({
         loading: false,
         agentData: {},
-        showPassword: false,
         repeatPassword: "",
+        show1: false,
+        show2: true,
     }),
+
     methods: {
         async addAgent() {
             this.loading = true;
