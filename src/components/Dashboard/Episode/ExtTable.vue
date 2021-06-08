@@ -3,28 +3,31 @@
         <template v-slot:default>
             <thead>
                 <tr>
-                    <th scope="col">{{ Ex_Head.Type }}</th>
-                    <th scope="col">{{ Ex_Head.info }}</th>
-                    <th scope="col">{{ Ex_Head.Ipp }}</th>
-                    <th scope="col">{{ Ex_Head.Date }}</th>
-                    <th scope="col">{{ Ex_Head.Nature }}</th>
-                    <th scope="col">{{ Ex_Head.Type_Ad }}</th>
+                    <th v-for="(item, i) in headItems" :key="i" scope="col">
+                        {{ item }}
+                    </th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="extEpisode in extEpisodes" :key="extEpisode.name">
+                <tr v-for="(extEpisode, i) in extEpisodes" :key="extEpisode.id">
                     <td>{{ extEpisode.type }}</td>
                     <td>
                         {{ extEpisode.patient.firstName }}
                         {{ extEpisode.patient.lastName }}
                     </td>
+                    <td>{{ extEpisode.address }}</td>
                     <td>{{ extEpisode.patient.ipp }}</td>
-                    <td>{{ formatDate(extEpisode.initDate) }}</td>
-                    <td>{{ extEpisode.presentationNature }}</td>
+                    <td>{{ formatDate(extEpisode.createdAt) }}</td>
                     <td>{{ extEpisode.admType }}</td>
+                    <td>{{ extEpisode.cin }}</td>
+                    <td>{{ extEpisode.presentationNature }}</td>
+                    <td>{{ extEpisode.category }}</td>
+                    <td>{{ formatDate(extEpisode.ramedExpDate) }}</td>
+                    <td>{{ extEpisode.ramedNum }}</td>
+
                     <td class="text-center">
-                        <ExtTableEdit :data="extEpisode">
+                        <ExtTableEdit :data="extEpisode" :index="i">
                             <v-icon color="blue" size="25">
                                 mdi-square-edit-outline
                             </v-icon>
@@ -46,9 +49,7 @@
                     </td>
                 </tr>
                 <tr class="white" v-if="!extEpisodes.length">
-                    <td colspan="13" class="text-center">
-                        No data found for this Ipp
-                    </td>
+                    <td colspan="13" class="text-center">No data found</td>
                 </tr>
             </tbody>
         </template>
@@ -67,14 +68,19 @@ export default {
         ...mapGetters(["extEpisodes"]),
     },
     data: () => ({
-        Ex_Head: {
-            Type: "Type",
-            info: "Nom et prenom",
-            Ipp: "Ipp",
-            Date: "Date",
-            Type_Ad: "Type_Ad",
-            Nature: "Nature De Presentation",
-        },
+        headItems: [
+            "Type",
+            "Nom et prenom",
+            "Address",
+            "Ipp",
+            "Date",
+            "Type Ad",
+            "Cin",
+            "Nature De Presentation",
+            "Category",
+            "Ramed Exp Date",
+            "Ramed Num",
+        ],
         loading: false,
         page: 2,
         moreData: true,

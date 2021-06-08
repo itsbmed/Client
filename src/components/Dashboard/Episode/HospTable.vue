@@ -3,37 +3,36 @@
         <template v-slot:default>
             <thead style="background: #2ecc71; color: white">
                 <tr>
-                    <th scope="col">{{ H_Head.Type }}</th>
-                    <th scope="col">{{ H_Head.info }}</th>
-                    <th scope="col">{{ H_Head.Ipp }}</th>
-                    <th scope="col">{{ H_Head.Date }}</th>
-                    <th scope="col">{{ H_Head.Date_AD }}</th>
-                    <th scope="col">{{ H_Head.Date_Srt }}</th>
-                    <th scope="col">{{ H_Head.Service }}</th>
-                    <th scope="col">{{ H_Head.Categorie }}</th>
-                    <th scope="col">{{ H_Head.Type_Ad }}</th>
-                    <th scope="col">{{ H_Head.Tn_Ercure }}</th>
-                    <th scope="col">{{ H_Head.Tn_Nom }}</th>
+                    <th v-for="(item, i) in headItems" :key="i" scope="col">
+                        {{ item }}
+                    </th>
                     <th scope="col">Facturation</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="hospEpisode in hospEpisodes" :key="hospEpisode.id">
+                <tr
+                    v-for="(hospEpisode, i) in hospEpisodes"
+                    :key="hospEpisode.id"
+                >
                     <td>{{ hospEpisode.type }}</td>
                     <td>
                         {{ hospEpisode.patient.firstName }}
                         {{ hospEpisode.patient.lastName }}
                     </td>
+                    <td>{{ hospEpisode.address }}</td>
                     <td>{{ hospEpisode.patient.ipp }}</td>
-                    <td>{{ formatDate(hospEpisode.initDate) }}</td>
+                    <td>{{ formatDate(hospEpisode.createdAt) }}</td>
                     <td>{{ formatDate(hospEpisode.entryDate) }}</td>
                     <td>{{ formatDate(hospEpisode.exitDate) }}</td>
+                    <td>{{ hospEpisode.admType }}</td>
+                    <td>{{ hospEpisode.cin }}</td>
+                    <td>{{ hospEpisode.presentationNature }}</td>
                     <td>{{ hospEpisode.service }}</td>
                     <td>{{ hospEpisode.category }}</td>
-                    <td>{{ hospEpisode.admType }}</td>
-                    <td>{{ hospEpisode.tnErcure }}</td>
-                    <td>{{ hospEpisode.tName }}</td>
+                    <td>{{ formatDate(hospEpisode.ramedExpDate) }}</td>
+                    <td>{{ hospEpisode.ramedNum }}</td>
+
                     <td class="text-center">
                         <span v-if="!hospEpisode.bill">
                             <AddFacture :episode="hospEpisode">
@@ -45,7 +44,7 @@
                         <span v-else class="primary--text">Added</span>
                     </td>
                     <td class="text-center">
-                        <HospTableEdit :data="hospEpisode">
+                        <HospTableEdit :data="hospEpisode" :index="i">
                             <v-icon color="blue" size="25">
                                 mdi-square-edit-outline
                             </v-icon>
@@ -67,9 +66,7 @@
                     </td>
                 </tr>
                 <tr class="white" v-if="!hospEpisodes.length">
-                    <td colspan="13" class="text-center">
-                        No data found for this Ipp
-                    </td>
+                    <td colspan="13" class="text-center">No data found</td>
                 </tr>
             </tbody>
         </template>
@@ -87,19 +84,22 @@ export default {
         AddFacture: () => import("./AddFacture"),
     },
     data: () => ({
-        H_Head: {
-            Type: "Type",
-            info: "Nom et prenom",
-            Ipp: "Ipp",
-            Date: "Date",
-            Date_AD: "Date_AD",
-            Date_Srt: "Date_Srt",
-            Service: "Service",
-            Categorie: "Categorie",
-            Type_Ad: "Type_Ad",
-            Tn_Ercure: "Tn_Ercure",
-            Tn_Nom: "Tn_Nom",
-        },
+        headItems: [
+            "Type",
+            "Nom et prenom",
+            "Address",
+            "Ipp",
+            "Date",
+            "Date Ad",
+            "Date Srt",
+            "Type Ad",
+            "Cin",
+            "Nature De Presentation",
+            "Service",
+            "Category",
+            "Ramed Exp Date",
+            "Ramed Num",
+        ],
         loading: false,
         page: 2,
         moreData: true,

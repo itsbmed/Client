@@ -7,7 +7,7 @@
                         <p class="text-center pa-0 ma-0">Type D'admission</p>
                         <v-radio-group
                             class="pa-0 mt-3 mb-4"
-                            v-model="extEpisodeData.admType"
+                            v-model="extEpisodeFrom.admType"
                             row
                         >
                             <v-radio
@@ -26,7 +26,7 @@
                     <v-row no-gutters class="mt-2">
                         <v-col class="me-4">
                             <v-text-field
-                                v-model="extEpisodeData.firstName"
+                                v-model="extEpisodeFrom.firstName"
                                 placeholder="Prenom"
                                 label="Prenom"
                                 required
@@ -36,7 +36,7 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="extEpisodeData.lastName"
+                                v-model="extEpisodeFrom.lastName"
                                 placeholder="Nom"
                                 label="Nom"
                                 outlined
@@ -47,7 +47,7 @@
                     <v-row no-gutters>
                         <v-col class="me-4">
                             <v-text-field
-                                v-model="extEpisodeData.address"
+                                v-model="extEpisodeFrom.address"
                                 placeholder="Adrress"
                                 label="Adrress"
                                 required
@@ -57,7 +57,7 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="extEpisodeData.cin"
+                                v-model="extEpisodeFrom.cin"
                                 placeholder="CIN"
                                 label="CIN"
                                 required
@@ -75,7 +75,7 @@
                                 label="Nature de presentation"
                                 outlined
                                 class="rounded-lg"
-                                v-model="extEpisodeData.presentationNature"
+                                v-model="extEpisodeFrom.presentationNature"
                             />
                         </v-col>
                         <v-col>
@@ -85,11 +85,11 @@
                                 label="Categorie Comptables"
                                 outlined
                                 class="rounded-lg"
-                                v-model="extEpisodeData.category"
+                                v-model="extEpisodeFrom.category"
                             />
                         </v-col>
                     </v-row>
-                    <v-row no-gutters v-if="extEpisodeData.category == 'RAMED'">
+                    <v-row no-gutters v-if="extEpisodeFrom.category == 'RAMED'">
                         <v-col class="me-4">
                             <v-text-field
                                 placeholder="Numero du facture"
@@ -97,7 +97,7 @@
                                 outlined
                                 class="rounded-lg"
                                 type="number"
-                                v-model="extEpisodeData.ramedNum"
+                                v-model="extEpisodeFrom.ramedNum"
                             />
                         </v-col>
                         <v-col>
@@ -108,7 +108,7 @@
                                 onfocus="(this.type='date')"
                                 onblur="(this.type='text')"
                                 class="rounded-lg"
-                                v-model="extEpisodeData.ramedExpDate"
+                                v-model="extEpisodeFrom.ramedExpDate"
                             />
                         </v-col>
                     </v-row>
@@ -163,22 +163,22 @@ export default {
         presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
     }),
     computed: {
-        ...mapGetters(["extEpisodeData", "getIpp"]),
+        ...mapGetters(["extEpisodeFrom", "getIpp"]),
     },
     methods: {
         ...mapActions([
             "changeExtStep",
             "saveEpisode",
-            "clearExtEpisodeData",
+            "clearextEpisodeFrom",
             "clearPatientData",
         ]),
         async nextStep() {
             this.loading = true;
 
             try {
-                this.extEpisodeData.type = "external";
+                this.extEpisodeFrom.type = "external";
                 let res = await this.saveEpisode([
-                    this.extEpisodeData,
+                    this.extEpisodeFrom,
                     this.getIpp,
                 ]);
                 this.$notify({
@@ -187,7 +187,7 @@ export default {
                     title: "Enregistrement",
                     text: "Episode registred",
                 });
-                await this.clearExtEpisodeData();
+                await this.clearextEpisodeFrom();
                 await this.clearPatientData();
                 await this.changeExtStep(3);
             } catch (err) {

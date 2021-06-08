@@ -14,7 +14,6 @@
                             label="Date"
                             onfocus="(this.type='date')"
                             onblur="(this.type='text')"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.initDate"
@@ -24,7 +23,6 @@
                         <v-text-field
                             placeholder="Tn Nom"
                             label="Tn Nom"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.tName"
@@ -40,7 +38,6 @@
                             label="Date AD"
                             onfocus="(this.type='date')"
                             onblur="(this.type='text')"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.entryDate"
@@ -52,7 +49,6 @@
                             label="Date srt"
                             onfocus="(this.type='date')"
                             onblur="(this.type='text')"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.exitDate"
@@ -64,7 +60,6 @@
                         <v-text-field
                             placeholder="Service"
                             label="Service"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.service"
@@ -80,7 +75,6 @@
                             class="rounded-lg"
                             placeholder="Categorie"
                             label="Categorie"
-                            clearable
                         />
                     </v-col>
                 </v-row>
@@ -99,7 +93,6 @@
                         <v-text-field
                             placeholder="Tn Ercure"
                             label="Tn Ercure"
-                            clearable
                             outlined
                             class="rounded-lg"
                             v-model="localData.tnErcure"
@@ -144,7 +137,10 @@
 
 <script>
 export default {
-    props: { data: { type: Object, required: true } },
+    props: {
+        data: { type: Object, required: true },
+        index: { type: [String, Number], required: true },
+    },
     data: (props) => ({
         dialog: false,
         loading: false,
@@ -181,6 +177,10 @@ export default {
                     }
                 );
                 this.dialog = false;
+                this.$store.dispatch("updateHospEpisode", [
+                    this.localData,
+                    this.index,
+                ]);
                 this.$notify({
                     group: "br",
                     type: "success",

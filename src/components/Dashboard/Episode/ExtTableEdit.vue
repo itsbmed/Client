@@ -11,20 +11,17 @@
                     <v-col class="me-4">
                         <v-select
                             v-model="localData.presentationNature"
-                            :items="['CS/SP', 'RX']"
-                            filled
+                            :items="presentations"
                             rounded
                             outlined
                             class="rounded-lg"
                             placeholder="Nature De Presentation"
                             label="Nature De Presentation"
-                            required
-                            clearable
                         />
                     </v-col>
                     <v-col>
                         <v-select
-                            :items="['Urgence', 'Normale']"
+                            :items="['URGENT', 'NORMAL']"
                             placeholder="Type AD"
                             label="Type AD"
                             outlined
@@ -40,10 +37,9 @@
                             label="Date"
                             onfocus="(this.type='date')"
                             onblur="(this.type='text')"
-                            clearable
                             outlined
                             class="rounded-lg"
-                            v-model="localData.initDate"
+                            v-model="localData.createdAt"
                         />
                     </v-col>
                 </v-row>
@@ -85,11 +81,16 @@
 
 <script>
 export default {
-    props: { data: { type: Object, required: true } },
+    props: {
+        data: { type: Object, required: true },
+        index: { type: [String, Number], required: true },
+    },
+
     data: (props) => ({
         dialog: false,
         loading: false,
-        localData: props.data,
+        localData: { ...props.data },
+        presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
     }),
     methods: {
         async edit() {
@@ -105,6 +106,10 @@ export default {
                         admType,
                     }
                 );
+                this.$store.dispatch("updateExtEpisode", [
+                    this.localData,
+                    this.index,
+                ]);
                 this.dialog = false;
                 this.$notify({
                     group: "br",
@@ -124,6 +129,9 @@ export default {
                 this.loading = false;
             }
         },
+    },
+    mounted() {
+        console.log(this.localData);
     },
 };
 </script>

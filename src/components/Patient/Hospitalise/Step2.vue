@@ -7,7 +7,7 @@
                         <p class="text-center pa-0 ma-0">Type D'admission</p>
                         <v-radio-group
                             class="pa-0 mt-2"
-                            v-model="hospEpisodeData.admType"
+                            v-model="hospEpisodeFrom.admType"
                             row
                         >
                             <v-radio
@@ -26,7 +26,7 @@
                     <v-row no-gutters class="mt-2">
                         <v-col class="me-4">
                             <v-text-field
-                                v-model="hospEpisodeData.firstName"
+                                v-model="hospEpisodeFrom.firstName"
                                 placeholder="Prenom"
                                 label="Prenom"
                                 required
@@ -36,7 +36,7 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="hospEpisodeData.lastName"
+                                v-model="hospEpisodeFrom.lastName"
                                 placeholder="Nom"
                                 label="Nom"
                                 outlined
@@ -47,7 +47,7 @@
                     <v-row no-gutters>
                         <v-col class="me-4">
                             <v-text-field
-                                v-model="hospEpisodeData.address"
+                                v-model="hospEpisodeFrom.address"
                                 placeholder="Adrress"
                                 label="Adrress"
                                 required
@@ -57,7 +57,7 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="hospEpisodeData.cin"
+                                v-model="hospEpisodeFrom.cin"
                                 :rules="daRules"
                                 placeholder="CIN"
                                 label="CIN"
@@ -71,7 +71,7 @@
                     <v-row no-gutters class="mt-2">
                         <v-col class="me-4">
                             <v-select
-                                v-model="hospEpisodeData.service"
+                                v-model="hospEpisodeFrom.service"
                                 ref="Sr"
                                 :rules="srRules"
                                 :items="services"
@@ -84,7 +84,7 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="hospEpisodeData.entryDate"
+                                v-model="hospEpisodeFrom.entryDate"
                                 :rules="daRules"
                                 placeholder="Date D'admission"
                                 label="Date D'admission"
@@ -105,7 +105,7 @@
                                 label="Nature de presentation"
                                 outlined
                                 class="rounded-lg"
-                                v-model="hospEpisodeData.presentationNature"
+                                v-model="hospEpisodeFrom.presentationNature"
                             />
                         </v-col>
                         <v-col>
@@ -115,13 +115,13 @@
                                 label="Categorie Comptables"
                                 outlined
                                 class="rounded-lg"
-                                v-model="hospEpisodeData.category"
+                                v-model="hospEpisodeFrom.category"
                             />
                         </v-col>
                     </v-row>
                     <v-row
                         no-gutters
-                        v-if="hospEpisodeData.category == 'RAMED'"
+                        v-if="hospEpisodeFrom.category == 'RAMED'"
                     >
                         <v-col class="me-4">
                             <v-text-field
@@ -130,19 +130,19 @@
                                 outlined
                                 class="rounded-lg"
                                 type="number"
-                                v-model="hospEpisodeData.ramedNum"
+                                v-model="hospEpisodeFrom.ramedNum"
                             />
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-if="hospEpisodeData.category == 'RAMED'"
+                                v-if="hospEpisodeFrom.category == 'RAMED'"
                                 placeholder="Ramed Expiration Date"
                                 label="Ramed Expiration Date"
                                 outlined
                                 onfocus="(this.type='date')"
                                 onblur="(this.type='text')"
                                 class="rounded-lg"
-                                v-model="hospEpisodeData.ramedExpDate"
+                                v-model="hospEpisodeFrom.ramedExpDate"
                             />
                         </v-col>
                     </v-row>
@@ -218,21 +218,21 @@ export default {
         presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
     }),
     computed: {
-        ...mapGetters(["hospEpisodeData", "getIpp"]),
+        ...mapGetters(["hospEpisodeFrom", "getIpp"]),
     },
     methods: {
         ...mapActions([
             "changeHospStep",
             "saveEpisode",
-            "clearHospEpisodeData",
+            "clearhospEpisodeFrom",
             "clearPatientData",
         ]),
         async save() {
             this.loading = true;
             try {
-                this.hospEpisodeData.type = "hospitalized";
+                this.hospEpisodeFrom.type = "hospitalized";
                 let res = await this.saveEpisode([
-                    this.hospEpisodeData,
+                    this.hospEpisodeFrom,
                     this.getIpp,
                 ]);
                 this.$notify({
@@ -241,7 +241,7 @@ export default {
                     title: "Enregistrement",
                     text: "Episode a été enregistré",
                 });
-                await this.clearHospEpisodeData();
+                await this.clearhospEpisodeFrom();
                 await this.clearPatientData();
                 await this.$router.push({ name: "Dashboard" });
             } catch (err) {
