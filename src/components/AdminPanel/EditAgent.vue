@@ -27,17 +27,7 @@
                         />
                     </v-col>
                 </v-row>
-                <v-row no-gutters class="mt-2">
-                    <v-col cols="6" class="mr-4">
-                        <v-text-field
-                            placeholder="Username"
-                            label="Username"
-                            outlined
-                            class="rounded-lg"
-                            v-model="agentData.userName"
-                        />
-                    </v-col>
-                </v-row>
+
                 <v-row no-gutters class="mt-2">
                     <v-col class="mr-4">
                         <v-text-field

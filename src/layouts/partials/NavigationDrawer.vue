@@ -55,7 +55,11 @@ export default {
                 to: "/admin-panel/agents",
                 icon: "mdi-account-group",
             },
-            { title: "Settings", to: "/admin-panel/settings", icon: "mdi-cog" },
+            {
+                title: "Analytics",
+                to: "/admin-panel/analytics",
+                icon: "mdi-google-analytics",
+            },
             {
                 title: "Add Agent",
                 to: "/admin-panel/add-agent",
