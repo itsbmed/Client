@@ -36,6 +36,20 @@
                             </v-btn>
                         </td>
                     </tr>
+                    <tr v-if="existMore" class="mt-2">
+                        <td colspan="5" class="text-center">
+                            <v-btn
+                                class="text-none"
+                                @click="getAgents()"
+                                outlined
+                                color="blue"
+                                :loading="loading"
+                                :disabled="loading"
+                            >
+                                Load more
+                            </v-btn>
+                        </td>
+                    </tr>
                 </tbody>
             </template>
         </v-simple-table>
@@ -47,20 +61,36 @@ export default {
     name: "Agents",
     data: () => ({
         agents: [],
+        page: 1,
+        loading: false,
+        existMore: true,
     }),
+    methods: {
+        async getAgents() {
+            this.loading = true;
+            try {
+                let res = await this.$axios.get("/agents?page=" + this.page);
+                this.agents.push(...res.data);
+                this.page++;
+
+                if (res.data.length < 10) {
+                    this.existMore = false;
+                }
+            } catch (err) {
+                console.log(err);
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Submit error",
+                    text: err.response?.data?.message,
+                });
+            } finally {
+                this.loading = false;
+            }
+        },
+    },
     async mounted() {
-        try {
-            let res = await this.$axios.get("/agents");
-            this.agents = res.data;
-        } catch (err) {
-            console.log(err);
-            this.$notify({
-                group: "br",
-                type: "error",
-                title: "Submit error",
-                text: err.response?.data?.message,
-            });
-        }
+        await this.getAgents();
     },
 };
 </script>
