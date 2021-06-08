@@ -29,11 +29,13 @@
                         <td>{{ agent.userName }}</td>
                         <td>{{ agent.isAdmin }}</td>
                         <td>
-                            <v-btn icon>
-                                <v-icon color="blue" size="25">
-                                    mdi-square-edit-outline
-                                </v-icon>
-                            </v-btn>
+                            <EditAgent :agent="agent">
+                                <v-btn icon>
+                                    <v-icon color="blue" size="25">
+                                        mdi-square-edit-outline
+                                    </v-icon>
+                                </v-btn>
+                            </EditAgent>
                         </td>
                     </tr>
                     <tr v-if="existMore" class="mt-2">
@@ -57,8 +59,10 @@
 </template>
 
 <script>
+import EditAgent from "./EditAgent.vue";
 export default {
     name: "Agents",
+    components: { EditAgent },
     data: () => ({
         agents: [],
         page: 1,
