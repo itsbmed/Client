@@ -93,6 +93,14 @@ const routes = [
             },
         ],
     },
+    {
+        path: "/Forbidden",
+        name: "Forbidden",
+        component: () => import("@/views/Forbidden.vue"),
+        meta: {
+            global: true,
+        },
+    },
 
     {
         path: "*",
