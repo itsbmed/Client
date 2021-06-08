@@ -1,32 +1,45 @@
 <template>
-    <v-simple-table class="ms-2">
-        <template v-slot:default>
-            <thead>
-                <tr>
-                    <th class="text-left">firsname</th>
-                    <th class="text-left">lastname</th>
-                    <th class="text-left">username</th>
-                    <th class="text-left">Admin</th>
-                    <th class="text-left">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="agent in agents" :key="agent.userName">
-                    <td>{{ agent.firstName }}</td>
-                    <td>{{ agent.lastName }}</td>
-                    <td>{{ agent.userName }}</td>
-                    <td>{{ agent.isAdmin }}</td>
-                    <td>
-                        <v-btn icon>
-                            <v-icon color="blue" size="25">
-                                mdi-square-edit-outline
-                            </v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </tbody>
-        </template>
-    </v-simple-table>
+    <v-container>
+        <div class="mb-8 d-flex">
+            <router-link
+                to="/admin-panel/add-agent"
+                class="rm-underline ms-auto"
+            >
+                <v-btn outlined class="rounded-lg text-none" color="primary">
+                    <v-icon left size="20">mdi-plus</v-icon>
+                    Add new agent
+                </v-btn>
+            </router-link>
+        </div>
+        <v-simple-table class="ms-2">
+            <template v-slot:default>
+                <thead>
+                    <tr>
+                        <th class="text-left">firsname</th>
+                        <th class="text-left">lastname</th>
+                        <th class="text-left">username</th>
+                        <th class="text-left">Admin</th>
+                        <th class="text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="agent in agents" :key="agent.userName">
+                        <td>{{ agent.firstName }}</td>
+                        <td>{{ agent.lastName }}</td>
+                        <td>{{ agent.userName }}</td>
+                        <td>{{ agent.isAdmin }}</td>
+                        <td>
+                            <v-btn icon>
+                                <v-icon color="blue" size="25">
+                                    mdi-square-edit-outline
+                                </v-icon>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </tbody>
+            </template>
+        </v-simple-table>
+    </v-container>
 </template>
 
 <script>
@@ -39,7 +52,6 @@ export default {
         try {
             let res = await this.$axios.get("/agents");
             this.agents = res.data;
-            console.log(res);
         } catch (err) {
             console.log(err);
             this.$notify({
