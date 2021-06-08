@@ -172,8 +172,5 @@ export default {
             }
         },
     },
-    beforeDestroy() {
-        this.clearPatientData();
-    },
 };
 </script>

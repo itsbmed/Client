@@ -56,8 +56,9 @@
                                 class="text-none"
                                 rounded
                                 height="40px"
-                                :disabled="searchbox.length < 6"
+                                :disabled="searchbox.length < 6 || loading"
                                 @click="search"
+                                :loading="loading"
                             >
                                 Rechercher
                             </v-btn>
@@ -147,32 +148,30 @@ export default {
         extern: true,
         searchHosp: true,
         searchExt: true,
+        loading: false,
     }),
     methods: {
         ...mapActions(["getHospEpisodes", "getExtEpisodes", "clearEpisodes"]),
         async getEpisodeData() {
-            this.searching = true;
             try {
                 if (this.searchHosp && this.searchExt) {
-                    await this.getHospEpisodes(this.searchbox);
-                    await this.getExtEpisodes(this.searchbox);
+                    let hospRes = await this.getHospEpisodes(this.searchbox);
+                    let extRes = await this.getExtEpisodes(this.searchbox);
+                    if (!hospRes.data.length && !extRes.data.length)
+                        this.noDataNotif(this.searchbox);
+                    else this.searching = true;
                     return;
                 }
                 if (this.searchHosp) {
-                    try {
-                        await this.getHospEpisodes(this.searchbox);
-                    } catch (err) {
-                        console.log(err);
-                        this.$notify({
-                            group: "br",
-                            type: "error",
-                            title: "Get Episodes error",
-                            text: err.data.message,
-                        });
-                    }
+                    let HospRes = await this.getHospEpisodes(this.searchbox);
+                    if (!HospRes.data.length) this.noDataNotif(this.searchbox);
+                    else this.searching = true;
+
                     return;
                 }
-                await this.getExtEpisodes(this.searchbox);
+                let extRes = await this.getExtEpisodes(this.searchbox);
+                if (!extRes.data.length) this.noDataNotif(this.searchbox);
+                else this.searching = true;
             } catch (err) {
                 console.log(err);
                 this.$notify({
@@ -192,17 +191,27 @@ export default {
             });
         },
         async search() {
+            if (this.searchbox.length < 6) return;
+            if (!this.searchHosp && !this.searchExt) return;
+            this.loading = true;
             if (!this.searchHosp) this.hosp = false;
             else this.hosp = true;
             if (!this.searchExt) this.extern = false;
             else this.extern = true;
 
-            this.searching = true;
             if (this.style == "episode") {
                 await this.getEpisodeData();
             } else {
                 await this.getFactureData();
             }
+            this.loading = false;
+        },
+        noDataNotif(ipp) {
+            this.$notify({
+                group: "br",
+                type: "error",
+                text: "sorry no data found for " + ipp,
+            });
         },
     },
 };
