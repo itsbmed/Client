@@ -82,25 +82,29 @@
             </div>
         </v-container>
         <div
-            class="d-flex align-center px-4 mt-4 mb-5 mx-auto"
-            style="max-width: 450px"
+            class="d-flex mx-auto mt-2 mb-4"
+            style="max-width: 400px"
             v-if="searching"
         >
-            <div class="d-flex mb-4">
+            <div class="d-flex">
                 <v-checkbox
                     v-model="hosp"
                     label="Hospitalises"
+                    hide-details
                     color="primary"
                     class="mr-4"
                 />
-                <v-checkbox v-model="extern" label="Extern" color="primary" />
+                <v-checkbox
+                    v-model="extern"
+                    hide-details
+                    label="Extern"
+                    color="primary"
+                />
             </div>
             <v-btn
-                depresses
                 outlined
-                type="submit"
                 color="blue"
-                class="text-none ms-auto"
+                class="text-none ms-auto align-self-center mt-3"
                 rounded
                 width="100px"
                 @click="clearEpisodes()"
@@ -109,10 +113,10 @@
             </v-btn>
         </div>
         <div v-if="searching">
-            <EpisodeHospTable v-if="style == 'episode' && hosp && searchHosp" />
-            <EpisodeExtTable v-if="style == 'episode' && extern && searchExt" />
-            <FactureHospTable v-if="style == 'facture' && hosp && searchHosp" />
-            <FactureExtTable v-if="style == 'facture' && extern && searchExt" />
+            <EpisodeHospTable v-if="style == 'episode' && hosp" />
+            <EpisodeExtTable v-if="style == 'episode' && extern" />
+            <FactureHospTable v-if="style == 'facture' && hosp" />
+            <FactureExtTable v-if="style == 'facture' && extern" />
         </div>
     </v-container>
 </template>
@@ -189,7 +193,9 @@ export default {
         },
         async search() {
             if (!this.searchHosp) this.hosp = false;
+            else this.hosp = true;
             if (!this.searchExt) this.extern = false;
+            else this.extern = true;
 
             this.searching = true;
             if (this.style == "episode") {
