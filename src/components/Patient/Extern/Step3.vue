@@ -197,7 +197,7 @@ export default {
             let sum = 0;
             Object.keys(this.billData).forEach((key) => {
                 if (!excludedTotalItems.includes(key)) {
-                    sum += parseFloat(this.billData[key]);
+                    sum += Number(this.billData[key]);
                 }
             });
             return sum;
