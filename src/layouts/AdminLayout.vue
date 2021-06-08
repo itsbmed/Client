@@ -1,7 +1,7 @@
 <template>
     <div class="admin-panel">
         <NavigationDrawer />
-        <div class="ms-8 px-10 mx-auto pt-10">
+        <div class="ms-8 mx-auto">
             <slot />
         </div>
     </div>
