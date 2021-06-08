@@ -108,7 +108,7 @@
                 class="text-none ms-auto align-self-center mt-3"
                 rounded
                 width="100px"
-                @click="clearEpisodes()"
+                @click="clear()"
             >
                 clear
             </v-btn>
@@ -151,7 +151,14 @@ export default {
         loading: false,
     }),
     methods: {
-        ...mapActions(["getHospEpisodes", "getExtEpisodes", "clearEpisodes"]),
+        ...mapActions([
+            "getHospEpisodes",
+            "getExtEpisodes",
+            "clearEpisodes",
+            "clearBills",
+            "getHospBills",
+            "getExtBills",
+        ]),
         async getEpisodeData() {
             try {
                 if (this.searchHosp && this.searchExt) {
@@ -183,12 +190,34 @@ export default {
             }
         },
         async getFactureData() {
-            this.$notify({
-                group: "br",
-                type: "error",
-                title: "Get facture error",
-                text: "no factures inmplemetation yet",
-            });
+            try {
+                if (this.searchHosp && this.searchExt) {
+                    let hospRes = await this.getHospBills(this.searchbox);
+                    let extRes = await this.getExtBills(this.searchbox);
+                    if (!hospRes.data.length && !extRes.data.length)
+                        this.noDataNotif(this.searchbox);
+                    else this.searching = true;
+                    return;
+                }
+                if (this.searchHosp) {
+                    let HospRes = await this.getHospBills(this.searchbox);
+                    if (!HospRes.data.length) this.noDataNotif(this.searchbox);
+                    else this.searching = true;
+
+                    return;
+                }
+                let extRes = await this.getExtBills(this.searchbox);
+                if (!extRes.data.length) this.noDataNotif(this.searchbox);
+                else this.searching = true;
+            } catch (err) {
+                console.log(err);
+                this.$notify({
+                    group: "br",
+                    type: "error",
+                    title: "Get Bills error",
+                    text: err.data.message,
+                });
+            }
         },
         async search() {
             if (this.searchbox.length < 6) return;
@@ -212,6 +241,10 @@ export default {
                 type: "error",
                 text: "sorry no data found for " + ipp,
             });
+        },
+        clear() {
+            if (this.style == "episode") this.clearEpisodes();
+            if (this.style == "facture") this.clearBills();
         },
     },
 };

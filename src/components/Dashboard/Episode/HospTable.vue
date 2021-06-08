@@ -52,7 +52,7 @@
                     </td>
                 </tr>
                 <tr class="white" v-if="moreData && hospEpisodes.length >= 10">
-                    <td colspan="13" class="text-center">
+                    <td colspan="16" class="text-center">
                         <v-btn
                             class="text-none"
                             @click="loadMore()"
@@ -66,7 +66,7 @@
                     </td>
                 </tr>
                 <tr class="white" v-if="!hospEpisodes.length">
-                    <td colspan="13" class="text-center">No data found</td>
+                    <td colspan="16" class="text-center">No data found</td>
                 </tr>
             </tbody>
         </template>

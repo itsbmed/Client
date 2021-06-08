@@ -48,7 +48,6 @@ export default {
         episodeId: (state) => state.episodeId,
         extEpisodes: (state) => state.extEpisodes,
         hospEpisodes: (state) => state.hospEpisodes,
-        isThereMoreData: (state) => state.moreData,
     },
     actions: {
         saveEpisode(context, [payload, ipp]) {
