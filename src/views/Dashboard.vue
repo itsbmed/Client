@@ -19,7 +19,6 @@
                 <v-text-field
                     rounded
                     v-model="searchbox"
-                    ils
                     placeholder="Ipp"
                     label="Ipp"
                     v-if="style == 'episode'"
@@ -30,53 +29,53 @@
                     rounded
                     v-model="searchbox"
                     v-if="style == 'facture'"
-                    ils
                     placeholder="Numero De Facture"
                     label="Numero De Facture"
                     outlined
                     class="search-input"
                 ></v-text-field>
-                <div class="search-btn">
-                    <v-btn
-                        depresses
-                        outlined
-                        type="submit"
-                        color="blue"
-                        class="text-none"
-                        rounded
-                        height="40px"
-                        :disabled="searchbox.length < 6"
-                    >
-                        Rechercher
-                    </v-btn>
-                </div>
             </v-form>
             <div class="search-menu">
                 <v-menu
                     offset-y
                     :close-on-content-click="false"
-                    nudge-right="10"
+                    open-on-hover
+                    nudge-left="5"
                     left
                 >
                     <template v-slot:activator="{ on, attrs }">
-                        <v-icon size="35" v-bind="attrs" v-on="on">
-                            mdi-chevron-down
-                        </v-icon>
+                        <div v-bind="attrs" v-on="on">
+                            <v-btn icon class="me-2">
+                                <v-icon size="35"> mdi-chevron-down </v-icon>
+                            </v-btn>
+                            <v-btn
+                                depresses
+                                outlined
+                                type="submit"
+                                color="blue"
+                                class="text-none"
+                                rounded
+                                height="40px"
+                                :disabled="searchbox.length < 6"
+                                @click="search"
+                            >
+                                Rechercher
+                            </v-btn>
+                        </div>
                     </template>
-                    <div class="white pa-3">
+                    <div class="white ps-5 pb-3 pt-1">
                         <v-checkbox
                             v-model="searchHosp"
                             dense
-                            class="pa-0 ma-0 mb-2"
                             label="Hospitalise"
-                            ils
+                            hide-details
                         />
+
                         <v-checkbox
                             v-model="searchExt"
                             dense
-                            class="pa-0 ma-0"
                             label="Extern"
-                            ils
+                            hide-details
                         />
                     </div>
                 </v-menu>
@@ -92,15 +91,9 @@
                     v-model="hosp"
                     label="Hospitalises"
                     color="primary"
-                    ils
                     class="mr-4"
                 />
-                <v-checkbox
-                    v-model="extern"
-                    label="Extern"
-                    color="primary"
-                    ils
-                />
+                <v-checkbox v-model="extern" label="Extern" color="primary" />
             </div>
             <v-btn
                 depresses
@@ -232,15 +225,11 @@ export default {
     left: 0;
     padding: 0 10px !important;
 }
-.search-btn {
+
+.search-menu {
     position: absolute !important;
     top: 15%;
     right: 20px;
-}
-.search-menu {
-    position: absolute !important;
-    top: 18%;
-    right: 150px;
 }
 #data-table {
     margin-top: 10px;
