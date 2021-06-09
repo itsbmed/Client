@@ -4,8 +4,9 @@
         :mini-variant.sync="mini"
         permanent
         color="#F5F5F5"
-        height="91vh"
-        absolute
+        style="z-index: 1"
+        class="pt-14"
+        fixed
         expand-on-hover
         stateless
     >

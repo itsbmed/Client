@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="z-index: 2">
         <v-app-bar flat>
             <v-btn to="/" link text class="text-none">
                 <v-icon left>mdi-view-dashboard</v-icon>
