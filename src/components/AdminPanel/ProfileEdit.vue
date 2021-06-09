@@ -14,40 +14,44 @@
         <v-row no-gutters>
             <v-col class="me-4">
                 <v-text-field
+                    v-model="adminData.firstName"
+                    :rules="firstnameRule"
                     placeholder="Prenom"
                     label="Prenom"
                     outlined
                     class="rounded-lg"
-                    v-model="adminData.firstName"
                 />
             </v-col>
             <v-col>
                 <v-text-field
+                    v-model="adminData.lastName"
+                    :rules="lastnameRule"
                     placeholder="Nom"
                     label="Nom"
                     outlined
                     class="rounded-lg"
-                    v-model="adminData.lastName"
                 />
             </v-col>
         </v-row>
         <v-row no-gutters class="mt-2">
             <v-col class="me-4">
                 <v-text-field
+                    v-model="adminData.currentPassword"
+                    :rules="passwordRule"
                     placeholder="Current Password"
                     label="Current Password"
                     outlined
                     class="rounded-lg"
-                    v-model="adminData.currentPassword"
                 />
             </v-col>
             <v-col>
                 <v-text-field
+                    v-model="adminData.passWord"
+                    :rules="passwordRule"
                     class="rounded-lg"
                     outlined
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="show1 ? 'text' : 'password'"
-                    v-model="adminData.passWord"
                     label="New Password"
                     placeholder="New Password"
                     @click:append="show1 = !show1"
@@ -57,12 +61,13 @@
         <v-row no-gutters class="mt-2">
             <v-col cols="6">
                 <v-text-field
+                    v-model="repeatPassword"
+                    :rules="passwordRule"
                     class="rounded-lg"
                     outlined
                     :error="repeatPassword !== adminData.passWord"
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="show2 ? 'text' : 'password'"
-                    v-model="repeatPassword"
                     label="Repeat New Password"
                     placeholder="Repeat New Password"
                     @click:append="show2 = !show2"
@@ -85,6 +90,11 @@
 </template>
 
 <script>
+import {
+    firstnameRule,
+    lastnameRule,
+    passwordRule,
+} from "@/helpers/inputsRules";
 export default {
     name: "ProfileEdit",
     data: () => ({
@@ -92,6 +102,9 @@ export default {
         show1: false,
         show2: false,
         repeatPassword: "",
+        firstnameRule,
+        lastnameRule,
+        passwordRule,
     }),
     computed: {
         adminData() {

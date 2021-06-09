@@ -7,63 +7,69 @@
         </template>
         <v-card class="white edit-data">
             <v-card-text class="pt-5">
-                <v-row>
-                    <v-col class="me-4">
-                        <v-text-field
-                            placeholder="Prenom"
-                            label="Prenom"
-                            outlined
-                            class="rounded-lg"
-                            v-model="agentData.firstName"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Nom"
-                            label="Nom"
-                            outlined
-                            class="rounded-lg"
-                            v-model="agentData.lastName"
-                        />
-                    </v-col>
-                </v-row>
+                <v-form ref="editAgent" lazy-validation>
+                    <v-row>
+                        <v-col class="me-4">
+                            <v-text-field
+                                v-model="agentData.firstName"
+                                :rules="firstnameRule"
+                                placeholder="Prenom"
+                                label="Prenom"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="agentData.lastName"
+                                :rules="lastnameRule"
+                                placeholder="Nom"
+                                label="Nom"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
 
-                <v-row no-gutters class="mt-2">
-                    <v-col class="mr-4">
-                        <v-text-field
-                            class="rounded-lg"
-                            outlined
-                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="show1 ? 'text' : 'password'"
-                            v-model="agentData.passWord"
-                            label="New Password"
-                            placeholder="New Password"
-                            @click:append="show1 = !show1"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            class="rounded-lg"
-                            outlined
-                            :error="repeatPassword !== agentData.passWord"
-                            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="show2 ? 'text' : 'password'"
-                            v-model="repeatPassword"
-                            label="Repeat New Password"
-                            placeholder="Repeat New Password"
-                            @click:append="show2 = !show2"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <v-col class="d-flex justify-center">
-                        <v-checkbox
-                            v-model="agentData.isAdmin"
-                            label="Admin"
-                            color="orange"
-                        ></v-checkbox>
-                    </v-col>
-                </v-row>
+                    <v-row no-gutters class="mt-2">
+                        <v-col class="mr-4">
+                            <v-text-field
+                                v-model="agentData.passWord"
+                                :rules="passwordRule"
+                                class="rounded-lg"
+                                outlined
+                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show1 ? 'text' : 'password'"
+                                label="New Password"
+                                placeholder="New Password"
+                                @click:append="show1 = !show1"
+                            />
+                        </v-col>
+                        <v-col>
+                            <v-text-field
+                                v-model="repeatPassword"
+                                :rules="passwordRule"
+                                class="rounded-lg"
+                                outlined
+                                :error="repeatPassword !== agentData.passWord"
+                                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show2 ? 'text' : 'password'"
+                                label="Repeat New Password"
+                                placeholder="Repeat New Password"
+                                @click:append="show2 = !show2"
+                            />
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="d-flex justify-center">
+                            <v-checkbox
+                                v-model="agentData.isAdmin"
+                                label="Admin"
+                                color="orange"
+                            ></v-checkbox>
+                        </v-col>
+                    </v-row>
+                </v-form>
             </v-card-text>
             <v-card-actions>
                 <h3 class="ms-2">
@@ -101,6 +107,11 @@
 </template>
 
 <script>
+import {
+    firstnameRule,
+    lastnameRule,
+    passwordRule,
+} from "@/helpers/inputsRules";
 export default {
     name: "EditAgent",
     props: {
@@ -113,9 +124,13 @@ export default {
         show2: true,
         dialog: false,
         agentData: { ...props.agent },
+        firstnameRule,
+        lastnameRule,
+        passwordRule,
     }),
     methods: {
         async edit() {
+            if (!this.$refs.editAgent.validate()) return;
             this.loading = true;
             try {
                 await this.$axios.put(

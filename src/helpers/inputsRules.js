@@ -1,36 +1,42 @@
-let required = (title) => (v) => !!v || `${title} est reques`;
+const required = (title) => (v) => !!v || `${title} est reques`;
 
-let greaterThan = (num, title) => (v) =>
+const greaterThan = (num, title) => (v) =>
     (!!v && v.length >= num) || `${title} should be at least ${num} characters`;
 
-let lessThan = (num, title) => (v) =>
+const lessThan = (num, title) => (v) =>
     (!!v && v.length <= num) ||
     `${title} should be less than or equal ${num} characters`;
 
-let ippRule = [required("Ipp"), greaterThan(6, "Ipp"), lessThan(9, "Ipp")];
+const ippRule = [required("Ipp"), greaterThan(6, "Ipp"), lessThan(9, "Ipp")];
 
-let firstnameRule = [
+const firstnameRule = [
     required("firstname"),
     greaterThan(2, "firstname"),
     lessThan(30, "firstname"),
 ];
-let lastnameRule = [
+const lastnameRule = [
     required("lastname"),
     greaterThan(2, "lastname"),
     lessThan(30, "lastname"),
 ];
-let cinRule = [required("Cin"), greaterThan(8, "Cin"), lessThan(10, "Cin")];
-let addressRule = [required("address"), lessThan(50, "address")];
-
-let ramedNumRule = [
-    required("Ramed numero"),
-    greaterThan(4, "Ramed numero"),
-    lessThan(20, "Ramed numero"),
-];
-let usernameRule = [
+const usernameRule = [
     required("Username"),
     greaterThan(4, "Username"),
     lessThan(6, "Username"),
+];
+const passwordRule = [
+    required("Password"),
+    greaterThan(4, "Password"),
+    lessThan(16, "Password"),
+];
+
+const cinRule = [required("Cin"), greaterThan(8, "Cin"), lessThan(10, "Cin")];
+const addressRule = [required("address"), lessThan(50, "address")];
+
+const ramedNumRule = [
+    required("Ramed numero"),
+    greaterThan(4, "Ramed numero"),
+    lessThan(20, "Ramed numero"),
 ];
 
 export {
@@ -42,4 +48,5 @@ export {
     ramedNumRule,
     usernameRule,
     required,
+    passwordRule,
 };
