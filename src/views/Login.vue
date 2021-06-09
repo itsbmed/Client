@@ -19,32 +19,32 @@
                     <div class="display-1 text-center mb-5">Agent Login</div>
 
                     <div class="mt-5">
-                        <!-- <label for="username">Username</label> -->
                         <v-text-field
-                            filled
-                            rounded
                             v-model="username"
-                            :rules="usernameRules"
+                            :rules="usernameRule"
+                            single-line
+                            rounded
+                            outlined
                             label="Username"
                             prepend-inner-icon="mdi-account"
                             required
                         ></v-text-field>
                     </div>
                     <div>
-                        <!-- <label for="password">Password</label> -->
                         <v-text-field
-                            filled
-                            rounded
+                            v-model="password"
+                            :rules="passwordRule"
                             :append-icon="
                                 showPassword ? 'mdi-eye' : 'mdi-eye-off'
                             "
                             :type="showPassword ? 'text' : 'password'"
-                            v-model="password"
-                            :rules="passwordRules"
                             label="Password"
-                            required
                             prepend-inner-icon="mdi-lock"
                             @click:append="showPassword = !showPassword"
+                            single-line
+                            rounded
+                            outlined
+                            required
                         ></v-text-field>
                     </div>
 
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { usernameRule, passwordRule } from "../helpers/inputsRules";
 export default {
     name: "Login",
     data: () => ({
@@ -78,11 +79,10 @@ export default {
         valid: false,
         loading: false,
         showPassword: false,
+        usernameRule,
+        passwordRule,
     }),
-    computed: {
-        usernameRules: () => [(v) => !!v || "Username can't be empty"],
-        passwordRules: () => [(v) => !!v || "Password can't be empty"],
-    },
+
     methods: {
         async login() {
             if (!this.$refs.login.validate()) return;
