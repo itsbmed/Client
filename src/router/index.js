@@ -94,14 +94,6 @@ const routes = [
             },
         ],
     },
-    {
-        path: "/Forbidden",
-        name: "Forbidden",
-        component: () => import("@/views/Forbidden.vue"),
-        meta: {
-            global: true,
-        },
-    },
 
     {
         path: "*",
@@ -123,7 +115,7 @@ router.beforeEach((to, from, next) => {
             next();
         } else {
             next({
-                name: "Forbidden",
+                name: "Dashboard",
             });
         }
     } else if (to.matched.some((record) => record.meta.authRequired)) {
