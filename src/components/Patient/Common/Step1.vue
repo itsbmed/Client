@@ -135,6 +135,7 @@ export default {
         },
 
         async checkIpp() {
+            if (!this.patientData.ipp) return;
             if (this.patientData.ipp.length < 6) return;
             try {
                 let res = await this.checkExistence(this.patientData.ipp);
