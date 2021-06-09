@@ -70,6 +70,7 @@
                 </div>
             </v-menu>
         </v-app-bar>
+        <v-divider></v-divider>
     </div>
 </template>
 
