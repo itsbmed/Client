@@ -208,7 +208,7 @@ export default {
                 });
                 await this.clearBillData();
                 this.episode.bill = true;
-                this.episode.exitDate = Date.now();
+                this.episode.exitDate = new Date().toISOString();
 
                 this.dialog = false;
             } catch (err) {
