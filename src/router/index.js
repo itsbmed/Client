@@ -57,6 +57,17 @@ const routes = [
             {
                 path: "",
                 name: "AdminPanel",
+                alias: "analytics",
+                component: () =>
+                    import("@/components/AdminPanel/Analytics.vue"),
+                meta: {
+                    authRequired: true,
+                    adminRequired: true,
+                },
+            },
+            {
+                path: "/profile",
+                name: "Profile",
                 component: () =>
                     import("@/components/AdminPanel/ProfileEdit.vue"),
                 meta: {
@@ -77,16 +88,6 @@ const routes = [
                 path: "agents",
                 name: "Agents",
                 component: () => import("@/components/AdminPanel/Agents.vue"),
-                meta: {
-                    authRequired: true,
-                    adminRequired: true,
-                },
-            },
-            {
-                path: "analytics",
-                name: "Analytics",
-                component: () =>
-                    import("@/components/AdminPanel/Analytics.vue"),
                 meta: {
                     authRequired: true,
                     adminRequired: true,

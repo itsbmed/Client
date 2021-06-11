@@ -4,9 +4,7 @@
         :mini-variant.sync="mini"
         permanent
         color="#F5F5F5"
-        style="z-index: 1"
-        class="pt-14"
-        fixed
+        absolute
         expand-on-hover
         stateless
     >
@@ -50,7 +48,7 @@ export default {
     data: () => ({
         drawer: true,
         items: [
-            { title: "My Account", to: "/admin-panel", icon: "mdi-account" },
+            { title: "My Profile", to: "/profile", icon: "mdi-account" },
             {
                 title: "Agents",
                 to: "/admin-panel/agents",
