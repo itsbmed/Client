@@ -18,7 +18,7 @@
                     </td>
                     <td>{{ bill.episode.patientId }}</td>
                     <td>{{ bill.billNum }}</td>
-                    <td>{{ formatDate(bill.billDate) }}</td>
+                    <td>{{ formatDate(bill.createdAt) }}</td>
                     <td>{{ bill.organismPart + " DH" }}</td>
                     <td>{{ bill.adherentPart + " DH" }}</td>
                     <td>{{ bill.episode.category }}</td>
@@ -76,6 +76,8 @@ export default {
             "Totale",
         ],
         moreData: true,
+        page:2,
+        loading: false,
     }),
     computed: {
         ...mapGetters(["hospBills"]),
@@ -84,7 +86,7 @@ export default {
         ...mapActions(["pushHospBills"]),
         async loadMore() {
             this.loading = true;
-            let ipp = this.extEpisodes[0].patient.ipp;
+            let ipp = this.hospBills[0].patient.ipp;
             let res = await this.pushHospBills([ipp, this.page]);
             if (res.data.length < 10) this.moreData = false;
             this.loading = false;
