@@ -8,7 +8,7 @@
             height="80"
             width="250"
         >
-            Totale Petients: 200
+            Totale Petients: {{ counts.patientCount }}
         </v-sheet>
         <v-sheet
             class="d-flex justify-center align-center me-4 white--text"
@@ -18,7 +18,7 @@
             height="80"
             width="250"
         >
-            Totale episodes: 200
+            Totale episodes: {{ counts.episodeCount }}
         </v-sheet>
 
         <v-sheet
@@ -29,7 +29,7 @@
             height="80"
             width="250"
         >
-            Totale episodes: 200
+            Totale factures: {{ counts.billCount }}
         </v-sheet>
 
         <v-sheet
@@ -40,7 +40,18 @@
             height="80"
             width="250"
         >
-            Totale factures: 200
+            Totale agents: {{ counts.agentCount }}
         </v-sheet>
     </div>
 </template>
+<script>
+export default {
+    data: () => ({
+        counts: {},
+    }),
+    async created() {
+        let res = await this.$axios.get("/analytics/totals");
+        this.counts = res.data;
+    },
+};
+</script>

@@ -159,7 +159,7 @@ export default {
         getHospAnalytics(context, [from, to]) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(`/statistics?type=hospitalized&from=${from}&to=${to}`)
+                    .get(`/analytics?type=hospitalized&from=${from}&to=${to}`)
                     .then((res) => {
                         console.log(res.data);
                         context.commit("INIT_HOSP_ANALYTICS", res.data);
@@ -174,7 +174,7 @@ export default {
         getExtAnalytics(context, [from, to]) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(`/statistics?type=external&from=${from}&to=${to}`)
+                    .get(`/analytics?type=external&from=${from}&to=${to}`)
                     .then((res) => {
                         console.log(res.data);
                         context.commit("INIT_EXT_ANALYTICS", res.data);
