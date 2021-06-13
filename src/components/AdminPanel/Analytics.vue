@@ -56,26 +56,55 @@
             >
                 Apply
             </v-btn>
+            <v-btn
+                outlined
+                color="orange"
+                rounded
+                class="ms-5 text-none"
+                width="100"
+                @click="reset"
+                :disabled="!loaded"
+            >
+                Reset
+            </v-btn>
         </div>
         <div class="tables ms-4">
             <HospTable v-if="hosp && loaded" class="mb-2 mt-4" />
             <ExtTable v-if="extern && loaded" class="mt-4 mb-2" />
         </div>
-        <div class="mt-4 d-flex align-center justify-space-between">
-            <div class="pie-chart mr-10">
-                <PieChart />
-            </div>
+        <div class="hospitalise" v-if="hosp && loaded">
+            <h1 class="display-1 mt-4 mb-n2">Hospitalise:</h1>
+            <div class="mt-4 d-flex align-center justify-space-between">
+                <div class="pie-chart mr-10">
+                    <HospPieChart />
+                </div>
 
-            <div class="bar-chart">
-                <BarChart />
+                <div class="bar-chart" v-if="hosp && loaded">
+                    <HospBarChart />
+                </div>
+            </div>
+        </div>
+        <div class="extern" v-if="extern && loaded">
+            <h1 class="display-1 mt-4 mb-n2">Extern:</h1>
+            <div class="mt-4 d-flex align-center justify-space-between">
+                <div class="pie-chart mr-10">
+                    <ExtPieChart />
+                </div>
+
+                <div class="bar-chart">
+                    <ExtBarChart />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import PieChart from "@/components/Analytics/PieChart.vue";
-import BarChart from "@/components/Analytics/BarChart.vue";
+import ExtPieChart from "@/components/Analytics/ExtPieChart.vue";
+import HospPieChart from "@/components/Analytics/HospPieChart.vue";
+import ExtBarChart from "@/components/Analytics/ExtBarChart.vue";
+import HospBarChart from "@/components/Analytics/HospBarChart.vue";
+
 import Sheets from "@/components/Analytics/Sheets.vue";
 import ExtTable from "@/components/Analytics/ExtTable.vue";
 import HospTable from "@/components/Analytics/HospTable.vue";
@@ -84,8 +113,11 @@ import { mapActions } from "vuex";
 export default {
     name: "Analyitics",
     components: {
-        PieChart,
-        BarChart,
+        ExtPieChart,
+        HospPieChart,
+        ExtBarChart,
+        HospBarChart,
+
         Sheets,
         ExtTable,
         HospTable,
@@ -99,23 +131,32 @@ export default {
         loaded: false,
     }),
     methods: {
-        ...mapActions(["getExtAnalytics", "getHospAnalytics"]),
+        ...mapActions([
+            "getExtAnalytics",
+            "getHospAnalytics",
+            "clearAnalytics",
+        ]),
+        async reset() {
+            this.fromDate = null;
+            this.toDate = null;
+            this.loading = false;
+            this.loaded = false;
+            await this.clearAnalytics();
+        },
         async getAnalytics() {
             try {
+                this.loading = true;
                 this.fromDate = this.fromDate.replace("/-+/g", "/");
                 this.toDate = this.toDate.replace("/-+/g", "/");
 
-                let extRes = await this.getExtAnalytics([
-                    this.fromDate,
-                    this.toDate,
-                ]);
-                let hospRes = await this.getHospAnalytics([
-                    this.fromDate,
-                    this.toDate,
-                ]);
+                await this.getExtAnalytics([this.fromDate, this.toDate]);
+                await this.getHospAnalytics([this.fromDate, this.toDate]);
+
                 this.loaded = true;
             } catch (err) {
                 console.log(err);
+            } finally {
+                this.loading = false;
             }
         },
     },
@@ -125,6 +166,7 @@ export default {
 .analytics {
     background: #f2f2f2;
     min-height: 90vh;
+    padding-bottom: 20px;
 }
 .pie-chart {
     width: 400px;
@@ -134,7 +176,7 @@ export default {
 }
 .bar-chart {
     width: 600px;
-    height: 400px;
+    height: 464px;
     background: #ffffff;
     padding: 30px;
     border-radius: 10px;
