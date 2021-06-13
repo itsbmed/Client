@@ -25,6 +25,16 @@ axios.interceptors.request.use(async function (config) {
         return config;
     }
 });
+axios.interceptors.response.use(
+    async function (config) {
+        return config;
+    },
+    async function (config) {
+        if (config.response?.status === 401) {
+            await store.dispatch("logout");
+        } else return config;
+    }
+);
 
 Vue.prototype.$axios = axios;
 
