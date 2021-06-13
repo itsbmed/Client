@@ -4,6 +4,7 @@ import Auth from "./Auth";
 import Patient from "./Patient";
 import Episode from "./Episode";
 import Bill from "./Bill";
+import Analytics from "./Analytics";
 
 Vue.use(Vuex);
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
         Patient,
         Episode,
         Bill,
+        Analytics,
     },
 });

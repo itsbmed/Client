@@ -1,11 +1,11 @@
 <template>
-    <div class="sheets d-flex pt-5 pb-8">
+    <div class="sheets d-flex">
         <v-sheet
             class="d-flex justify-center align-center me-4 white--text"
             color="green"
             elevation="4"
             rounded="lg"
-            height="100"
+            height="80"
             width="250"
         >
             Totale Petients: 200
@@ -15,7 +15,7 @@
             color="blue"
             elevation="4"
             rounded="lg"
-            height="100"
+            height="80"
             width="250"
         >
             Totale episodes: 200
@@ -26,7 +26,7 @@
             color="purple"
             elevation="4"
             rounded="lg"
-            height="100"
+            height="80"
             width="250"
         >
             Totale episodes: 200
@@ -37,7 +37,7 @@
             color="orange"
             elevation="4"
             rounded="lg"
-            height="100"
+            height="80"
             width="250"
         >
             Totale factures: 200
