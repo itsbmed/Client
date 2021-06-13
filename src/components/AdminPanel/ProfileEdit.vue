@@ -101,7 +101,7 @@ export default {
         loading: false,
         show1: false,
         show2: false,
-        repeatPassword: "",
+        repeatPassword: undefined,
         firstnameRule,
         lastnameRule,
         passwordRule,
