@@ -174,9 +174,6 @@ import { required } from "@/helpers/inputsRules";
 
 export default {
     name: "ExternStep3",
-    props: {
-        context: { type: String, required: false, default: null },
-    },
     data: () => ({
         loading: false,
         required,
