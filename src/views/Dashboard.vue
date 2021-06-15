@@ -10,7 +10,7 @@
                 center-active
                 dark
             >
-                <v-tab @click="style = 'episode'">Episode</v-tab>
+                <v-tab @click="style = 'episode'">Ipp</v-tab>
                 <v-tab @click="style = 'facture'">Facture</v-tab>
             </v-tabs>
         </div>
@@ -68,14 +68,14 @@
                         <v-checkbox
                             v-model="searchHosp"
                             dense
-                            label="Hospitalise"
+                            label="Hospitalisation"
                             hide-details
                         />
 
                         <v-checkbox
                             v-model="searchExt"
                             dense
-                            label="Extern"
+                            label="Externe"
                             hide-details
                         />
                     </div>

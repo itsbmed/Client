@@ -3,7 +3,7 @@
         <v-app-bar flat>
             <v-btn to="/" link text class="text-none">
                 <v-icon left>mdi-view-dashboard</v-icon>
-                Dashboard
+                Tableau de bord
             </v-btn>
 
             <router-link to="/patient" class="rm-underline">
@@ -13,7 +13,7 @@
                     color="primary"
                 >
                     <v-icon color="#2ecc71" left size="22">mdi-plus</v-icon>
-                    New Patient
+                    Nouveau patient
                 </v-btn>
             </router-link>
             <v-spacer></v-spacer>
@@ -42,7 +42,7 @@
                             class="rm-underline d-block black--text"
                         >
                             <v-icon left size="20">mdi-account-cog</v-icon>
-                            Panel
+                            Panneau
                         </router-link>
                     </v-btn>
                     <v-btn block text class="text-none">
@@ -52,7 +52,7 @@
                             v-if="agent.isAdmin"
                         >
                             <v-icon left size="20">mdi-plus</v-icon>
-                            New agent
+                            Nouvel Opérateur
                         </router-link>
                     </v-btn>
 
@@ -65,7 +65,7 @@
                         class="text-none"
                     >
                         <v-icon left>mdi-logout</v-icon>
-                        Logout
+                        Se déconnecter
                     </v-btn>
                 </div>
             </v-menu>

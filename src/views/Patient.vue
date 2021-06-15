@@ -14,7 +14,7 @@
                 height="50"
                 to="/patient/hospitalise"
             >
-                Hospitalise
+                Hospitalisation
             </v-btn>
             <v-btn
                 width="160"
@@ -25,7 +25,7 @@
                 class="choises text-capitalize"
                 to="/patient/extern"
             >
-                Extern
+                Externe
             </v-btn>
         </div>
     </v-container>

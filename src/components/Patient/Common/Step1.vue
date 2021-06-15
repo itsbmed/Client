@@ -20,8 +20,8 @@
                         :rules="lastnameRule"
                         outlined
                         class="rounded-lg mt-3"
-                        placeholder="Nom"
-                        label="Nom"
+                        placeholder="Nom de patient"
+                        label="Nom de patient"
                         required
                     />
                     <v-text-field
@@ -30,8 +30,8 @@
                         outlined
                         :rules="firstnameRule"
                         class="rounded-lg mt-3"
-                        placeholder="Prenom"
-                        label="Prenom"
+                        placeholder="Prenom de patient"
+                        label="Prenom de patient"
                     />
                 </v-form>
             </v-card>
