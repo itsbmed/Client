@@ -26,13 +26,23 @@ axios.interceptors.request.use(async function (config) {
     }
 });
 axios.interceptors.response.use(
-    async function (config) {
-        return config;
+    function (response) {
+        return response;
     },
-    async function (config) {
-        if (config.response?.status === 401) {
-            await store.dispatch("logout");
-        } else return config;
+    async function (error) {
+        if (!error.response) {
+            Vue.prototype.$notify({
+                group: "errors",
+                type: "error",
+                title: "Connection erreur",
+                text: "You're offline",
+            });
+        } else {
+            if (error.response.status === 401 && store.getters.isLoggedIn) {
+                await store.dispatch("logout");
+            }
+            return Promise.reject(error);
+        }
     }
 );
 
