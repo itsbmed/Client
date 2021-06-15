@@ -17,92 +17,6 @@
                         </v-col>
                         <v-col>
                             <v-text-field
-                                v-model="billData.medicalBiology"
-                                :rules="[required('Biologie medical')]"
-                                placeholder="Biologie medical"
-                                label="Biologie medical"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                    </v-row>
-
-                    <v-row no-gutters class="mt-2">
-                        <v-col class="me-4">
-                            <v-text-field
-                                v-model="billData.medicalImaging"
-                                :rules="[required('Medical Imaging')]"
-                                placeholder="Medical Imaging"
-                                label="Medical Imaging"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                        <v-col>
-                            <v-text-field
-                                v-model="billData.prosthesis"
-                                :rules="[required('Prosthesis')]"
-                                placeholder="Prosthesis"
-                                label="Prosthesis"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                    </v-row>
-                    <v-row no-gutters>
-                        <v-col class="me-4">
-                            <v-text-field
-                                v-model="billData.invoicedStay"
-                                :rules="[required('Invoice de Stay')]"
-                                placeholder="Invoice de Stay"
-                                label="Invoice de Stay"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                        <v-col>
-                            <v-text-field
-                                v-model="billData.medicalFees"
-                                :rules="[required('Medical Fees')]"
-                                placeholder="Medical Fees"
-                                label="Medical Fees"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                    </v-row>
-                    <v-row no-gutters>
-                        <v-col class="me-4">
-                            <v-text-field
-                                v-model="billData.billedMedication"
-                                :rules="[required('Billed Medication')]"
-                                placeholder="Billed Medication"
-                                label="Billed Medication"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                        <v-col>
-                            <v-text-field
-                                v-model="billData.actes"
-                                :rules="[required('Actes')]"
-                                placeholder="Actes"
-                                label="Actes"
-                                outlined
-                                class="rounded-lg"
-                                type="number"
-                            />
-                        </v-col>
-                    </v-row>
-                    <v-row no-gutters>
-                        <v-col class="me-4">
-                            <v-text-field
                                 v-model="billData.organismPart"
                                 :rules="[required('Parte Organisme')]"
                                 placeholder="Parte Organisme"
@@ -112,8 +26,9 @@
                                 type="number"
                             />
                         </v-col>
-
-                        <v-col>
+                    </v-row>
+                    <v-row no-gutters class="justify-center">
+                        <v-col cols="6" class="justify-self-center">
                             <v-text-field
                                 v-model="billData.adherentPart"
                                 :rules="[required('Parte adherent')]"
@@ -126,8 +41,8 @@
                         </v-col>
                     </v-row>
                 </v-form>
-                <v-row no-gutters>
-                    <v-col>
+                <v-row no-gutters class="justify-center">
+                    <v-col cols="6" class="text-center">
                         Totale Facture :
                         <span style="color: #2ecc71">
                             {{ total + " DH" }}
@@ -144,7 +59,6 @@
                 @click="changeExtStep(2)"
                 class="mr-auto"
                 height="45"
-                v-if="!context"
             >
                 <v-icon left small> mdi-arrow-left</v-icon>
                 prec
@@ -155,7 +69,6 @@
                 color="primary"
                 width="200"
                 height="45"
-                :class="{ 'mx-auto mt-3': context }"
                 :loading="loading"
                 :disabled="loading"
                 @click="save"
