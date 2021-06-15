@@ -71,6 +71,7 @@
         <div class="tables ms-4">
             <HospTable v-if="hosp && loaded" class="mb-2 mt-4" />
             <ExtTable v-if="extern && loaded" class="mt-4 mb-2" />
+            <TotalTable v-if="extern && hosp && loaded" />
         </div>
         <div class="hospitalise" v-if="hosp && loaded">
             <h1 class="display-1 mt-4 mb-n2">Hospitalise:</h1>
@@ -108,6 +109,8 @@ import HospBarChart from "@/components/Analytics/HospBarChart.vue";
 import Sheets from "@/components/Analytics/Sheets.vue";
 import ExtTable from "@/components/Analytics/ExtTable.vue";
 import HospTable from "@/components/Analytics/HospTable.vue";
+import TotalTable from "@/components/Analytics/TotalTable.vue";
+
 import { mapActions } from "vuex";
 
 export default {
@@ -117,6 +120,7 @@ export default {
         HospPieChart,
         ExtBarChart,
         HospBarChart,
+        TotalTable,
 
         Sheets,
         ExtTable,
