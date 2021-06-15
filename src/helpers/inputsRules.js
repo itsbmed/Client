@@ -1,11 +1,11 @@
-const required = (title) => (v) => !!v || `${title} est reques`;
+const required = (title) => (v) => !!v || `${title} est requis`;
 
 const greaterThan = (num, title) => (v) =>
-    (!!v && v.length >= num) || `${title} should be at least ${num} characters`;
+    (!!v && v.length >= num) || `${title} Devrait être au moins ${num} characters`;
 
 const lessThan = (num, title) => (v) =>
     (!!v && v.length <= num) ||
-    `${title} should be less than or equal ${num} characters`;
+    `${title} Doit être inférieur ou égal ${num} characters`;
 
 const ippRule = [required("Ipp"), greaterThan(6, "Ipp"), lessThan(9, "Ipp")];
 
