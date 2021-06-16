@@ -184,13 +184,6 @@ export default {
             }
             return sum;
         },
-        totalLabNbre() {
-            let sum = 0;
-            for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].lab.episodeCount;
-            }
-            return sum;
-        },
         totalExtNbre() {
             let sum = 0;
             for (let el in this.extAnalytics) {
