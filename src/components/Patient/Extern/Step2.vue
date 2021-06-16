@@ -29,8 +29,8 @@
                             <v-text-field
                                 v-model="extEpisodeFrom.firstName"
                                 :rules="firstnameRule"
-                                placeholder="Prenom"
-                                label="Prenom"
+                                placeholder="Prenom de l'accompagnant"
+                                label="Prenom de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />
@@ -39,8 +39,8 @@
                             <v-text-field
                                 v-model="extEpisodeFrom.lastName"
                                 :rules="lastnameRule"
-                                placeholder="Nom"
-                                label="Nom"
+                                placeholder="Nom de l'accompagnant"
+                                label="Nom de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />
@@ -51,8 +51,8 @@
                             <v-text-field
                                 v-model="extEpisodeFrom.address"
                                 :rules="addressRule"
-                                placeholder="Adrress"
-                                label="Adrress"
+                                placeholder="Adrress de l'accompagnant"
+                                label="Adrress de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />

@@ -29,8 +29,8 @@
                             <v-text-field
                                 v-model="hospEpisodeFrom.firstName"
                                 :rules="firstnameRule"
-                                placeholder="Prenom"
-                                label="Prenom"
+                                placeholder="Prenom de l'accompagnant"
+                                label="Prenom de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />
@@ -39,8 +39,8 @@
                             <v-text-field
                                 v-model="hospEpisodeFrom.lastName"
                                 :rules="lastnameRule"
-                                placeholder="Nom"
-                                label="Nom"
+                                placeholder="Nom de l'accompagnant"
+                                label="Nom de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />
@@ -51,8 +51,8 @@
                             <v-text-field
                                 v-model="hospEpisodeFrom.address"
                                 :rules="addressRule"
-                                placeholder="Adrress"
-                                label="Adrress"
+                                placeholder="Adresse de l'accompagnant"
+                                label="Adresse de l'accompagnant"
                                 outlined
                                 class="rounded-lg"
                             />
