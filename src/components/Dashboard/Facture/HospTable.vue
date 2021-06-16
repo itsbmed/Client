@@ -76,7 +76,7 @@ export default {
             "Totale",
         ],
         moreData: true,
-        page:2,
+        page: 2,
         loading: false,
     }),
     computed: {
@@ -86,7 +86,7 @@ export default {
         ...mapActions(["pushHospBills"]),
         async loadMore() {
             this.loading = true;
-            let ipp = this.hospBills[0].patient.ipp;
+            let ipp = this.hospBills[0].episode.patientId;
             let res = await this.pushHospBills([ipp, this.page]);
             if (res.data.length < 10) this.moreData = false;
             this.loading = false;

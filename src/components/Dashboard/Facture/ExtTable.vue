@@ -86,8 +86,8 @@ export default {
         ...mapActions(["pushExtBills"]),
         async loadMore() {
             this.loading = true;
-            let ipp = this.extEpisodes[0].patient.ipp;
-            let res = await this.pushExtEpisodes([ipp, this.page]);
+            let ipp = this.extBills[0].episode.patientId;
+            let res = await this.pushExtBills([ipp, this.page]);
             if (res.data.length < 10) this.moreData = false;
             this.loading = false;
             this.page++;
