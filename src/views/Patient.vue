@@ -25,7 +25,7 @@
                 class="choises text-capitalize"
                 to="/patient/extern"
             >
-                Externe
+                Prestation Externe
             </v-btn>
         </div>
     </v-container>
