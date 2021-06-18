@@ -9,6 +9,15 @@ export default {
             mafar: {},
             cnss: {},
             organism: {},
+            hospital: {
+                potential: {},
+                paid: {},
+                ramed: {},
+                cnops: {},
+                mafar: {},
+                cnss: {},
+                organism: {},
+            },
         },
         extAnalytics: {
             potential: {},
@@ -32,37 +41,51 @@ export default {
             payload.forEach((el) => {
                 switch (el.category) {
                     case "PAID":
-                        state.hospAnalytics.paid = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.paid = el;
+                        else state.hospAnalytics.paid = el;
                         state.hospAmountTotals[0] = el.amountTotal;
                         state.hospEpisodeCounts[0] = el.episodeCount;
                         break;
                     case "POTENTIAL":
-                        state.hospAnalytics.potential = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.potential = el;
+                        else state.hospAnalytics.potential = el;
                         state.hospAmountTotals[1] = el.amountTotal;
                         state.hospEpisodeCounts[1] = el.episodeCount;
                         break;
                     case "RAMED":
-                        state.hospAnalytics.ramed = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.ramed = el;
+                        else state.hospAnalytics.ramed = el;
                         state.hospAmountTotals[2] = el.amountTotal;
                         state.hospEpisodeCounts[2] = el.episodeCount;
                         break;
                     case "CNOPS":
-                        state.hospAnalytics.cnops = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.cnops = el;
+                        else state.hospAnalytics.cnops = el;
                         state.hospAmountTotals[3] = el.amountTotal;
                         state.hospEpisodeCounts[3] = el.episodeCount;
                         break;
                     case "MAFAR":
-                        state.hospAnalytics.mafar = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.mafar = el;
+                        else state.hospAnalytics.mafar = el;
                         state.hospAmountTotals[4] = el.amountTotal;
                         state.hospEpisodeCounts[4] = el.episodeCount;
                         break;
                     case "CNSS":
-                        state.hospAnalytics.cnss = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.cnss = el;
+                        else state.hospAnalytics.cnss = el;
                         state.hospAmountTotals[5] = el.amountTotal;
                         state.hospEpisodeCounts[5] = el.episodeCount;
                         break;
                     case "ORGANISM":
-                        state.hospAnalytics.organism = el;
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.organism = el;
+                        else state.hospAnalytics.organism = el;
                         state.hospAmountTotals[6] = el.amountTotal;
                         state.hospEpisodeCounts[6] = el.episodeCount;
                         break;
@@ -77,6 +100,8 @@ export default {
                     case "PAID":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.paid.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.paid.consultation = el;
                         else state.extAnalytics.paid.lab = el;
                         state.extAmountTotals[0] = el.amountTotal;
                         state.extEpisodeCounts[0] = el.episodeCount;
@@ -84,6 +109,8 @@ export default {
                     case "POTENTIAL":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.potential.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.potential.consultation = el;
                         else state.extAnalytics.potential.lab = el;
                         state.extAmountTotals[1] = el.amountTotal;
                         state.extEpisodeCounts[1] = el.episodeCount;
@@ -91,6 +118,8 @@ export default {
                     case "RAMED":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.ramed.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.ramed.consultation = el;
                         else state.extAnalytics.ramed.lab = el;
                         state.extAmountTotals[2] = el.amountTotal;
                         state.extEpisodeCounts[2] = el.episodeCount;
@@ -98,6 +127,8 @@ export default {
                     case "CNOPS":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.cnops.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.cnops.consultation = el;
                         else state.extAnalytics.cnops.lab = el;
                         state.extAmountTotals[3] = el.amountTotal;
                         state.extEpisodeCounts[3] = el.episodeCount;
@@ -105,6 +136,8 @@ export default {
                     case "MAFAR":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.mafar.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.mafar.consultation = el;
                         else state.extAnalytics.mafar.lab = el;
                         state.extAmountTotals[4] = el.amountTotal;
                         state.extEpisodeCounts[4] = el.episodeCount;
@@ -112,6 +145,8 @@ export default {
                     case "CNSS":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.cnss.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.cnss.consultation = el;
                         else state.extAnalytics.cnss.lab = el;
                         state.extAmountTotals[5] = el.amountTotal;
                         state.extEpisodeCounts[5] = el.episodeCount;
@@ -119,6 +154,8 @@ export default {
                     case "ORGANISM":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.organism.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.organism.consultation = el;
                         else state.extAnalytics.organism.lab = el;
                         state.extAmountTotals[6] = el.amountTotal;
                         state.extEpisodeCounts[6] = el.episodeCount;
@@ -134,6 +171,14 @@ export default {
             state.hospAnalytics.mafar = {};
             state.hospAnalytics.cnss = {};
             state.hospAnalytics.organism = {};
+            state.hospAnalytics.hospital.potential = {};
+            state.hospAnalytics.hospital.paid = {};
+            state.hospAnalytics.hospital.ramed = {};
+            state.hospAnalytics.hospital.cnops = {};
+            state.hospAnalytics.hospital.mafar = {};
+            state.hospAnalytics.hospital.cnss = {};
+            state.hospAnalytics.hospital.organism = {};
+
             state.extAnalytics.potential = {};
             state.extAnalytics.paid = {};
             state.extAnalytics.ramed = {};
@@ -141,6 +186,7 @@ export default {
             state.extAnalytics.mafar = {};
             state.extAnalytics.cnss = {};
             state.extAnalytics.organism = {};
+
             state.extAmountTotals = [];
             state.hospAmountTotals = [];
             state.extEpisodeCounts = [];
@@ -156,10 +202,12 @@ export default {
         hospEpisodeCounts: (state) => state.hospEpisodeCounts,
     },
     actions: {
-        getHospAnalytics(context, [from, to]) {
+        getHospAnalytics(context, [from, to, totalOf, service]) {
             return new Promise((resolve, reject) => {
+                let url = `/analytics?type=hospitalized&from=${from}&to=${to}&totalOf=${totalOf}`;
+                if (service) url += `&service=${service}`;
                 axios
-                    .get(`/analytics?type=hospitalized&from=${from}&to=${to}`)
+                    .get(url)
                     .then((res) => {
                         console.log(res.data);
                         context.commit("INIT_HOSP_ANALYTICS", res.data);
@@ -171,10 +219,12 @@ export default {
             });
         },
 
-        getExtAnalytics(context, [from, to]) {
+        getExtAnalytics(context, [from, to, totalOf, service]) {
             return new Promise((resolve, reject) => {
+                let url = `/analytics?type=external&from=${from}&to=${to}&totalOf=${totalOf}`;
+                if (service) url += `&service=${service}`;
                 axios
-                    .get(`/analytics?type=external&from=${from}&to=${to}`)
+                    .get(url)
                     .then((res) => {
                         console.log(res.data);
                         context.commit("INIT_EXT_ANALYTICS", res.data);

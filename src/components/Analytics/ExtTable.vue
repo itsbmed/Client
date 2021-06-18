@@ -74,21 +74,125 @@
         </tr>
 
         <tr>
+            <th scope="row">Consultation</th>
+            <td>{{ extAnalytics.paid.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.paid.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.potential.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.potential.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.ramed.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.ramed.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.cnops.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.cnops.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.mafar.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.mafar.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.cnss.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.cnss.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.organism.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.organism.consultation.amountTotal }}</td>
+            <td>{{ totalConsNbre }}</td>
+            <td>{{ totalConsMontant }}</td>
+        </tr>
+
+        <tr>
             <th scope="row">Totale</th>
-            <td>{{extAnalytics.paid.radio.episodeCount + extAnalytics.paid.lab.episodeCount }}</td>
-            <td>{{extAnalytics.paid.radio.amountTotal + extAnalytics.paid.lab.amountTotal }}</td>
-            <td>{{extAnalytics.potential.radio.episodeCount + extAnalytics.potential.lab.episodeCount }}</td>
-            <td>{{extAnalytics.potential.radio.amountTotal + extAnalytics.potential.lab.amountTotal }}</td>
-            <td>{{extAnalytics.ramed.radio.episodeCount + extAnalytics.ramed.lab.episodeCount }}</td>
-            <td>{{extAnalytics.ramed.radio.amountTotal + extAnalytics.ramed.lab.amountTotal }}</td>
-            <td>{{extAnalytics.cnops.radio.episodeCount + extAnalytics.cnops.lab.episodeCount }}</td>
-            <td>{{extAnalytics.cnops.radio.amountTotal + extAnalytics.cnops.lab.amountTotal }}</td>
-            <td>{{extAnalytics.mafar.radio.episodeCount + extAnalytics.mafar.lab.episodeCount }}</td>
-            <td>{{extAnalytics.mafar.radio.amountTotal + extAnalytics.mafar.lab.amountTotal }}</td>
-            <td>{{extAnalytics.cnss.radio.episodeCount + extAnalytics.cnss.lab.episodeCount }}</td>
-            <td>{{extAnalytics.cnss.radio.amountTotal + extAnalytics.cnss.lab.amountTotal }}</td>
-            <td>{{extAnalytics.organism.radio.episodeCount + extAnalytics.organism.lab.episodeCount }}</td>
-            <td>{{extAnalytics.organism.radio.amountTotal + extAnalytics.organism.lab.amountTotal }}</td>
+            <td>
+                {{
+                    extAnalytics.paid.radio.episodeCount +
+                    extAnalytics.paid.consultation.episodeCount +
+                    extAnalytics.paid.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.paid.radio.amountTotal +
+                    extAnalytics.paid.consultation.amountTotal +
+                    extAnalytics.paid.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.potential.radio.episodeCount +
+                    extAnalytics.potential.consultation.episodeCount +
+                    extAnalytics.potential.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.potential.radio.amountTotal +
+                    extAnalytics.potential.consultation.amountTotal +
+                    extAnalytics.potential.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.ramed.radio.episodeCount +
+                    extAnalytics.ramed.consultation.episodeCount +
+                    extAnalytics.ramed.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.ramed.radio.amountTotal +
+                    extAnalytics.ramed.consultation.amountTotal +
+                    extAnalytics.ramed.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.cnops.radio.episodeCount +
+                    extAnalytics.cnops.consultation.episodeCount +
+                    extAnalytics.cnops.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.cnops.radio.amountTotal +
+                    extAnalytics.cnops.consultation.amountTotal +
+                    extAnalytics.cnops.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.mafar.radio.episodeCount +
+                    extAnalytics.mafar.consultation.episodeCount +
+                    extAnalytics.mafar.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.mafar.radio.amountTotal +
+                    extAnalytics.mafar.consultation.amountTotal +
+                    extAnalytics.mafar.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.cnss.radio.episodeCount +
+                    extAnalytics.cnss.consultation.episodeCount +
+                    extAnalytics.cnss.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.cnss.radio.amountTotal +
+                    extAnalytics.cnss.consultation.amountTotal +
+                    extAnalytics.cnss.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.organism.radio.episodeCount +
+                    extAnalytics.organism.consultation.episodeCount +
+                    extAnalytics.organism.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.organism.radio.amountTotal +
+                    extAnalytics.organism.consultation.amountTotal +
+                    extAnalytics.organism.lab.amountTotal
+                }}
+            </td>
             <td>{{ totalNbre }}</td>
             <td>{{ totalMontant }}</td>
         </tr>
@@ -126,6 +230,13 @@ export default {
             }
             return sum;
         },
+        totalConsMontant() {
+            let sum = 0;
+            for (let el in this.extAnalytics) {
+                sum += this.extAnalytics[el].consultation.amountTotal;
+            }
+            return sum;
+        },
         totalRadioNbre() {
             let sum = 0;
             for (let el in this.extAnalytics) {
@@ -140,10 +251,10 @@ export default {
             }
             return sum;
         },
-        totalLabNbre() {
+        totalConsNbre() {
             let sum = 0;
             for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].lab.episodeCount;
+                sum += this.extAnalytics[el].consultation.episodeCount;
             }
             return sum;
         },
@@ -152,7 +263,8 @@ export default {
             for (let el in this.extAnalytics) {
                 sum +=
                     this.extAnalytics[el].lab.episodeCount +
-                    this.extAnalytics[el].radio.episodeCount;
+                    this.extAnalytics[el].radio.episodeCount +
+                    this.extAnalytics[el].consultation.episodeCount;
             }
             return sum;
         },
@@ -161,7 +273,8 @@ export default {
             for (let el in this.extAnalytics) {
                 sum +=
                     this.extAnalytics[el].lab.amountTotal +
-                    this.extAnalytics[el].radio.amountTotal;
+                    this.extAnalytics[el].radio.amountTotal +
+                    this.extAnalytics[el].consultation.amountTotal;
             }
             return sum;
         },
