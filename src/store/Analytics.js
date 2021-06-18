@@ -202,10 +202,12 @@ export default {
         hospEpisodeCounts: (state) => state.hospEpisodeCounts,
     },
     actions: {
-        getHospAnalytics(context, [from, to, totalOf, service]) {
+        getHospAnalytics(context, [from, to, totalOf, service, admType]) {
             return new Promise((resolve, reject) => {
                 let url = `/analytics?type=hospitalized&from=${from}&to=${to}&totalOf=${totalOf}`;
                 if (service) url += `&service=${service}`;
+                if (admType) url += `&admType=${admType}`;
+
                 axios
                     .get(url)
                     .then((res) => {
@@ -219,10 +221,12 @@ export default {
             });
         },
 
-        getExtAnalytics(context, [from, to, totalOf, service]) {
+        getExtAnalytics(context, [from, to, totalOf, service, admType]) {
             return new Promise((resolve, reject) => {
                 let url = `/analytics?type=external&from=${from}&to=${to}&totalOf=${totalOf}`;
                 if (service) url += `&service=${service}`;
+                if (admType) url += `&admType=${admType}`;
+
                 axios
                     .get(url)
                     .then((res) => {
