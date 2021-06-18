@@ -44,15 +44,43 @@
                 hide-details
                 type="date"
             />
+            <v-select
+                :items="items"
+                placeholder="Total de"
+                label="Total de"
+                outlined
+                rounded
+                class="ms-4"
+                hide-details
+                single-line
+                dense
+                v-model="totalOf"
+                style="width: 200px"
+            />
+            <v-select
+                :items="services"
+                placeholder="service"
+                label="service"
+                outlined
+                rounded
+                class="ms-4"
+                hide-details
+                single-line
+                dense
+                v-model="service"
+                style="width: 120px"
+            />
+        </div>
+        <div class="date-pickers d-flex align-center pt-4 pb-2">
             <v-btn
                 outlined
                 color="blue"
                 rounded
                 class="ms-8 text-none"
-                width="100"
+                width="120"
                 @click="getAnalytics"
                 :loading="loading"
-                :disabled="loading || !fromDate || !toDate"
+                :disabled="loading || !fromDate || !toDate || !totalOf"
             >
                 Apply
             </v-btn>
@@ -61,7 +89,7 @@
                 color="orange"
                 rounded
                 class="ms-5 text-none"
-                width="100"
+                width="120"
                 @click="reset"
                 :disabled="!loaded"
             >
@@ -133,6 +161,33 @@ export default {
         toDate: null,
         loading: false,
         loaded: false,
+        totalOf: "",
+        service: "",
+        items: [
+            "medicalbiology",
+            "medicalimaging",
+            "prosthesis",
+            "invoicedstay",
+            "medicalfees",
+            "billedmedication",
+            "actes",
+            "total",
+        ],
+        services: [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "CHA",
+            "CHB",
+            "CHC",
+            "CHD",
+            "CHOP",
+            "UPM",
+            "UPC",
+            "REAA",
+            "REAB",
+        ],
     }),
     methods: {
         ...mapActions([
@@ -145,6 +200,8 @@ export default {
             this.toDate = null;
             this.loading = false;
             this.loaded = false;
+            this.totalOf = "";
+            this.service = "";
             await this.clearAnalytics();
         },
         async getAnalytics() {
@@ -153,8 +210,18 @@ export default {
                 this.fromDate = this.fromDate.replace("/-+/g", "/");
                 this.toDate = this.toDate.replace("/-+/g", "/");
 
-                await this.getExtAnalytics([this.fromDate, this.toDate]);
-                await this.getHospAnalytics([this.fromDate, this.toDate]);
+                await this.getExtAnalytics([
+                    this.fromDate,
+                    this.toDate,
+                    this.totalOf,
+                    this.service,
+                ]);
+                await this.getHospAnalytics([
+                    this.fromDate,
+                    this.toDate,
+                    this.totalOf,
+                    this.service,
+                ]);
 
                 this.loaded = true;
             } catch (err) {

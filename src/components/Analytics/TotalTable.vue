@@ -34,11 +34,13 @@
             <th scope="col">Montant</th>
         </tr>
         <tr>
-            <th scope="row">Totale</th>
+            <th scope="row" style="width: 150px">Totale</th>
             <td>
                 {{
                     extAnalytics.paid.radio.episodeCount +
                     extAnalytics.paid.lab.episodeCount +
+                    extAnalytics.paid.consultation.episodeCount +
+                    hospAnalytics.hospital.paid.episodeCount +
                     hospAnalytics.paid.episodeCount
                 }}
             </td>
@@ -46,6 +48,8 @@
                 {{
                     extAnalytics.paid.radio.amountTotal +
                     extAnalytics.paid.lab.amountTotal +
+                    extAnalytics.paid.consultation.amountTotal +
+                    hospAnalytics.hospital.paid.amountTotal +
                     hospAnalytics.paid.amountTotal
                 }}
             </td>
@@ -53,6 +57,8 @@
                 {{
                     extAnalytics.potential.radio.episodeCount +
                     extAnalytics.potential.lab.episodeCount +
+                    extAnalytics.potential.consultation.episodeCount +
+                    hospAnalytics.hospital.potential.episodeCount +
                     hospAnalytics.potential.episodeCount
                 }}
             </td>
@@ -60,6 +66,8 @@
                 {{
                     extAnalytics.potential.radio.amountTotal +
                     extAnalytics.potential.lab.amountTotal +
+                    extAnalytics.potential.consultation.amountTotal +
+                    hospAnalytics.hospital.potential.amountTotal +
                     hospAnalytics.potential.amountTotal
                 }}
             </td>
@@ -67,6 +75,8 @@
                 {{
                     extAnalytics.ramed.radio.episodeCount +
                     extAnalytics.ramed.lab.episodeCount +
+                    extAnalytics.ramed.consultation.episodeCount +
+                    hospAnalytics.hospital.ramed.episodeCount +
                     hospAnalytics.ramed.episodeCount
                 }}
             </td>
@@ -74,6 +84,8 @@
                 {{
                     extAnalytics.ramed.radio.amountTotal +
                     extAnalytics.ramed.lab.amountTotal +
+                    extAnalytics.ramed.consultation.amountTotal +
+                    hospAnalytics.hospital.ramed.amountTotal +
                     hospAnalytics.ramed.amountTotal
                 }}
             </td>
@@ -81,6 +93,8 @@
                 {{
                     extAnalytics.cnops.radio.episodeCount +
                     extAnalytics.cnops.lab.episodeCount +
+                    extAnalytics.cnops.consultation.episodeCount +
+                    hospAnalytics.hospital.cnops.episodeCount +
                     hospAnalytics.cnops.episodeCount
                 }}
             </td>
@@ -88,6 +102,8 @@
                 {{
                     extAnalytics.cnops.radio.amountTotal +
                     extAnalytics.cnops.lab.amountTotal +
+                    extAnalytics.cnops.consultation.amountTotal +
+                    hospAnalytics.hospital.cnops.amountTotal +
                     hospAnalytics.cnops.amountTotal
                 }}
             </td>
@@ -95,6 +111,8 @@
                 {{
                     extAnalytics.mafar.radio.episodeCount +
                     extAnalytics.mafar.lab.episodeCount +
+                    extAnalytics.mafar.consultation.episodeCount +
+                    hospAnalytics.hospital.mafar.episodeCount +
                     hospAnalytics.mafar.episodeCount
                 }}
             </td>
@@ -102,6 +120,8 @@
                 {{
                     extAnalytics.mafar.radio.amountTotal +
                     extAnalytics.mafar.lab.amountTotal +
+                    extAnalytics.mafar.consultation.amountTotal +
+                    hospAnalytics.hospital.mafar.amountTotal +
                     hospAnalytics.mafar.amountTotal
                 }}
             </td>
@@ -109,6 +129,8 @@
                 {{
                     extAnalytics.cnss.radio.episodeCount +
                     extAnalytics.cnss.lab.episodeCount +
+                    extAnalytics.cnss.consultation.episodeCount +
+                    hospAnalytics.hospital.cnss.episodeCount +
                     hospAnalytics.cnss.episodeCount
                 }}
             </td>
@@ -116,6 +138,8 @@
                 {{
                     extAnalytics.cnss.radio.amountTotal +
                     extAnalytics.cnss.lab.amountTotal +
+                    extAnalytics.cnss.consultation.amountTotal +
+                    hospAnalytics.hospital.cnss.amountTotal +
                     hospAnalytics.cnss.amountTotal
                 }}
             </td>
@@ -123,6 +147,8 @@
                 {{
                     extAnalytics.organism.radio.episodeCount +
                     extAnalytics.organism.lab.episodeCount +
+                    extAnalytics.organism.consultation.episodeCount +
+                    hospAnalytics.hospital.organism.episodeCount +
                     hospAnalytics.organism.episodeCount
                 }}
             </td>
@@ -130,6 +156,8 @@
                 {{
                     extAnalytics.organism.radio.amountTotal +
                     extAnalytics.organism.lab.amountTotal +
+                    extAnalytics.organism.consultation.amountTotal +
+                    hospAnalytics.hospital.organism.amountTotal +
                     hospAnalytics.organism.amountTotal
                 }}
             </td>
@@ -156,40 +184,13 @@ export default {
         extAnalytics() {
             return this.$store.getters.extAnalytics;
         },
-        totalRadioMontant() {
-            let sum = 0;
-            for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].radio.amountTotal;
-            }
-            return sum;
-        },
-        totalLabMontant() {
-            let sum = 0;
-            for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].lab.amountTotal;
-            }
-            return sum;
-        },
-        totalRadioNbre() {
-            let sum = 0;
-            for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].radio.episodeCount;
-            }
-            return sum;
-        },
-        totalLabNbre() {
-            let sum = 0;
-            for (let el in this.extAnalytics) {
-                sum += this.extAnalytics[el].lab.episodeCount;
-            }
-            return sum;
-        },
         totalExtNbre() {
             let sum = 0;
             for (let el in this.extAnalytics) {
                 sum +=
                     this.extAnalytics[el].lab.episodeCount +
-                    this.extAnalytics[el].radio.episodeCount;
+                    this.extAnalytics[el].radio.episodeCount +
+                    this.extAnalytics[el].consultation.episodeCount;
             }
             return sum;
         },
@@ -198,7 +199,8 @@ export default {
             for (let el in this.extAnalytics) {
                 sum +=
                     this.extAnalytics[el].lab.amountTotal +
-                    this.extAnalytics[el].radio.amountTotal;
+                    this.extAnalytics[el].radio.amountTotal +
+                    this.extAnalytics[el].consultation.amountTotal;
             }
             return sum;
         },
@@ -208,18 +210,21 @@ export default {
         totalHospNbre() {
             let sum = 0;
             for (let el in this.hospAnalytics) {
-                sum +=
-                    this.hospAnalytics[el].episodeCount +
-                    this.hospAnalytics[el].episodeCount;
+                if (el !== "hospital")
+                    sum +=
+                        this.hospAnalytics[el].episodeCount +
+                        this.hospAnalytics.hospital[el].episodeCount;
             }
+
             return sum;
         },
         totalHospMontant() {
             let sum = 0;
             for (let el in this.hospAnalytics) {
-                sum +=
-                    this.hospAnalytics[el].amountTotal +
-                    this.hospAnalytics[el].amountTotal;
+                if (el !== "hospital")
+                    sum +=
+                        this.hospAnalytics[el].amountTotal +
+                        this.hospAnalytics.hospital[el].amountTotal;
             }
             return sum;
         },
