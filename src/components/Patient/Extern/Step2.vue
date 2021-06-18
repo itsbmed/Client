@@ -118,6 +118,20 @@
                             />
                         </v-col>
                     </v-row>
+                    <v-row no-gutters class="mt-2">
+                        <v-col>
+                            <v-select
+                                v-model="extEpisodeFrom.service"
+                                ref="Sr"
+                                :rules="[required('Service D\'hospilisation')]"
+                                :items="services"
+                                placeholder="Service D'hospilisation"
+                                label="Service D'hospilisation"
+                                outlined
+                                class="rounded-lg"
+                            />
+                        </v-col>
+                    </v-row>
                 </v-form>
             </v-card>
         </div>
@@ -175,7 +189,22 @@ export default {
             "CNSS",
             "ORGANISM",
         ],
-        presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
+        presentations: ["LAB", "RADIO", "Consultation"],
+        services: [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "CHA",
+            "CHB",
+            "CHC",
+            "CHD",
+            "CHOP",
+            "UPM",
+            "UPC",
+            "REAA",
+            "REAB",
+        ],
         firstnameRule,
         lastnameRule,
         addressRule,

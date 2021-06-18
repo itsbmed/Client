@@ -100,14 +100,10 @@
 
                     <v-row no-gutters class="mt-2">
                         <v-col class="me-4">
-                            <v-select
-                                :items="presentations"
-                                :rules="[required('Nature de presentation')]"
-                                placeholder="Nature de presentation"
-                                label="Nature de presentation"
-                                outlined
-                                class="rounded-lg"
-                                v-model="hospEpisodeFrom.presentationNature"
+                            <v-checkbox
+                                v-model="hospEpisodeFrom.hospitalDay"
+                                label="Hopital de jour"
+                                color="primary"
                             />
                         </v-col>
                         <v-col>
@@ -247,6 +243,8 @@ export default {
             this.loading = true;
             try {
                 this.hospEpisodeFrom.type = "hospitalized";
+                if (!this.hospEpisodeFrom.hospitalDay)
+                    this.hospEpisodeFrom.hospitalDay = false;
                 let res = await this.saveEpisode([
                     this.hospEpisodeFrom,
                     this.getIpp,
