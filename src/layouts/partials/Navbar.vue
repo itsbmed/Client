@@ -38,7 +38,7 @@
                 <div class="white d-flex flex-column align-start">
                     <v-btn block text class="text-none" v-if="agent.isAdmin">
                         <router-link
-                            to="admin-panel"
+                            :to="{ name: 'AdminPanel' }"
                             class="rm-underline d-block black--text"
                         >
                             <v-icon left size="20">mdi-account-cog</v-icon>

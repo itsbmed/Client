@@ -70,6 +70,19 @@
                 v-model="service"
                 style="width: 120px"
             />
+            <v-select
+                :items="['Normal', 'Urgent']"
+                placeholder="Admition type"
+                label="Admition type"
+                outlined
+                rounded
+                class="ms-4"
+                hide-details
+                single-line
+                dense
+                v-model="admType"
+                style="width: 150px"
+            />
         </div>
         <div class="date-pickers d-flex align-center pt-4 pb-2">
             <v-btn
@@ -161,8 +174,9 @@ export default {
         toDate: null,
         loading: false,
         loaded: false,
-        totalOf: "",
+        totalOf: "total",
         service: "",
+        admType: "",
         items: [
             "medicalbiology",
             "medicalimaging",
@@ -200,8 +214,9 @@ export default {
             this.toDate = null;
             this.loading = false;
             this.loaded = false;
-            this.totalOf = "";
+            this.totalOf = "total";
             this.service = "";
+            this.admType = "";
             await this.clearAnalytics();
         },
         async getAnalytics() {
@@ -209,18 +224,20 @@ export default {
                 this.loading = true;
                 this.fromDate = this.fromDate.replace("/-+/g", "/");
                 this.toDate = this.toDate.replace("/-+/g", "/");
-
+                await this.clearAnalytics();
                 await this.getExtAnalytics([
                     this.fromDate,
                     this.toDate,
                     this.totalOf,
                     this.service,
+                    this.admType,
                 ]);
                 await this.getHospAnalytics([
                     this.fromDate,
                     this.toDate,
                     this.totalOf,
                     this.service,
+                    this.admType,
                 ]);
 
                 this.loaded = true;
