@@ -15,7 +15,10 @@
                     v-for="(hospEpisode, i) in hospEpisodes"
                     :key="hospEpisode.id"
                 >
-                    <td>{{ hospEpisode.type }}</td>
+                    <td v-if="hospEpisode.hospitalDay == false">
+                        {{ hospEpisode.type }}
+                    </td>
+                    <td v-else>{{ "Hopitale De Jour" }}</td>
                     <td>
                         {{ hospEpisode.patient.firstName }}
                         {{ hospEpisode.patient.lastName }}
@@ -27,11 +30,8 @@
                     <td>{{ formatDate(hospEpisode.exitDate) }}</td>
                     <td>{{ hospEpisode.admType }}</td>
                     <td>{{ hospEpisode.cin }}</td>
-                    <td>{{ hospEpisode.presentationNature }}</td>
                     <td>{{ hospEpisode.service }}</td>
                     <td>{{ hospEpisode.category }}</td>
-                    <td>{{ formatDate(hospEpisode.ramedExpDate) }}</td>
-                    <td>{{ hospEpisode.ramedNum }}</td>
 
                     <td class="text-center">
                         <span v-if="!hospEpisode.bill">
@@ -86,19 +86,16 @@ export default {
     data: () => ({
         headItems: [
             "Type",
-            "Nom et prenom",
-            "Address",
+            "Nom/Prénom du patient",
+            "Address de l'accompagnant",
             "Ipp",
             "Date",
             "Date Ad",
             "Date Srt",
             "Type Ad",
             "Cin",
-            "Nature De Presentation",
             "Service",
             "Category",
-            "Ramed Exp Date",
-            "Ramed Num",
         ],
         loading: false,
         page: 2,

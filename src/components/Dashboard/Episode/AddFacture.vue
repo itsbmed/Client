@@ -13,8 +13,8 @@
                             <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.billNum"
-                                    placeholder="Facture number"
-                                    label="Facture number"
+                                    placeholder="N° de facture"
+                                    label="N° de facture"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -23,8 +23,8 @@
                             <v-col>
                                 <v-text-field
                                     v-model="billData.medicalBiology"
-                                    placeholder="Biologie medical"
-                                    label="Biologie medical"
+                                    placeholder="Biologie Médicale"
+                                    label="Biologie Médicale"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -36,8 +36,8 @@
                             <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.medicalImaging"
-                                    placeholder="Medical Imaging"
-                                    label="Medical Imaging"
+                                    placeholder="Imagerie Médicale"
+                                    label="Imagerie Médicale"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -46,8 +46,8 @@
                             <v-col>
                                 <v-text-field
                                     v-model="billData.prosthesis"
-                                    placeholder="Prosthesis"
-                                    label="Prosthesis"
+                                    placeholder="Disp+Impl+Proth"
+                                    label="Disp+Impl+Proth"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -58,8 +58,8 @@
                             <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.invoicedStay"
-                                    placeholder="Invoice de Stay"
-                                    label="Invoice de Stay"
+                                    placeholder="Séjour"
+                                    label="Séjour"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -68,8 +68,8 @@
                             <v-col>
                                 <v-text-field
                                     v-model="billData.medicalFees"
-                                    placeholder="Medical Fees"
-                                    label="Medical Fees"
+                                    placeholder="Honoraires médicaux"
+                                    label="Honoraires médicaux"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -80,8 +80,8 @@
                             <v-col class="me-4">
                                 <v-text-field
                                     v-model="billData.billedMedication"
-                                    placeholder="Billed Medication"
-                                    label="Billed Medication"
+                                    placeholder="Médicament"
+                                    label="Médicament"
                                     outlined
                                     class="rounded-lg"
                                     type="number"
@@ -90,8 +90,8 @@
                             <v-col>
                                 <v-text-field
                                     v-model="billData.actes"
-                                    placeholder="Actes"
-                                    label="Actes"
+                                    placeholder="Acte chirurgical"
+                                    label="Acte chirurgical"
                                     outlined
                                     class="rounded-lg"
                                     type="number"

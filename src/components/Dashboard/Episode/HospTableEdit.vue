@@ -19,15 +19,6 @@
                             v-model="localData.initDate"
                         />
                     </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Tn Nom"
-                            label="Tn Nom"
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.tName"
-                        />
-                    </v-col>
                 </v-row>
 
                 <v-row no-gutters> </v-row>
@@ -57,10 +48,27 @@
                 </v-row>
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
-                        <v-text-field
+                        <v-select
                             placeholder="Service"
+                            filled
                             label="Service"
+                            :items="[
+                                'P1',
+                                'P2',
+                                'P3',
+                                'P4',
+                                'p5',
+                                'CHA',
+                                'CHB',
+                                'CHC',
+                                'CHOP',
+                                'UPM',
+                                'UPC',
+                                'REAA',
+                                'REAB',
+                            ]"
                             outlined
+                            rounded
                             class="rounded-lg"
                             v-model="localData.service"
                         />
@@ -69,7 +77,16 @@
                         <v-select
                             v-model="localData.category"
                             filled
-                            :items="['PAYANT', 'RAMED']"
+                            :items="[
+                                'PAYANT',
+                                'RAMED',
+                                'POTENTIEL',
+                                'CNOPS',
+                                'MAFAR',
+                                'CNSS',
+                                'PERSONNEL',
+                                'ORGANISME',
+                            ]"
                             rounded
                             outlined
                             class="rounded-lg"
@@ -87,15 +104,6 @@
                             outlined
                             class="rounded-lg"
                             v-model="localData.admType"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="Tn Ercure"
-                            label="Tn Ercure"
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.tnErcure"
                         />
                     </v-col>
                 </v-row>

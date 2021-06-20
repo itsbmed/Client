@@ -22,9 +22,8 @@
                     <td>{{ extEpisode.admType }}</td>
                     <td>{{ extEpisode.cin }}</td>
                     <td>{{ extEpisode.presentationNature }}</td>
+                    <td>{{ extEpisode.service }}</td>
                     <td>{{ extEpisode.category }}</td>
-                    <td>{{ formatDate(extEpisode.ramedExpDate) }}</td>
-                    <td>{{ extEpisode.ramedNum }}</td>
 
                     <td class="text-center">
                         <ExtTableEdit :data="extEpisode" :index="i">
@@ -70,16 +69,15 @@ export default {
     data: () => ({
         headItems: [
             "Type",
-            "Nom et prenom",
-            "Address",
+            "Nom/Prénom du patient",
+            "Address de l'accompagnant",
             "Ipp",
             "Date",
             "Type Ad",
             "Cin",
             "Nature De Presentation",
+            "service",
             "Category",
-            "Ramed Exp Date",
-            "Ramed Num",
         ],
         loading: false,
         page: 2,
