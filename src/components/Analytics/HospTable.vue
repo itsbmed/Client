@@ -32,42 +32,160 @@
             <th scope="col">Montant</th>
             <th scope="col">Nbre</th>
             <th scope="col">Montant</th>
+            <th scope="col">Nbre</th>
+            <th scope="col">Montant</th>
         </tr>
         <tr>
             <th scope="row">Hospitalisation</th>
-            <td>{{ hospAnalytics.paid.episodeCount }}</td>
-            <td>{{ hospAnalytics.paid.amountTotal }}</td>
-            <td>{{ hospAnalytics.potential.episodeCount }}</td>
-            <td>{{ hospAnalytics.potential.amountTotal }}</td>
-            <td>{{ hospAnalytics.ramed.episodeCount }}</td>
-            <td>{{ hospAnalytics.ramed.amountTotal }}</td>
-            <td>{{ hospAnalytics.cnops.episodeCount }}</td>
-            <td>{{ hospAnalytics.cnops.amountTotal }}</td>
-            <td>{{ hospAnalytics.mafar.episodeCount }}</td>
-            <td>{{ hospAnalytics.mafar.amountTotal }}</td>
-            <td>{{ hospAnalytics.cnss.episodeCount }}</td>
-            <td>{{ hospAnalytics.cnss.amountTotal }}</td>
-            <td>{{ hospAnalytics.organism.episodeCount }}</td>
-            <td>{{ hospAnalytics.organism.amountTotal }}</td>
+            <td v-if="hospAnalytics.paid.episodeCount">
+                {{ hospAnalytics.paid.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.paid.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.paid.amountTotal">
+                {{ hospAnalytics.paid.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.paid.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.potential.episodeCount">
+                {{ hospAnalytics.potential.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.potential.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.potential.amountTotal">
+                {{ hospAnalytics.potential.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.potential.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.ramed.episodeCount">
+                {{ hospAnalytics.ramed.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.ramed.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.ramed.amountTotal">
+                {{ hospAnalytics.ramed.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.ramed.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.cnops.episodeCoun">
+                {{ hospAnalytics.cnops.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.cnops.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.cnops.amountTotal">
+                {{ hospAnalytics.cnops.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.cnops.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.mafar.episodeCount">
+                {{ hospAnalytics.mafar.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.mafar.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.mafar.amountTotal">
+                {{ hospAnalytics.mafar.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.mafar.amountTotal }}</td>
+            <td v-if="hospAnalytics.cnss.episodeCount">
+                {{ hospAnalytics.cnss.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.cnss.episodeCount }}</td>
+            <td v-if="hospAnalytics.cnss.amountTotal">
+                {{ hospAnalytics.cnss.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.cnss.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.personnel.episodeCount">
+                {{ hospAnalytics.personnel.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.personnel.episodeCount }}</td>
+            <td v-if="hospAnalytics.personnel.amountTotal">
+                {{ hospAnalytics.personnel.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.personnel.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.organism.episodeCount">
+                {{ hospAnalytics.organism.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.organism.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.organism.amountTotal">
+                {{ hospAnalytics.organism.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.organism.amountTotal = 0) }}</td>
             <td>{{ totalNbre }}</td>
             <td>{{ totalMontant }}</td>
         </tr>
         <tr>
             <th scope="row">Hopital de jour</th>
-            <td>{{ hospAnalytics.hospital.paid.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.paid.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.potential.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.potential.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.ramed.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.ramed.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.cnops.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.cnops.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.mafar.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.mafar.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.cnss.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.cnss.amountTotal }}</td>
-            <td>{{ hospAnalytics.hospital.organism.episodeCount }}</td>
-            <td>{{ hospAnalytics.hospital.organism.amountTotal }}</td>
+            <td v-if="hospAnalytics.hospital.paid.episodeCount">
+                {{ hospAnalytics.hospital.paid.episodeCount }}
+            </td>
+            <td v-else>{{ (hospAnalytics.hospital.paid.episodeCount = 0) }}</td>
+            <td v-if="hospAnalytics.hospital.paid.amountTotal">
+                {{ hospAnalytics.hospital.paid.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.hospital.paid.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.hospital.potential.episodeCount">
+                {{ hospAnalytics.hospital.potential.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.potential.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.potential.amountTotal">
+                {{ hospAnalytics.hospital.potential.amountTotal }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.potential.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.ramed.episodeCount">
+                {{ hospAnalytics.hospital.ramed.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.ramed.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.ramed.amountTotal">
+                {{ hospAnalytics.hospital.ramed.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.hospital.ramed.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.hospital.cnops.episodeCoun">
+                {{ hospAnalytics.hospital.cnops.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.cnops.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.cnops.amountTotal">
+                {{ hospAnalytics.hospital.cnops.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.hospital.cnops.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.hospital.mafar.episodeCount">
+                {{ hospAnalytics.hospital.mafar.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.mafar.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.mafar.amountTotal">
+                {{ hospAnalytics.hospital.mafar.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.hospital.mafar.amountTotal }}</td>
+            <td v-if="hospAnalytics.hospital.cnss.episodeCount">
+                {{ hospAnalytics.hospital.cnss.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.hospital.cnss.episodeCount }}</td>
+            <td v-if="hospAnalytics.hospital.cnss.amountTotal">
+                {{ hospAnalytics.hospital.cnss.amountTotal }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.cnss.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.personnel.episodeCount">
+                {{ hospAnalytics.personnel.episodeCount }}
+            </td>
+            <td v-else>{{ hospAnalytics.personnel.episodeCount }}</td>
+            <td v-if="hospAnalytics.personnel.amountTotal">
+                {{ hospAnalytics.personnel.amountTotal }}
+            </td>
+            <td v-else>{{ (hospAnalytics.personnel.amountTotal = 0) }}</td>
+            <td v-if="hospAnalytics.hospital.organism.episodeCount">
+                {{ hospAnalytics.hospital.organism.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.organism.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.hospital.organism.amountTotal">
+                {{ hospAnalytics.hospital.organism.amountTotal }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.hospital.organism.amountTotal = 0) }}
+            </td>
             <td>{{ totalNbre }}</td>
             <td>{{ totalMontant }}</td>
         </tr>
@@ -147,6 +265,18 @@
             </td>
             <td>
                 {{
+                    hospAnalytics.personnel.episodeCount +
+                    hospAnalytics.hospital.personnel.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    hospAnalytics.personnel.amountTotal +
+                    hospAnalytics.hospital.personnel.amountTotal
+                }}
+            </td>
+            <td>
+                {{
                     hospAnalytics.organism.episodeCount +
                     hospAnalytics.hospital.organism.episodeCount
                 }}
@@ -173,6 +303,7 @@ export default {
             "CNOPS",
             "MAFAR",
             "CNSS",
+            "PERSONNEL",
             "ORGANISM",
         ],
     }),

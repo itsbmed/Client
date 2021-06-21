@@ -10,22 +10,22 @@
                 <v-row no-gutters>
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="N*Facture"
-                            label="N*Facture"
-                            clearable
+                            v-model="localData.billNum"
+                            placeholder="N° de facture"
+                            label="N° de facture"
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Nf"
+                            type="number"
                         />
                     </v-col>
                     <v-col>
                         <v-text-field
-                            placeholder="Actes"
-                            label="Actes"
-                            clearable
+                            v-model="localData.organismPart"
+                            placeholder="Parte Organisme"
+                            label="Parte Organisme"
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Actes"
+                            type="number"
                         />
                     </v-col>
                 </v-row>
@@ -33,64 +33,34 @@
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="Medicame"
-                            label="Medicame"
-                            clearable
+                            v-model="localData.adherentPart"
+                            placeholder="Parte adherent"
+                            label="Parte adherent"
                             outlined
                             class="rounded-lg"
-                            v-model="localData.Medicame"
+                            type="number"
                         />
                     </v-col>
                     <v-col>
-                        <v-text-field
-                            placeholder="Prothes"
-                            label="Prothes"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Prothes"
-                        />
+                        Totale Facture :
+                        <span style="color: #2ecc71">
+                            {{
+                                (localData.totale =
+                                    parseInt(localData.organismPart) +
+                                    parseInt(localData.adherentPart))
+                            }}
+                            DH
+                        </span>
                     </v-col>
-                </v-row>
-                <v-row no-gutters class="mt-2">
-                    <v-col class="me-4">
-                        <v-text-field
-                            placeholder="Categorie"
-                            label="Categorie"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Categorie"
-                        />
-                    </v-col>
-                    <v-col>
-                        <v-text-field
-                            placeholder="N*Quitance"
-                            label="N*Quitance"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Nq"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <c-col cols="6">
-                        <v-text-field
-                            placeholder="Totale"
-                            label="Totale"
-                            clearable
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.Totale"
-                        />
-                    </c-col>
                 </v-row>
             </v-card-text>
             <v-card-actions>
                 <h3 class="ms-2">
                     Editing
-                    <span class="primary--text"> {{ data.Info }}'s </span> data
+                    <span class="primary--text">
+                        {{ localData.firstName }}
+                        {{ localData.lastName }}'s
+                    </span>
                 </h3>
                 <v-spacer></v-spacer>
                 <a
@@ -130,8 +100,25 @@ export default {
         async edit() {
             this.loading = true;
             try {
-                const res = await this.$axios.patch("/", this.localData);
-                this.data = this.localData;
+                let {
+                    billNum,
+                    organismPart,
+                    adherentPart,
+                    totale,
+                    firstName,
+                    lastName,
+                    id,
+                } = this.localData;
+                const res = await this.$axios.put(
+                    `/bills/${id}?type=external`,
+                    {
+                        billNum,
+                        organismPart,
+                        adherentPart,
+                        totale,
+                    }
+                );
+
                 this.dialog = false;
             } catch (err) {
                 this.$notify({

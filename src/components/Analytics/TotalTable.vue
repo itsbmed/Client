@@ -32,6 +32,8 @@
             <th scope="col">Montant</th>
             <th scope="col">Nbre</th>
             <th scope="col">Montant</th>
+            <th scope="col">Nbre</th>
+            <th scope="col">Montant</th>
         </tr>
         <tr>
             <th scope="row" style="width: 150px">Totale</th>
@@ -145,6 +147,24 @@
             </td>
             <td>
                 {{
+                    extAnalytics.cnss.radio.episodeCount +
+                    extAnalytics.cnss.lab.episodeCount +
+                    extAnalytics.cnss.consultation.episodeCount +
+                    hospAnalytics.hospital.cnss.episodeCount +
+                    hospAnalytics.cnss.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.personnel.radio.amountTotal +
+                    extAnalytics.personnel.lab.amountTotal +
+                    extAnalytics.personnel.consultation.amountTotal +
+                    hospAnalytics.hospital.personnel.amountTotal +
+                    hospAnalytics.personnel.amountTotal
+                }}
+            </td>
+            <td>
+                {{
                     extAnalytics.organism.radio.episodeCount +
                     extAnalytics.organism.lab.episodeCount +
                     extAnalytics.organism.consultation.episodeCount +
@@ -177,6 +197,7 @@ export default {
             "CNOPS",
             "MAFAR",
             "CNSS",
+            "PERSONNEL",
             "ORGANISM",
         ],
     }),

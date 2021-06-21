@@ -192,10 +192,10 @@ export default {
             "P2",
             "P3",
             "P4",
+            "P5",
             "CHA",
             "CHB",
             "CHC",
-            "CHD",
             "CHOP",
             "UPM",
             "UPC",
@@ -228,7 +228,7 @@ export default {
                 await this.getExtAnalytics([
                     this.fromDate,
                     this.toDate,
-                    this.totalOf,
+                    "total",
                     this.service,
                     this.admType,
                 ]);

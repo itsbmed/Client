@@ -10,45 +10,52 @@
                 <v-row no-gutters>
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="Date"
-                            label="Date"
-                            onfocus="(this.type='date')"
-                            onblur="(this.type='text')"
+                            v-model="localData.firstName"
+                            :rules="firstnameRule"
                             outlined
-                            class="rounded-lg"
-                            v-model="localData.initDate"
+                            class="rounded-lg mt-3"
+                            placeholder="Nom de patient"
+                            label="Nom de patient"
+                        />
+                    </v-col>
+                    <v-col class="me-4">
+                        <v-text-field
+                            v-model="localData.lastName"
+                            :rules="lastnameRule"
+                            outlined
+                            class="rounded-lg mt-3"
+                            placeholder="prenom de patient"
+                            label="Prenom de patient"
                         />
                     </v-col>
                 </v-row>
 
-                <v-row no-gutters> </v-row>
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
                         <v-text-field
-                            placeholder="Date AD"
-                            label="Date AD"
-                            onfocus="(this.type='date')"
-                            onblur="(this.type='text')"
+                            v-model="localData.address"
                             outlined
-                            class="rounded-lg"
-                            v-model="localData.entryDate"
+                            :rules="addressRule"
+                            class="rounded-lg mt-3"
+                            placeholder="Address de l'accompagnant"
+                            label="Address de l'accompagnant"
                         />
                     </v-col>
-                    <v-col>
+                    <v-col class="me-4">
                         <v-text-field
-                            placeholder="Date Srt"
-                            label="Date srt"
-                            onfocus="(this.type='date')"
-                            onblur="(this.type='text')"
+                            placeholder="Cin"
+                            label="Cin"
+                            :rules="cinRule"
                             outlined
-                            class="rounded-lg"
-                            v-model="localData.exitDate"
+                            class="rounded-lg mt-3"
+                            v-model="localData.cin"
                         />
                     </v-col>
                 </v-row>
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
                         <v-select
+                            v-model="localData.service"
                             placeholder="Service"
                             filled
                             label="Service"
@@ -70,32 +77,8 @@
                             outlined
                             rounded
                             class="rounded-lg"
-                            v-model="localData.service"
                         />
                     </v-col>
-                    <v-col>
-                        <v-select
-                            v-model="localData.category"
-                            filled
-                            :items="[
-                                'PAYANT',
-                                'RAMED',
-                                'POTENTIEL',
-                                'CNOPS',
-                                'MAFAR',
-                                'CNSS',
-                                'PERSONNEL',
-                                'ORGANISME',
-                            ]"
-                            rounded
-                            outlined
-                            class="rounded-lg"
-                            placeholder="Categorie"
-                            label="Categorie"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
                     <v-col class="me-4">
                         <v-select
                             :items="['Urgence', 'Normale']"
@@ -104,6 +87,7 @@
                             outlined
                             class="rounded-lg"
                             v-model="localData.admType"
+                            filled
                         />
                     </v-col>
                 </v-row>
@@ -158,30 +142,17 @@ export default {
         async edit() {
             this.loading = true;
             try {
-                let {
-                    admType,
-                    initDate,
-                    entryDate,
-                    service,
-                    category,
-                    exitDate,
-                    situation,
-                    tnErcure,
-                    tName,
-                    id,
-                } = this.localData;
+                let { admType, firstName, lastName, adress, service, cin, id } =
+                    this.localData;
                 const res = await this.$axios.put(
                     `/episodes/${id}?type=hospitalized`,
                     {
                         admType,
-                        initDate,
-                        entryDate,
+                        firstName,
+                        lastName,
+                        adress,
+                        cin,
                         service,
-                        category,
-                        exitDate,
-                        situation,
-                        tnErcure,
-                        tName,
                     }
                 );
                 this.dialog = false;

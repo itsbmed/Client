@@ -9,6 +9,50 @@
             <v-card-text class="pt-5">
                 <v-row no-gutters class="mt-2">
                     <v-col class="me-4">
+                        <v-text-field
+                            v-model="localData.lastName"
+                            :rules="lastnameRule"
+                            outlined
+                            class="rounded-lg mt-3"
+                            placeholder="Nom de patient"
+                            label="Nom de patient"
+                        />
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                            v-model="localData.firstName"
+                            :rules="firstnameRule"
+                            outlined
+                            class="rounded-lg mt-3"
+                            placeholder="Prenom de patient"
+                            label="Prenom de patient"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row no-gutters class="mt-2">
+                    <v-col class="me-4">
+                        <v-text-field
+                            v-model="localData.adress"
+                            :rules="adressRule"
+                            outlined
+                            class="rounded-lg mt-3"
+                            placeholder="Address de l'accompagnant"
+                            label="Address de l'accompagnant"
+                        />
+                    </v-col>
+                    <v-col>
+                        <v-text-field
+                            v-model="localData.cin"
+                            :rules="cinRule"
+                            outlined
+                            class="rounded-lg mt-3"
+                            placeholder="Cin"
+                            label="Cin"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row no-gutters>
+                    <v-col class="me-4">
                         <v-select
                             v-model="localData.presentationNature"
                             :items="presentations"
@@ -21,25 +65,40 @@
                     </v-col>
                     <v-col>
                         <v-select
+                            v-model="localData.service"
+                            placeholder="Service"
+                            filled
+                            label="Service"
+                            :items="[
+                                'P1',
+                                'P2',
+                                'P3',
+                                'P4',
+                                'p5',
+                                'CHA',
+                                'CHB',
+                                'CHC',
+                                'CHOP',
+                                'UPM',
+                                'UPC',
+                                'REAA',
+                                'REAB',
+                            ]"
+                            outlined
+                            rounded
+                            class="rounded-lg"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row no-gutters>
+                    <v-col class="me-4">
+                        <v-select
                             :items="['URGENT', 'NORMAL']"
                             placeholder="Type AD"
                             label="Type AD"
                             outlined
                             class="rounded-lg"
                             v-model="localData.admType"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <v-col cols="6">
-                        <v-text-field
-                            placeholder="Date"
-                            label="Date"
-                            onfocus="(this.type='date')"
-                            onblur="(this.type='text')"
-                            outlined
-                            class="rounded-lg"
-                            v-model="localData.createdAt"
                         />
                     </v-col>
                 </v-row>
@@ -90,19 +149,31 @@ export default {
         dialog: false,
         loading: false,
         localData: { ...props.data },
-        presentations: ["LAB", "RADIO", "MEDICAL", "SURGICAL", "REANIMATION"],
+        presentations: ["LAB", "RADIO", "CONSULTATION"],
     }),
     methods: {
         async edit() {
             this.loading = true;
             try {
-                let { presentationNature, initDate, admType, id } =
-                    this.localData;
+                let {
+                    firstName,
+                    lastName,
+                    presentationNature,
+                    cin,
+                    adress,
+                    service,
+                    admType,
+                    id,
+                } = this.localData;
                 const res = await this.$axios.put(
                     `/episodes/${id}?type=external`,
                     {
+                        firstName,
+                        lastName,
                         presentationNature,
-                        initDate,
+                        cin,
+                        adress,
+                        service,
                         admType,
                     }
                 );

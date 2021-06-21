@@ -8,6 +8,7 @@ export default {
             cnops: {},
             mafar: {},
             cnss: {},
+            personnel: {},
             organism: {},
             hospital: {
                 potential: {},
@@ -16,6 +17,7 @@ export default {
                 cnops: {},
                 mafar: {},
                 cnss: {},
+                personnel: {},
                 organism: {},
             },
         },
@@ -26,6 +28,7 @@ export default {
             cnops: {},
             mafar: {},
             cnss: {},
+            personnel: {},
             organism: {},
         },
         extAmountTotals: [],
@@ -79,6 +82,13 @@ export default {
                         if (el.hospitalDay)
                             state.hospAnalytics.hospital.cnss = el;
                         else state.hospAnalytics.cnss = el;
+                        state.hospAmountTotals[5] = el.amountTotal;
+                        state.hospEpisodeCounts[5] = el.episodeCount;
+                        break;
+                    case "PERSONNEL":
+                        if (el.hospitalDay)
+                            state.hospAnalytics.hospital.personnel = el;
+                        else state.hospAnalytics.personnel = el;
                         state.hospAmountTotals[5] = el.amountTotal;
                         state.hospEpisodeCounts[5] = el.episodeCount;
                         break;
@@ -151,6 +161,15 @@ export default {
                         state.extAmountTotals[5] = el.amountTotal;
                         state.extEpisodeCounts[5] = el.episodeCount;
                         break;
+                    case "PERSONNEL":
+                        if (el.presentationNature == "RADIO")
+                        state.extAnalytics.personnel.radio = el;
+                        else if (el.presentationNature == "CONSULTATION")
+                            state.extAnalytics.personnel.consultation = el;
+                        else state.extAnalytics.personnel.lab = el;
+                        state.extAmountTotals[5] = el.amountTotal;
+                        state.extEpisodeCounts[5] = el.episodeCount;
+                        break;
                     case "ORGANISM":
                         if (el.presentationNature == "RADIO")
                             state.extAnalytics.organism.radio = el;
@@ -177,6 +196,7 @@ export default {
             state.hospAnalytics.hospital.cnops = {};
             state.hospAnalytics.hospital.mafar = {};
             state.hospAnalytics.hospital.cnss = {};
+            state.hospAnalytics.hospital.personnel = {};
             state.hospAnalytics.hospital.organism = {};
 
             state.extAnalytics.potential = {};
@@ -185,6 +205,7 @@ export default {
             state.extAnalytics.cnops = {};
             state.extAnalytics.mafar = {};
             state.extAnalytics.cnss = {};
+            state.extAnalytics.personnel = {};
             state.extAnalytics.organism = {};
 
             state.extAmountTotals = [];

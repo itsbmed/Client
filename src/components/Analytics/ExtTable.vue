@@ -32,6 +32,8 @@
             <th scope="col">Montant</th>
             <th scope="col">Nbre</th>
             <th scope="col">Montant</th>
+            <th scope="col">Nbre</th>
+            <th scope="col">Montant</th>
         </tr>
 
         <tr>
@@ -48,6 +50,8 @@
             <td>{{ extAnalytics.mafar.lab.amountTotal }}</td>
             <td>{{ extAnalytics.cnss.lab.episodeCount }}</td>
             <td>{{ extAnalytics.cnss.lab.amountTotal }}</td>
+            <td>{{ extAnalytics.personnel.lab.episodeCount }}</td>
+            <td>{{ extAnalytics.personnel.lab.amountTotal }}</td>
             <td>{{ extAnalytics.organism.lab.episodeCount }}</td>
             <td>{{ extAnalytics.organism.lab.amountTotal }}</td>
             <td>{{ totalRadioNbre }}</td>
@@ -67,6 +71,8 @@
             <td>{{ extAnalytics.mafar.radio.amountTotal }}</td>
             <td>{{ extAnalytics.cnss.radio.episodeCount }}</td>
             <td>{{ extAnalytics.cnss.radio.amountTotal }}</td>
+            <td>{{ extAnalytics.personnel.radio.episodeCount }}</td>
+            <td>{{ extAnalytics.personnel.radio.amountTotal }}</td>
             <td>{{ extAnalytics.organism.radio.episodeCount }}</td>
             <td>{{ extAnalytics.organism.radio.amountTotal }}</td>
             <td>{{ totalLabNbre }}</td>
@@ -87,6 +93,8 @@
             <td>{{ extAnalytics.mafar.consultation.amountTotal }}</td>
             <td>{{ extAnalytics.cnss.consultation.episodeCount }}</td>
             <td>{{ extAnalytics.cnss.consultation.amountTotal }}</td>
+            <td>{{ extAnalytics.personnel.consultation.episodeCount }}</td>
+            <td>{{ extAnalytics.personnel.consultation.amountTotal }}</td>
             <td>{{ extAnalytics.organism.consultation.episodeCount }}</td>
             <td>{{ extAnalytics.organism.consultation.amountTotal }}</td>
             <td>{{ totalConsNbre }}</td>
@@ -181,6 +189,20 @@
             </td>
             <td>
                 {{
+                    extAnalytics.personnel.radio.episodeCount +
+                    extAnalytics.personnel.consultation.episodeCount +
+                    extAnalytics.personnel.lab.episodeCount
+                }}
+            </td>
+            <td>
+                {{
+                    extAnalytics.personnel.radio.amountTotal +
+                    extAnalytics.personnel.consultation.amountTotal +
+                    extAnalytics.personnel.lab.amountTotal
+                }}
+            </td>
+            <td>
+                {{
                     extAnalytics.organism.radio.episodeCount +
                     extAnalytics.organism.consultation.episodeCount +
                     extAnalytics.organism.lab.episodeCount
@@ -209,6 +231,7 @@ export default {
             "CNOPS",
             "MAFAR",
             "CNSS",
+            "PERSONNEL",
             "ORGANISM",
         ],
     }),
