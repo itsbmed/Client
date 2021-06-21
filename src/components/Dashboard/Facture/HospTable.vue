@@ -22,7 +22,7 @@
                     <td>{{ bill.organismPart + " DH" }}</td>
                     <td>{{ bill.adherentPart + " DH" }}</td>
                     <td>{{ bill.episode.category }}</td>
-                    <td>{{ bill.episode.presentationNature }}</td>
+
                     <td>{{ bill.total + " DH" }}</td>
                     <td>
                         <HospTableEdit :data="bill">
@@ -72,7 +72,7 @@ export default {
             "Part Organisme",
             "Part Adherent",
             "Categorie",
-            "Type de prestations",
+
             "Totale",
         ],
         moreData: true,
