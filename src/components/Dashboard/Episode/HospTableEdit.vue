@@ -128,6 +128,13 @@
 </template>
 
 <script>
+import {
+    firstnameRule,
+    lastnameRule,
+    addressRule,
+    cinRule,
+    required,
+} from "@/helpers/inputsRules";
 export default {
     props: {
         data: { type: Object, required: true },
@@ -137,6 +144,11 @@ export default {
         dialog: false,
         loading: false,
         localData: props.data,
+        firstnameRule,
+        lastnameRule,
+        addressRule,
+        cinRule,
+        required,
     }),
     methods: {
         async edit() {

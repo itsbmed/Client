@@ -33,7 +33,7 @@
                     <v-col class="me-4">
                         <v-text-field
                             v-model="localData.adress"
-                            :rules="adressRule"
+                            :rules="addressRule"
                             outlined
                             class="rounded-lg mt-3"
                             placeholder="Address de l'accompagnant"
@@ -139,6 +139,13 @@
 </template>
 
 <script>
+import {
+    firstnameRule,
+    lastnameRule,
+    addressRule,
+    cinRule,
+    required,
+} from "@/helpers/inputsRules";
 export default {
     props: {
         data: { type: Object, required: true },
@@ -150,6 +157,11 @@ export default {
         loading: false,
         localData: { ...props.data },
         presentations: ["LAB", "RADIO", "CONSULTATION"],
+        firstnameRule,
+        lastnameRule,
+        addressRule,
+        cinRule,
+        required,
     }),
     methods: {
         async edit() {
