@@ -155,7 +155,7 @@ export default {
     data: (props) => ({
         dialog: false,
         loading: false,
-        localData: { ...props.data },
+        localData: props.data,
         presentations: ["LAB", "RADIO", "CONSULTATION"],
         firstnameRule,
         lastnameRule,
