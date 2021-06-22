@@ -37,57 +37,106 @@
         </tr>
         <tr>
             <th scope="row">Hospitalisation</th>
-            <td>
+            <td v-if="hospAnalytics.paid.episodeCount">
                 {{ hospAnalytics.paid.episodeCount }}
             </td>
-
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.paid.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.paid.amountTotal">
                 {{ hospAnalytics.paid.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.paid.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.potential.episodeCount">
                 {{ hospAnalytics.potential.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.potential.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.potential.amountTotal">
                 {{ hospAnalytics.potential.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.potential.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.ramed.episodeCount">
                 {{ hospAnalytics.ramed.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.ramed.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.ramed.amountTotal">
                 {{ hospAnalytics.ramed.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.ramed.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.cnops.episodeCount">
                 {{ hospAnalytics.cnops.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.cnops.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.cnops.amountTotal">
                 {{ hospAnalytics.cnops.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.cnops.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.mafar.episodeCount">
                 {{ hospAnalytics.mafar.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.mafar.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.mafar.episodeCount">
                 {{ hospAnalytics.mafar.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.mafar.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.cnss.episodeCount">
                 {{ hospAnalytics.cnss.episodeCount }}
+            </td>
+            <td v-else>
+                {{ (hospAnalytics.cnss.episodeCount = 0) }}
             </td>
             <td v-if="hospAnalytics.cnss.amountTotal">
                 {{ hospAnalytics.cnss.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.cnss.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.personnel.episodeCount">
                 {{ hospAnalytics.personnel.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.personnel.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.personnel.amountTotal">
                 {{ hospAnalytics.personnel.amountTotal }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.personnel.amountTotal = 0) }}
+            </td>
+            <td v-if="hospAnalytics.organism.episodeCount">
                 {{ hospAnalytics.organism.episodeCount }}
             </td>
-            <td>
+            <td v-else>
+                {{ (hospAnalytics.organism.episodeCount = 0) }}
+            </td>
+            <td v-if="hospAnalytics.organism.amountTotal">
                 {{ hospAnalytics.organism.amountTotal }}
             </td>
-            <td>{{ totalNbre }}</td>
-            <td>{{ totalMontant }}</td>
+            <td v-else>
+                {{ (hospAnalytics.organism.amountTotal = 0) }}
+            </td>
+
+            <td>{{ htotalNbre }}</td>
+
+            <td>{{ htotalMontant }}</td>
         </tr>
         <tr>
             <th scope="row">Hopital de jour</th>
@@ -140,11 +189,11 @@
             <td v-if="hospAnalytics.hospital.mafar.amountTotal">
                 {{ hospAnalytics.hospital.mafar.episodeCount }}
             </td>
-            <td v-else>{{ hospAnalytics.hospital.mafar.amountTotal }}</td>
+            <td v-else>{{ (hospAnalytics.hospital.mafar.amountTotal = 0) }}</td>
             <td v-if="hospAnalytics.hospital.cnss.episodeCount">
                 {{ hospAnalytics.hospital.cnss.episodeCount }}
             </td>
-            <td v-else>{{ hospAnalytics.hospital.cnss.episodeCount }}</td>
+            <td v-else>{{ (hospAnalytics.hospital.cnss.episodeCount = 0) }}</td>
             <td v-if="hospAnalytics.hospital.cnss.amountTotal">
                 {{ hospAnalytics.hospital.cnss.amountTotal }}
             </td>
@@ -154,7 +203,7 @@
             <td v-if="hospAnalytics.personnel.episodeCount">
                 {{ hospAnalytics.personnel.episodeCount }}
             </td>
-            <td v-else>{{ hospAnalytics.personnel.episodeCount }}</td>
+            <td v-else>{{ (hospAnalytics.personnel.episodeCount = 0) }}</td>
             <td v-if="hospAnalytics.personnel.amountTotal">
                 {{ hospAnalytics.personnel.amountTotal }}
             </td>
@@ -171,8 +220,9 @@
             <td v-else>
                 {{ (hospAnalytics.hospital.organism.amountTotal = 0) }}
             </td>
-            <td>{{ totalNbre }}</td>
-            <td>{{ totalMontant }}</td>
+
+            <td>{{ hptotalNbre }}</td>
+            <td>{{ hptotalMontant }}</td>
         </tr>
         <tr>
             <th scope="row">Totale</th>
@@ -272,8 +322,8 @@
                     hospAnalytics.hospital.organism.amountTotal
                 }}
             </td>
-            <td>{{ totalNbre }}</td>
-            <td>{{ totalMontant }}</td>
+            <td>{{ htotalNbre + hptotalNbre }}</td>
+            <td>{{ htotalMontant + hptotalMontant }}</td>
         </tr>
     </v-simple-table>
 </template>
@@ -296,24 +346,60 @@ export default {
         hospAnalytics() {
             return this.$store.getters.hospAnalytics;
         },
-        totalNbre() {
+
+        htotalNbre() {
             let sum = 0;
+
             for (let el in this.hospAnalytics) {
-                if (el !== "hospital")
-                    sum +=
-                        this.hospAnalytics[el].episodeCount +
-                        this.hospAnalytics.hospital[el].episodeCount;
+                if (el != "hospital") {
+                    if (this.hospAnalytics[el].episodeCount) {
+                        sum += this.hospAnalytics[el].episodeCount;
+                    } else {
+                        sum += 0;
+                    }
+                }
             }
 
             return sum;
         },
-        totalMontant() {
+        htotalMontant() {
             let sum = 0;
             for (let el in this.hospAnalytics) {
-                if (el !== "hospital")
-                    sum +=
-                        this.hospAnalytics[el].amountTotal +
-                        this.hospAnalytics.hospital[el].amountTotal;
+                if (el != "hospital") {
+                    if (this.hospAnalytics[el].amountTotal) {
+                        sum += this.hospAnalytics[el].amountTotal;
+                    } else {
+                        sum += 0;
+                    }
+                }
+            }
+            return sum;
+        },
+        hptotalNbre() {
+            let sum = 0;
+
+            for (let el in this.hospAnalytics) {
+                if (el != "hospital") {
+                    if (this.hospAnalytics.hospital[el].episodeCount) {
+                        sum += this.hospAnalytics.hospital[el].episodeCount;
+                    } else {
+                        sum += 0;
+                    }
+                }
+            }
+
+            return sum;
+        },
+        hptotalMontant() {
+            let sum = 0;
+            for (let el in this.hospAnalytics) {
+                if (el != "hospital") {
+                    if (this.hospAnalytics.hospital[el].amountTotal) {
+                        sum += this.hospAnalytics.hospital[el].amountTotal;
+                    } else {
+                        sum += 0;
+                    }
+                }
             }
             return sum;
         },
