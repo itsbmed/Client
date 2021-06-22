@@ -61,7 +61,7 @@
                 :items="services"
                 placeholder="service"
                 label="service"
-                @change="sclearSelected(service)"
+                @change="clearServiceSelect()"
                 outlined
                 ref="serv"
                 rounded
@@ -74,7 +74,7 @@
             />
             <v-select
                 :items="['Normal', 'Urgent', 'ALL']"
-                @change="aclearSelected(admType)"
+                @change="clearAdmissionSelect"
                 placeholder="Admition type"
                 label="Admition type"
                 outlined
@@ -165,7 +165,6 @@ export default {
         ExtBarChart,
         HospBarChart,
         TotalTable,
-
         Sheets,
         ExtTable,
         HospTable,
@@ -189,7 +188,6 @@ export default {
             "billedmedication",
             "actes",
             "total",
-            "ALL",
         ],
         services: [
             "P1",
@@ -209,6 +207,12 @@ export default {
         ],
     }),
     methods: {
+        clearServiceSelect() {
+            if (this.service === "ALL") this.service = null;
+        },
+        clearAdmissionSelect() {
+            if (this.admType === "ALL") this.admType = null;
+        },
         ...mapActions([
             "getExtAnalytics",
             "getHospAnalytics",
@@ -234,7 +238,7 @@ export default {
                 await this.getExtAnalytics([
                     this.fromDate,
                     this.toDate,
-                    "total",
+                    this.totalOf,
                     this.service,
                     this.admType,
                 ]);
@@ -251,18 +255,6 @@ export default {
                 console.log(err);
             } finally {
                 this.loading = false;
-            }
-        },
-    },
-    computed: {
-        sclearSelected(service) {
-            if (this.service == "ALL") {
-                this.service = "";
-            }
-        },
-        aclearSelected(admType) {
-            if (this.admType == "ALL") {
-                this.admType = "";
             }
         },
     },
