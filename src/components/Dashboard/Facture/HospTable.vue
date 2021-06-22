@@ -19,6 +19,13 @@
                     <td>{{ bill.episode.patientId }}</td>
                     <td>{{ bill.billNum }}</td>
                     <td>{{ formatDate(bill.createdAt) }}</td>
+                    <td>{{ bill.medicalBiology }}</td>
+                    <td>{{ bill.medicalImaging }}</td>
+                    <td>{{ bill.prosthesis }}</td>
+                    <td>{{ bill.invoicedStay }}</td>
+                    <td>{{ bill.medicalFees }}</td>
+                    <td>{{ bill.billedMedication }}</td>
+                    <td>{{ bill.actes }}</td>
                     <td>{{ bill.organismPart + " DH" }}</td>
                     <td>{{ bill.adherentPart + " DH" }}</td>
                     <td>{{ bill.episode.category }}</td>
@@ -69,6 +76,13 @@ export default {
             "Ipp",
             "Num Facture",
             "Facture date",
+            "Biologie Médicale",
+            "Imagerie Médicale",
+            "Disp+Impl+Proth",
+            "Séjour",
+            "Honoraires médicaux",
+            "Médicament",
+            "Acte chirurgical",
             "Part Organisme",
             "Part Adherent",
             "Categorie",

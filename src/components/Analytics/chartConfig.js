@@ -38,6 +38,7 @@ let options = {
         y: {
             beginAtZero: true,
         },
+        
     },
 };
 export { backgroundColor, borderColor, borderWidth, labels, options };

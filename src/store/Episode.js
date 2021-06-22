@@ -6,6 +6,7 @@ export default {
 
         extEpisodes: [],
         hospEpisodes: [],
+        
 
         episodeId: null,
     },
@@ -37,6 +38,7 @@ export default {
         UPDATE_HOSP_EPISODE(state, [payload, index]) {
             state.hospEpisodes[index] = payload;
         },
+        
         CLEAR_EPISODES(state) {
             state.extEpisodes = [];
             state.hospEpisodes = [];
@@ -125,6 +127,7 @@ export default {
         async updateHospEpisode(context, [payload, index]) {
             await context.commit("UPDATE_HOSP_EPISODE", [payload, index]);
         },
+        
         async clearEpisodes(context) {
             await context.commit("CLEAR_EPISODES");
         },

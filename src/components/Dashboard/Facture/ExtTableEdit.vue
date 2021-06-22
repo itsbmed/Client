@@ -45,7 +45,7 @@
                         Totale Facture :
                         <span style="color: #2ecc71">
                             {{
-                                (localData.totale =
+                                (localData.total =
                                     parseInt(localData.organismPart) +
                                     parseInt(localData.adherentPart))
                             }}
@@ -58,8 +58,8 @@
                 <h3 class="ms-2">
                     Editing
                     <span class="primary--text">
-                        {{ localData.firstName }}
-                        {{ localData.lastName }}'s
+                        {{ localData.episode.firstName }}
+                        {{ localData.episode.lastName }}'s
                     </span>
                 </h3>
                 <v-spacer></v-spacer>
@@ -90,42 +90,47 @@
 
 <script>
 export default {
-    props: { data: { type: Object, required: true } },
+    props: {
+        data: { type: Object, required: true },
+    },
     data: (props) => ({
         dialog: false,
         loading: false,
-        localData: { ...props.data },
+        localData: props.data,
     }),
+    mounted() {
+        console.log(this.localData);
+    },
     methods: {
         async edit() {
             this.loading = true;
             try {
-                let {
-                    billNum,
-                    organismPart,
-                    adherentPart,
-                    totale,
-                    firstName,
-                    lastName,
-                    id,
-                } = this.localData;
+                let { billNum, organismPart, adherentPart, total, id } =
+                    this.localData;
                 const res = await this.$axios.put(
                     `/bills/${id}?type=external`,
                     {
-                        billNum,
+                        billNum: billNum.toString(),
                         organismPart,
                         adherentPart,
-                        totale,
+                        total,
                     }
                 );
 
                 this.dialog = false;
+                this.$notify({
+                    group: "br",
+                    type: "success",
+                    title: "Saved",
+                    text: "bills data updated successfully",
+                });
             } catch (err) {
+                console.log(err);
                 this.$notify({
                     group: "br",
                     type: "error",
                     title: "save error",
-                    text: err.data.message,
+                    text: err.response.message,
                 });
             } finally {
                 this.loading = false;

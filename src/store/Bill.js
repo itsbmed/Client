@@ -21,6 +21,12 @@ export default {
         PUSH_EXT_BILLS(state, payload) {
             state.extBills.push(...payload);
         },
+        UPDATE_EXT_BILL(state, [payload, index]) {
+            state.extBills[index] = payload;
+        },
+        UPDATE_HOSP_BILL(state, [payload, index]) {
+            state.hospBills[index] = payload;
+        },
         CLEAR_BILLS(state) {
             state.extBills = [];
             state.hospBills = [];
@@ -99,6 +105,12 @@ export default {
                         reject(err);
                     });
             });
+        },
+        async updateExtBill(context, [payload, index]) {
+            await context.commit("UPDATE_EXT_BILL", [payload, index]);
+        },
+        async updateHospBill(context, [payload, index]) {
+            await context.commit("UPDATE_HOSP_BILL", [payload, index]);
         },
         async clearBillData(context) {
             await context.commit("CLEAR_BILL_DATA");

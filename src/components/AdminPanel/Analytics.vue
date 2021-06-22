@@ -61,7 +61,9 @@
                 :items="services"
                 placeholder="service"
                 label="service"
+                @change="sclearSelected(service)"
                 outlined
+                ref="serv"
                 rounded
                 class="ms-4"
                 hide-details
@@ -71,7 +73,8 @@
                 style="width: 120px"
             />
             <v-select
-                :items="['Normal', 'Urgent']"
+                :items="['Normal', 'Urgent', 'ALL']"
+                @change="aclearSelected(admType)"
                 placeholder="Admition type"
                 label="Admition type"
                 outlined
@@ -186,6 +189,7 @@ export default {
             "billedmedication",
             "actes",
             "total",
+            "ALL",
         ],
         services: [
             "P1",
@@ -201,6 +205,7 @@ export default {
             "UPC",
             "REAA",
             "REAB",
+            "ALL",
         ],
     }),
     methods: {
@@ -209,6 +214,7 @@ export default {
             "getHospAnalytics",
             "clearAnalytics",
         ]),
+
         async reset() {
             this.fromDate = null;
             this.toDate = null;
@@ -245,6 +251,18 @@ export default {
                 console.log(err);
             } finally {
                 this.loading = false;
+            }
+        },
+    },
+    computed: {
+        sclearSelected(service) {
+            if (this.service == "ALL") {
+                this.service = "";
+            }
+        },
+        aclearSelected(admType) {
+            if (this.admType == "ALL") {
+                this.admType = "";
             }
         },
     },
