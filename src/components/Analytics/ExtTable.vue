@@ -35,7 +35,6 @@
             <th scope="col">Nbre</th>
             <th scope="col">Montant</th>
         </tr>
-
         <tr>
             <th scope="row">Examens du Radiologie</th>
             <td>{{ extAnalytics.paid.lab.episodeCount }}</td>
@@ -235,6 +234,7 @@ export default {
             "ORGANISM",
         ],
     }),
+
     computed: {
         extAnalytics() {
             return this.$store.getters.extAnalytics;
