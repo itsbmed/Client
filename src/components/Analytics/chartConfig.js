@@ -32,12 +32,9 @@ let labels = [
 
 let options = {
     scales: {
-        yAxes: [{
+        y: {
             beginAtZero: true,
-            ticks: {
-               autoSkip: false
-            }
-        }]
-      }
+        },
+    },
 };
 export { backgroundColor, borderColor, borderWidth, labels, options };

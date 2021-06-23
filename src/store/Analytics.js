@@ -251,9 +251,12 @@ export default {
                 axios
                     .get(url)
                     .then((res) => {
+                        console.log("Hey1");
                         console.log(res.data);
+                        console.log("Hey1");
                         context.commit("INIT_EXT_ANALYTICS", res.data);
                         resolve(res);
+                        
                     })
                     .catch((err) => {
                         reject(err);
