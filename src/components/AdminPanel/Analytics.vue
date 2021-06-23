@@ -237,14 +237,14 @@ export default {
                 this.hosp = false;
                 this.extern = false;
                 await this.clearAnalytics();
-                await this.getExtAnalytics([
+                let resp1 = await this.getExtAnalytics([
                     this.fromDate,
                     this.toDate,
                     this.totalOf,
                     this.service,
                     this.admType,
                 ]);
-                await this.getHospAnalytics([
+                let resp2 = await this.getHospAnalytics([
                     this.fromDate,
                     this.toDate,
                     this.totalOf,
@@ -252,9 +252,18 @@ export default {
                     this.admType,
                 ]);
 
-                this.loaded = true;
-                this.hosp = true;
-                this.extern = true;
+                if (resp1.length || resp2.length) {
+                    this.loaded = true;
+                    this.hosp = true;
+                    this.extern = true;
+                } else {
+                    this.$notify({
+                        group: "br",
+                        type: "warn",
+                        title: "Analytics Warnning!",
+                        text: "There's not data !!",
+                    });
+                }
             } catch (err) {
                 console.log(err);
             } finally {
