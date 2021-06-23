@@ -301,7 +301,6 @@ export default {
             "ORGANISM",
         ],
     }),
-
     computed: {
         extAnalytics() {
             return this.$store.getters.extAnalytics;

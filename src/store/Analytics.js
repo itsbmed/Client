@@ -38,8 +38,8 @@ export default {
     },
     mutations: {
         INIT_HOSP_ANALYTICS(state, payload) {
-            state.hospAmountTotals.length = 7;
-            state.hospEpisodeCounts.length = 7;
+            state.hospAmountTotals.length = 8;
+            state.hospEpisodeCounts.length = 8;
 
             payload.forEach((el) => {
                 switch (el.category) {
@@ -89,22 +89,22 @@ export default {
                         if (el.hospitalDay)
                             state.hospAnalytics.hospital.personnel = el;
                         else state.hospAnalytics.personnel = el;
-                        state.hospAmountTotals[5] = el.amountTotal;
-                        state.hospEpisodeCounts[5] = el.episodeCount;
+                        state.hospAmountTotals[6] = el.amountTotal;
+                        state.hospEpisodeCounts[6] = el.episodeCount;
                         break;
                     case "ORGANISM":
                         if (el.hospitalDay)
                             state.hospAnalytics.hospital.organism = el;
                         else state.hospAnalytics.organism = el;
-                        state.hospAmountTotals[6] = el.amountTotal;
-                        state.hospEpisodeCounts[6] = el.episodeCount;
+                        state.hospAmountTotals[7] = el.amountTotal;
+                        state.hospEpisodeCounts[7] = el.episodeCount;
                         break;
                 }
             });
         },
         INIT_EXT_ANALYTICS(state, payload) {
-            state.extAmountTotals.length = 7;
-            state.extEpisodeCounts.length = 7;
+            state.extAmountTotals.length = 8;
+            state.extEpisodeCounts.length = 8;
             payload.forEach((el) => {
                 switch (el.category) {
                     case "PAID":
@@ -167,8 +167,8 @@ export default {
                         else if (el.presentationNature == "CONSULTATION")
                             state.extAnalytics.personnel.consultation = el;
                         else state.extAnalytics.personnel.lab = el;
-                        state.extAmountTotals[5] = el.amountTotal;
-                        state.extEpisodeCounts[5] = el.episodeCount;
+                        state.extAmountTotals[6] = el.amountTotal;
+                        state.extEpisodeCounts[6] = el.episodeCount;
                         break;
                     case "ORGANISM":
                         if (el.presentationNature == "RADIO")
@@ -176,8 +176,8 @@ export default {
                         else if (el.presentationNature == "CONSULTATION")
                             state.extAnalytics.organism.consultation = el;
                         else state.extAnalytics.organism.lab = el;
-                        state.extAmountTotals[6] = el.amountTotal;
-                        state.extEpisodeCounts[6] = el.episodeCount;
+                        state.extAmountTotals[7] = el.amountTotal;
+                        state.extEpisodeCounts[7] = el.episodeCount;
                         break;
                 }
             });
