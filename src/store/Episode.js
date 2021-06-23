@@ -6,7 +6,6 @@ export default {
 
         extEpisodes: [],
         hospEpisodes: [],
-        
 
         episodeId: null,
     },
@@ -38,7 +37,7 @@ export default {
         UPDATE_HOSP_EPISODE(state, [payload, index]) {
             state.hospEpisodes[index] = payload;
         },
-        
+
         CLEAR_EPISODES(state) {
             state.extEpisodes = [];
             state.hospEpisodes = [];
@@ -70,7 +69,6 @@ export default {
                 axios
                     .get(`/patients/${ipp}/episodes?type=hospitalized`)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("ADD_HOSP_EPISODES", res.data);
                         resolve(res);
                     })
@@ -99,7 +97,6 @@ export default {
                 axios
                     .get(`/patients/${ipp}/episodes?type=external`)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("ADD_EXT_EPISODES", res.data);
                         resolve(res);
                     })
@@ -127,7 +124,7 @@ export default {
         async updateHospEpisode(context, [payload, index]) {
             await context.commit("UPDATE_HOSP_EPISODE", [payload, index]);
         },
-        
+
         async clearEpisodes(context) {
             await context.commit("CLEAR_EPISODES");
         },

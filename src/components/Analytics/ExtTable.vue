@@ -339,7 +339,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].radio.amountTotal;
             }
-            console.log(sum);
             return sum;
         },
         totalLabMontant() {
@@ -347,7 +346,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].lab.amountTotal;
             }
-            console.log(sum);
             return sum;
         },
         totalConsMontant() {
@@ -355,7 +353,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].consultation.amountTotal;
             }
-            console.log(sum);
             return sum;
         },
         totalRadioNbre() {
@@ -363,7 +360,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].radio.episodeCount;
             }
-            console.log(sum);
             return sum;
         },
         totalLabNbre() {
@@ -371,7 +367,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].lab.episodeCount;
             }
-            console.log(sum);
             return sum;
         },
         totalConsNbre() {
@@ -379,7 +374,6 @@ export default {
             for (let el in this.extAnalytics) {
                 sum += this.extAnalytics[el].consultation.episodeCount;
             }
-            console.log(sum);
             return sum;
         },
         htotalNbre() {
@@ -390,7 +384,6 @@ export default {
                     this.extAnalytics[el].radio.episodeCount +
                     this.extAnalytics[el].consultation.episodeCount;
             }
-            console.log(sum);
             return sum;
         },
         htotalMontant() {
@@ -401,7 +394,6 @@ export default {
                     this.extAnalytics[el].radio.amountTotal +
                     this.extAnalytics[el].consultation.amountTotal;
             }
-            console.log(sum);
             return sum;
         },
     },

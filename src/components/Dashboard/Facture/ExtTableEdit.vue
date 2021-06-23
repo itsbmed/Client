@@ -98,9 +98,6 @@ export default {
         loading: false,
         localData: props.data,
     }),
-    mounted() {
-        console.log(this.localData);
-    },
     methods: {
         async edit() {
             this.loading = true;

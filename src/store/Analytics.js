@@ -163,7 +163,7 @@ export default {
                         break;
                     case "PERSONNEL":
                         if (el.presentationNature == "RADIO")
-                        state.extAnalytics.personnel.radio = el;
+                            state.extAnalytics.personnel.radio = el;
                         else if (el.presentationNature == "CONSULTATION")
                             state.extAnalytics.personnel.consultation = el;
                         else state.extAnalytics.personnel.lab = el;
@@ -232,7 +232,6 @@ export default {
                 axios
                     .get(url)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("INIT_HOSP_ANALYTICS", res.data);
                         resolve(res);
                     })
@@ -251,12 +250,8 @@ export default {
                 axios
                     .get(url)
                     .then((res) => {
-                        console.log("Hey1");
-                        console.log(res.data);
-                        console.log("Hey1");
                         context.commit("INIT_EXT_ANALYTICS", res.data);
                         resolve(res);
-                        
                     })
                     .catch((err) => {
                         reject(err);

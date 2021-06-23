@@ -55,7 +55,6 @@ export default {
                 axios
                     .get(`/bills?patientId=${ipp}&type=hospitalized`)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("ADD_HOSP_BILLS", res.data);
                         resolve(res);
                     })
@@ -84,7 +83,6 @@ export default {
                 axios
                     .get(`/bills?patientId=${ipp}&type=external`)
                     .then((res) => {
-                        console.log(res.data);
                         context.commit("ADD_EXT_BILLS", res.data);
                         resolve(res);
                     })
