@@ -252,7 +252,7 @@ export default {
                     this.admType,
                 ]);
 
-                if (resp1.length || resp2.length) {
+                if (resp1.data.length > 0 || resp2.data.length > 0) {
                     this.loaded = true;
                     this.hosp = true;
                     this.extern = true;
