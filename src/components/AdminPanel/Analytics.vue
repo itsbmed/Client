@@ -234,6 +234,8 @@ export default {
                 this.loading = true;
                 this.fromDate = this.fromDate.replace("/-+/g", "/");
                 this.toDate = this.toDate.replace("/-+/g", "/");
+                this.hosp = false;
+                this.extern = false;
                 await this.clearAnalytics();
                 await this.getExtAnalytics([
                     this.fromDate,
@@ -251,6 +253,8 @@ export default {
                 ]);
 
                 this.loaded = true;
+                this.hosp = true;
+                this.extern = true;
             } catch (err) {
                 console.log(err);
             } finally {
