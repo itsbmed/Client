@@ -252,18 +252,27 @@ export default {
                     this.admType,
                 ]);
 
-                if (resp1.data.length > 0 || resp2.data.length > 0) {
-                    this.loaded = true;
+                if (resp2.data.length > 0) {
                     this.hosp = true;
+                } else {
+                    this.$notify({
+                        group: "br",
+                        type: "warn",
+                        title: "Analytics Warnning!",
+                        text: "No, data for hospitalized !",
+                    });
+                }
+                if (resp1.data.length > 0) {
                     this.extern = true;
                 } else {
                     this.$notify({
                         group: "br",
                         type: "warn",
                         title: "Analytics Warnning!",
-                        text: "There's not data !!",
+                        text: "No, data for external !",
                     });
                 }
+                this.loaded = true;
             } catch (err) {
                 console.log(err);
             } finally {
