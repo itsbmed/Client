@@ -8,7 +8,7 @@
             height="80"
             width="250"
         >
-            Totale Petients: {{ counts.patientCount }}
+            Totale des Petients: {{ counts.patientCount }}
         </v-sheet>
         <v-sheet
             class="d-flex justify-center align-center me-4 white--text"
@@ -18,7 +18,7 @@
             height="80"
             width="250"
         >
-            Totale episodes: {{ counts.episodeCount }}
+            Totale des episodes: {{ counts.episodeCount }}
         </v-sheet>
 
         <v-sheet
@@ -29,7 +29,7 @@
             height="80"
             width="250"
         >
-            Totale factures: {{ counts.billCount }}
+            Totale des factures: {{ counts.billCount }}
         </v-sheet>
 
         <v-sheet
@@ -40,7 +40,7 @@
             height="80"
             width="250"
         >
-            Totale agents: {{ counts.agentCount }}
+            Totale des agents: {{ counts.agentCount }}
         </v-sheet>
     </div>
 </template>

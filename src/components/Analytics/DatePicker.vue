@@ -1,6 +1,6 @@
 <template>
     <div class="date-pickers d-flex align-center">
-        <span class="me-2">From: </span>
+        <span class="me-2">De: </span>
         <v-text-field
             v-model="fromDate"
             rounded
@@ -13,7 +13,7 @@
             type="date"
             class="me-10"
         />
-        <span class="me-2">To: </span>
+        <span class="me-2">A: </span>
         <v-text-field
             v-model="toDate"
             rounded

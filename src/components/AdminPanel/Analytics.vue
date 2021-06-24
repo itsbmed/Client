@@ -98,7 +98,7 @@
                 :loading="loading"
                 :disabled="loading || !fromDate || !toDate || !totalOf"
             >
-                Apply
+                Appliquer
             </v-btn>
             <v-btn
                 outlined
@@ -109,7 +109,7 @@
                 @click="reset"
                 :disabled="!loaded"
             >
-                Reset
+                Reinitialiser
             </v-btn>
         </div>
         <div class="tables ms-4">

@@ -110,7 +110,7 @@
                 width="100px"
                 @click="clear()"
             >
-                clear
+                effacè
             </v-btn>
         </div>
         <div v-if="searching">
